@@ -10,6 +10,8 @@ if(MSVC)
   else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
   endif()
+  # Suppress dump "conditional expression is constant" warning in VS
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127")
 endif()
 
 # Warnings and C++11 for GCC and Clang
@@ -29,10 +31,14 @@ endif()
 add_definitions(-DGLM_FORCE_RADIANS)
 
 set(CD_SOURCES
+	src/gl_core_3_3.cpp
+	src/FloatingCubes.cpp
 	src/Main.cpp)
 
 set(CD_HEADERS
-    )
+    src/gl_core_3_3.hpp
+	src/FloatingCubes.hpp
+	src/Util.hpp)
 
 # Add GLM and GLFW
 add_subdirectory(${PROJECT_SOURCE_DIR}/lib/glfw)
