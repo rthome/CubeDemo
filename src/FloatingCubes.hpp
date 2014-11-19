@@ -51,6 +51,7 @@ namespace cubedemo
 		GLuint m_vao; // Vertex array object
 		GLuint m_positionsVBO; // VBO for base position data
 		GLuint m_normalsVBO; // VBO for normal data
+		GLuint m_indices; // EBO for cube indices
 		GLShader m_shader; // GLSL shader program
 
 		size_t m_instanceCount;

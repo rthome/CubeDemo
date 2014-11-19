@@ -39,111 +39,60 @@ namespace cubedemo
 	// FloatingCubesRenderer implementation
 	// // //
 
-	static const std::vector<glm::vec3> CUBE_POSITIONS
+	const std::vector<glm::vec3> CUBE_POSITIONS
 	{
-		// front
-		{ -1.0f,  1.0f, -1.0f },
 		{ -1.0f, -1.0f, -1.0f },
 		{  1.0f, -1.0f, -1.0f },
-
-		{  1.0f, -1.0f, -1.0f },
-		{  1.0f,  1.0f, -1.0f },
-		{ -1.0f,  1.0f, -1.0f },
-		// back
-		{ -1.0f,  1.0f,  1.0f },
-		{ -1.0f, -1.0f,  1.0f },
-		{  1.0f, -1.0f,  1.0f },
-
-		{  1.0f, -1.0f,  1.0f },
-		{  1.0f,  1.0f,  1.0f },
-		{ -1.0f,  1.0f,  1.0f },
-		// top
-		{ -1.0f,  1.0f,  1.0f },
 		{ -1.0f,  1.0f, -1.0f },
 		{  1.0f,  1.0f, -1.0f },
-
-		{  1.0f,  1.0f, -1.0f },
-		{  1.0f,  1.0f,  1.0f },
-		{ -1.0f,  1.0f,  1.0f },
-		// bottom
 		{ -1.0f, -1.0f,  1.0f },
-		{ -1.0f, -1.0f, -1.0f },
-		{  1.0f, -1.0f, -1.0f },
-
-		{  1.0f, -1.0f, -1.0f },
 		{  1.0f, -1.0f,  1.0f },
-		{ -1.0f, -1.0f,  1.0f },
-		// left
 		{ -1.0f,  1.0f,  1.0f },
-		{ -1.0f,  1.0f, -1.0f },
-		{ -1.0f, -1.0f, -1.0f },
-
-		{ -1.0f, -1.0f, -1.0f },
-		{ -1.0f, -1.0f,  1.0f },
-		{ -1.0f,  1.0f,  1.0f },
-		// right
-		{  1.0f,  1.0f,  1.0f },
-		{  1.0f,  1.0f, -1.0f },
-		{  1.0f, -1.0f, -1.0f },
-
-		{  1.0f, -1.0f, -1.0f },
-		{  1.0f, -1.0f,  1.0f },
 		{  1.0f,  1.0f,  1.0f },
 	};
 
 	static const std::vector<glm::vec3> CUBE_NORMALS
 	{
+		glm::normalize(glm::vec3{ -1.0f, -1.0f, -1.0f }),
+		glm::normalize(glm::vec3{ 1.0f, -1.0f, -1.0f }),
+		glm::normalize(glm::vec3{ -1.0f,  1.0f, -1.0f }),
+		glm::normalize(glm::vec3{ 1.0f,  1.0f, -1.0f }),
+		glm::normalize(glm::vec3{ -1.0f, -1.0f,  1.0f }),
+		glm::normalize(glm::vec3{ 1.0f, -1.0f,  1.0f }),
+		glm::normalize(glm::vec3{ -1.0f,  1.0f,  1.0f }),
+		glm::normalize(glm::vec3{ 1.0f,  1.0f,  1.0f }),
+	};
+
+	static const std::vector<unsigned int> CUBE_INDICES
+	{
 		// front
-		{ 0.0f, 0.0f, 1.0f },
-		{ 0.0f, 0.0f, 1.0f },
-		{ 0.0f, 0.0f, 1.0f },
-		{ 0.0f, 0.0f, 1.0f },
-		{ 0.0f, 0.0f, 1.0f },
-		{ 0.0f, 0.0f, 1.0f },
+		0, 1, 3,
+		0, 3, 2,
 		// back
-		{ 0.0f, 0.0f, -1.0f },
-		{ 0.0f, 0.0f, -1.0f },
-		{ 0.0f, 0.0f, -1.0f },
-		{ 0.0f, 0.0f, -1.0f },
-		{ 0.0f, 0.0f, -1.0f },
-		{ 0.0f, 0.0f, -1.0f },
+		5, 4, 6,
+		5, 6, 7,
 		// top
-		{ 0.0f, 1.0f, 0.0f },
-		{ 0.0f, 1.0f, 0.0f },
-		{ 0.0f, 1.0f, 0.0f },
-		{ 0.0f, 1.0f, 0.0f },
-		{ 0.0f, 1.0f, 0.0f },
-		{ 0.0f, 1.0f, 0.0f },
+		2, 3, 7,
+		2, 7, 6,
 		// bottom
-		{ 0.0f, -1.0f, 0.0f },
-		{ 0.0f, -1.0f, 0.0f },
-		{ 0.0f, -1.0f, 0.0f },
-		{ 0.0f, -1.0f, 0.0f },
-		{ 0.0f, -1.0f, 0.0f },
-		{ 0.0f, -1.0f, 0.0f },
+		4, 5, 1,
+		4, 1, 0,
 		// left
-		{ -1.0f, 0.0f, 0.0f },
-		{ -1.0f, 0.0f, 0.0f },
-		{ -1.0f, 0.0f, 0.0f },
-		{ -1.0f, 0.0f, 0.0f },
-		{ -1.0f, 0.0f, 0.0f },
-		{ -1.0f, 0.0f, 0.0f },
+		4, 0, 2,
+		4, 2, 6,
 		// right
-		{ 1.0f, 0.0f, 0.0f },
-		{ 1.0f, 0.0f, 0.0f },
-		{ 1.0f, 0.0f, 0.0f },
-		{ 1.0f, 0.0f, 0.0f },
-		{ 1.0f, 0.0f, 0.0f },
-		{ 1.0f, 0.0f, 0.0f },
+		1, 5, 7,
+		1, 7, 3,
 	};
 
 	FloatingCubesRenderer::FloatingCubesRenderer()
 		: m_instanceCount{ 0 }
 	{
 		// generate buffers and textures
-		gl::GenVertexArrays(1, &m_vao);
+		gl::GenVertexArrays( 1.0f, &m_vao);
 		gl::GenBuffers(1, &m_positionsVBO);
 		gl::GenBuffers(1, &m_normalsVBO);
+		gl::GenBuffers(1, &m_indices);
 		gl::GenBuffers(1, &m_instancePositionsVBO);
 		gl::GenTextures(1, &m_positionBufferTexture);
 		GL_CHECK_ERRORS;
@@ -174,9 +123,13 @@ namespace cubedemo
 			gl::EnableVertexAttribArray(m_shader["normal"]);
 			gl::VertexAttribPointer(m_shader["normal"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
 			GL_CHECK_ERRORS;
+
+			// indices
+			gl::BindBuffer(gl::ELEMENT_ARRAY_BUFFER, m_indices);
+			gl::BufferData(gl::ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * CUBE_INDICES.size(), CUBE_INDICES.data(), gl::STATIC_DRAW);
 		}
 		gl::BindVertexArray(0);
-		
+
 		// set up texture buffer data for instance offsets
 		gl::BindBuffer(gl::TEXTURE_BUFFER, m_instancePositionsVBO);
 		{
@@ -189,9 +142,9 @@ namespace cubedemo
 
 	FloatingCubesRenderer::~FloatingCubesRenderer()
 	{
-		GL_CHECK_ERRORS;
 		gl::DeleteTextures(1, &m_positionBufferTexture);
 		gl::DeleteBuffers(1, &m_instancePositionsVBO);
+		gl::DeleteBuffers(1, &m_indices);
 		gl::DeleteBuffers(1, &m_normalsVBO);
 		gl::DeleteBuffers(1, &m_positionsVBO);
 		gl::DeleteVertexArrays(1, &m_vao);
@@ -219,7 +172,7 @@ namespace cubedemo
 			gl::Uniform1i(m_shader("InstancePositions"), 0);
 			gl::UniformMatrix4fv(m_shader("MVP"), 1, gl::FALSE_, glm::value_ptr(mvp));
 
-			gl::DrawArraysInstanced(gl::TRIANGLES, 0, CUBE_POSITIONS.size(), m_instanceCount);
+			gl::DrawElementsInstanced(gl::TRIANGLES, CUBE_INDICES.size(), gl::UNSIGNED_INT, nullptr, m_instanceCount);
 			GL_CHECK_ERRORS;
 		}
 		m_shader.unuse();
