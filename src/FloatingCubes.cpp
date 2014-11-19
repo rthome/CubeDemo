@@ -83,6 +83,7 @@ namespace cubedemo
 	};
 
 	FloatingCubesRenderer::FloatingCubesRenderer()
+		: m_instanceCount{ 0 }
 	{
 		// generate buffers and textures
 		gl::GenVertexArrays(1, &m_vao);
@@ -117,6 +118,15 @@ namespace cubedemo
 
 	void FloatingCubesRenderer::render()
 	{
+		gl::BindVertexArray(m_vao);
+		m_shader.use();
+		{
+			// TODO: Update uniforms
+			// TODO: Bind texture buffer
 
+			gl::DrawArraysInstanced(gl::TRIANGLES, 0, CUBE_POSITIONS.size(), m_instanceCount);
+		}
+		m_shader.unuse();
+		gl::BindVertexArray(0);
 	}
 }

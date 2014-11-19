@@ -52,6 +52,7 @@ namespace cubedemo
 		GLuint m_positionsVBO; // VBO for base position data
 		GLShader m_shader; // GLSL shader program
 
+		size_t m_instanceCount;
 		GLuint m_positionBufferTexture; // Buffer texture for instance position offsets
 		GLuint m_instancePositionsVBO; // Backing VBO for instance position offset data
 
