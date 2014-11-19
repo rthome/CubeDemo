@@ -3,6 +3,9 @@
 #include <glm/vec3.hpp>
 #include <glm/gtc/quaternion.hpp>
 
+#include "gl_core_3_3.hpp"
+#include "GLShader.hpp"
+
 namespace cubedemo
 {
 	// The states a cube can be in:
@@ -21,7 +24,7 @@ namespace cubedemo
 	};
 
 	// Collects the state of a bunch of cubes, floating in space
-	class FloatingCubes final
+	class FloatingCubes
 	{
 	private:
 		size_t m_cubeCount; // Amount of managed cubes
@@ -33,7 +36,30 @@ namespace cubedemo
 		FloatingCubes(size_t count);
 		~FloatingCubes();
 
+		inline size_t count() const { return m_cubeCount; }
+		inline CubeState* cubeStates() const { return m_cubeStates; }
+		inline glm::vec3* cubePositions() const { return m_cubePositions; }
+		inline glm::quat* cubeRotations() const { return m_cubeRotations; }
+
 		void update(double time); // Update the state of each cube and 
-		void render();
+	};
+
+	// Renders cubes from FloatingCubes
+	class FloatingCubesRenderer
+	{
+	private:
+		GLuint m_vao; // Vertex array object
+		GLuint m_positionsVBO; // VBO for base position data
+		GLShader m_shader; // GLSL shader program
+
+		GLuint m_positionBufferTexture; // Buffer texture for instance position offsets
+		GLuint m_instancePositionsVBO; // Backing VBO for instance position offset data
+
+	public:
+		FloatingCubesRenderer();
+		~FloatingCubesRenderer();
+
+		void update(const FloatingCubes& cubes); // Update renderer state, pulling data from a FloatingCubes instance
+		void render(); // Draw latest cube data to the screen
 	};
 }

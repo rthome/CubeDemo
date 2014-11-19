@@ -90,19 +90,19 @@ int main(int argc, char const *argv[])
 
 	// Set up cubes
 	cubedemo::FloatingCubes floatingCubes{ 1 };
+	cubedemo::FloatingCubesRenderer renderer;
 
 	LOG_INFO("Entering main loop...");
 	while (!glfwWindowShouldClose(window))
 	{
 		GL_CHECK_ERRORS;
 
-		// seconds since glfw was initialized
-		auto time = glfwGetTime();
-
 		gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
 
-		floatingCubes.update(time);
-		floatingCubes.render();
+		floatingCubes.update(glfwGetTime());
+
+		renderer.update(floatingCubes);
+		renderer.render();
 
 		GL_CHECK_ERRORS;
 
