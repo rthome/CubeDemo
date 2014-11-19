@@ -29,7 +29,7 @@ endif()
 add_definitions(-DGLM_FORCE_RADIANS)
 
 set(CD_SOURCES
-    )
+	src/Main.cpp)
 
 set(CD_HEADERS
     )
