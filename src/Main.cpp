@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "Util.hpp"
+#include "FloatingCubes.hpp"
 
 // Constants for initial window size
 static const size_t WINDOW_WIDTH = 1280;
@@ -82,15 +83,26 @@ int main(int argc, char const *argv[])
 
 	logRendererInfo();
 
+	gl::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
 	// Check for any errors so far
 	GL_CHECK_ERRORS;
+
+	// Set up cubes
+	cubedemo::FloatingCubes floatingCubes{ 1 };
 
 	LOG_INFO("Entering main loop...");
 	while (!glfwWindowShouldClose(window))
 	{
 		GL_CHECK_ERRORS;
 
-		// Do OpenGL things here
+		// seconds since glfw was initialized
+		auto time = glfwGetTime();
+
+		gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
+
+		floatingCubes.update(time);
+		floatingCubes.render();
 
 		GL_CHECK_ERRORS;
 
