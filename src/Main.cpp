@@ -90,7 +90,7 @@ int main(int argc, char const *argv[])
 
 	// Set up cubes
 	cubedemo::FloatingCubes floatingCubes{ 1 };
-	cubedemo::FloatingCubesRenderer renderer;
+	cubedemo::FloatingCubesRenderer *renderer = new cubedemo::FloatingCubesRenderer();
 
 	LOG_INFO("Entering main loop...");
 	while (!glfwWindowShouldClose(window))
@@ -101,8 +101,8 @@ int main(int argc, char const *argv[])
 
 		floatingCubes.update(glfwGetTime());
 
-		renderer.update(floatingCubes);
-		renderer.render();
+		renderer->update(floatingCubes);
+		renderer->render();
 
 		GL_CHECK_ERRORS;
 
@@ -111,6 +111,9 @@ int main(int argc, char const *argv[])
 	}
 
 	LOG_INFO("Exiting main loop...");
+
+	delete renderer;
+
 	glfwDestroyWindow(window);
 	glfwTerminate();
 
