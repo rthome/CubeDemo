@@ -27,7 +27,7 @@ namespace cubedemo
 	{
 		LOG_INFO("Destroying Shader.");
 
-		gl::DeleteProgram(program());
+		gl::DeleteProgram(m_program);
 		GL_CHECK_ERRORS;
 	}
 

@@ -93,7 +93,48 @@ namespace cubedemo
 
 	static const std::vector<glm::vec3> CUBE_NORMALS
 	{
-
+		// front
+		{ 0.0f, 0.0f, 1.0f },
+		{ 0.0f, 0.0f, 1.0f },
+		{ 0.0f, 0.0f, 1.0f },
+		{ 0.0f, 0.0f, 1.0f },
+		{ 0.0f, 0.0f, 1.0f },
+		{ 0.0f, 0.0f, 1.0f },
+		// back
+		{ 0.0f, 0.0f, -1.0f },
+		{ 0.0f, 0.0f, -1.0f },
+		{ 0.0f, 0.0f, -1.0f },
+		{ 0.0f, 0.0f, -1.0f },
+		{ 0.0f, 0.0f, -1.0f },
+		{ 0.0f, 0.0f, -1.0f },
+		// top
+		{ 0.0f, 1.0f, 0.0f },
+		{ 0.0f, 1.0f, 0.0f },
+		{ 0.0f, 1.0f, 0.0f },
+		{ 0.0f, 1.0f, 0.0f },
+		{ 0.0f, 1.0f, 0.0f },
+		{ 0.0f, 1.0f, 0.0f },
+		// bottom
+		{ 0.0f, -1.0f, 0.0f },
+		{ 0.0f, -1.0f, 0.0f },
+		{ 0.0f, -1.0f, 0.0f },
+		{ 0.0f, -1.0f, 0.0f },
+		{ 0.0f, -1.0f, 0.0f },
+		{ 0.0f, -1.0f, 0.0f },
+		// left
+		{ -1.0f, 0.0f, 0.0f },
+		{ -1.0f, 0.0f, 0.0f },
+		{ -1.0f, 0.0f, 0.0f },
+		{ -1.0f, 0.0f, 0.0f },
+		{ -1.0f, 0.0f, 0.0f },
+		{ -1.0f, 0.0f, 0.0f },
+		// right
+		{ 1.0f, 0.0f, 0.0f },
+		{ 1.0f, 0.0f, 0.0f },
+		{ 1.0f, 0.0f, 0.0f },
+		{ 1.0f, 0.0f, 0.0f },
+		{ 1.0f, 0.0f, 0.0f },
+		{ 1.0f, 0.0f, 0.0f },
 	};
 
 	FloatingCubesRenderer::FloatingCubesRenderer()
@@ -127,16 +168,15 @@ namespace cubedemo
 			gl::VertexAttribPointer(m_shader["position"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
 			GL_CHECK_ERRORS;
 
-			//// normal - no use until we do lighting
-			//gl::BindBuffer(gl::ARRAY_BUFFER, m_normalsVBO);
-			//gl::BufferData(gl::ARRAY_BUFFER, sizeof(glm::vec3) * CUBE_NORMALS.size(), CUBE_NORMALS.data(), gl::STATIC_DRAW);
-			//gl::EnableVertexAttribArray(m_shader["normal"]);
-			//gl::VertexAttribPointer(m_shader["normal"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
-			//GL_CHECK_ERRORS;
+			// normals
+			gl::BindBuffer(gl::ARRAY_BUFFER, m_normalsVBO);
+			gl::BufferData(gl::ARRAY_BUFFER, sizeof(glm::vec3) * CUBE_NORMALS.size(), CUBE_NORMALS.data(), gl::STATIC_DRAW);
+			gl::EnableVertexAttribArray(m_shader["normal"]);
+			gl::VertexAttribPointer(m_shader["normal"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
+			GL_CHECK_ERRORS;
 		}
 		gl::BindVertexArray(0);
 		
-
 		// set up texture buffer data for instance offsets
 		gl::BindBuffer(gl::TEXTURE_BUFFER, m_instancePositionsVBO);
 		{
