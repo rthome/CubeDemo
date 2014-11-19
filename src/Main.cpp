@@ -89,7 +89,7 @@ int main(int argc, char const *argv[])
 	GL_CHECK_ERRORS;
 
 	// Set up cubes
-	cubedemo::FloatingCubes floatingCubes{ 1 };
+	cubedemo::FloatingCubes floatingCubes{ 10 };
 	cubedemo::FloatingCubesRenderer *renderer = new cubedemo::FloatingCubesRenderer();
 
 	LOG_INFO("Entering main loop...");

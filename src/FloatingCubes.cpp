@@ -20,7 +20,8 @@ namespace cubedemo
 	FloatingCubes::FloatingCubes(size_t count)
 		: m_cubeCount{ count }, m_cubeStates{ new CubeState[count] }, m_cubePositions{ new glm::vec3[count] }, m_cubeRotations{ new glm::quat[count] }
 	{
-
+		for (size_t i = 0; i < m_cubeCount; i++)
+			m_cubeStates[i] = CubeState::Dead;
 	}
 
 	FloatingCubes::~FloatingCubes()
@@ -32,7 +33,25 @@ namespace cubedemo
 
 	void FloatingCubes::update(double time)
 	{
-
+		for (size_t i = 0; i < m_cubeCount; i++)
+		{
+			if (m_cubeStates[i] == CubeState::Dead)
+			{
+				m_cubePositions[i] = glm::vec3(2.0f - (float)((double)rand() / RAND_MAX)*4, 0.0f, 0.0f);
+				m_cubeStates[i] = CubeState::Moving;
+			}
+			else
+			{
+				if (m_cubePositions[i].y > 5.0f)
+				{
+					m_cubeStates[i] = CubeState::Dead;
+				}
+				else
+				{
+					m_cubePositions[i].y += (float)(0.00025);
+				}
+			}
+		}
 	}
 
 	// // //
@@ -129,15 +148,6 @@ namespace cubedemo
 			gl::BufferData(gl::ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * CUBE_INDICES.size(), CUBE_INDICES.data(), gl::STATIC_DRAW);
 		}
 		gl::BindVertexArray(0);
-
-		// set up texture buffer data for instance offsets
-		gl::BindBuffer(gl::TEXTURE_BUFFER, m_instancePositionsVBO);
-		{
-			glm::vec3 offset{ 0.0f };
-			gl::BufferData(gl::TEXTURE_BUFFER, sizeof(glm::vec3), glm::value_ptr(offset), gl::STREAM_DRAW);
-		}
-		gl::BindBuffer(gl::TEXTURE_BUFFER, 0);
-		GL_CHECK_ERRORS;
 	}
 
 	FloatingCubesRenderer::~FloatingCubesRenderer()
@@ -153,8 +163,12 @@ namespace cubedemo
 
 	void FloatingCubesRenderer::update(const FloatingCubes & cubes)
 	{
-		// TODO: update texture buffer data
 		m_instanceCount = cubes.count();
+		gl::BindBuffer(gl::TEXTURE_BUFFER, m_instancePositionsVBO);
+		{
+			gl::BufferData(gl::TEXTURE_BUFFER, sizeof(glm::vec3) * cubes.count(), cubes.cubePositions(), gl::STREAM_DRAW);
+		}
+		gl::BindBuffer(gl::TEXTURE_BUFFER, 0);
 	}
 
 	void FloatingCubesRenderer::render()
