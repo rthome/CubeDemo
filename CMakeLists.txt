@@ -32,11 +32,13 @@ add_definitions(-DGLM_FORCE_RADIANS)
 
 set(CD_SOURCES
 	src/gl_core_3_3.cpp
+	src/GLShader.cpp
 	src/FloatingCubes.cpp
 	src/Main.cpp)
 
 set(CD_HEADERS
     src/gl_core_3_3.hpp
+	src/GLShader.hpp
 	src/FloatingCubes.hpp
 	src/Util.hpp)
 
