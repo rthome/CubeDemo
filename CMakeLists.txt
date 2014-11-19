@@ -40,6 +40,7 @@ set(CD_HEADERS
     src/gl_core_3_3.hpp
 	src/GLShader.hpp
 	src/FloatingCubes.hpp
+	src/Shaders.hpp
 	src/Util.hpp)
 
 # Add GLM and GLFW

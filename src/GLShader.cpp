@@ -28,6 +28,7 @@ namespace cubedemo
 		LOG_INFO("Destroying Shader.");
 
 		gl::DeleteProgram(program());
+		GL_CHECK_ERRORS;
 	}
 
 	void GLShader::attachShaderFromSource(GLenum shaderType, const std::string& source)
