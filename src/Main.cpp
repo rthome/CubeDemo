@@ -10,6 +10,8 @@
 static const size_t WINDOW_WIDTH = 1280;
 static const size_t WINDOW_HEIGHT = 720;
 
+cubedemo::FloatingCubesRenderer *globalRenderer = nullptr;
+
 void errorCallback(int error, const char *description)
 {
 	LOG_ERROR("GLFW ERROR: " << error << " " << description)
@@ -20,6 +22,8 @@ void windowResizeCallback(GLFWwindow *window, int width, int height)
 	int fbw, fbh;
 	glfwGetFramebufferSize(window, &fbw, &fbh);
 	gl::Viewport(0, 0, fbw, fbh);
+	if (globalRenderer != nullptr)
+		globalRenderer->onWindowSizeChanged(width, height);
 	LOG_INFO("Window resized. FB is now " << fbw << "x" << fbh);
 }
 
@@ -90,8 +94,10 @@ int main(int argc, char const *argv[])
 	GL_CHECK_ERRORS;
 
 	// Set up cubes
-	cubedemo::FloatingCubes floatingCubes{ 3 };
+	cubedemo::FloatingCubes floatingCubes{ 10 };
 	cubedemo::FloatingCubesRenderer *renderer = new cubedemo::FloatingCubesRenderer();
+	renderer->onWindowSizeChanged(WINDOW_WIDTH, WINDOW_HEIGHT);
+	globalRenderer = renderer;
 
     double time = glfwGetTime();
     
@@ -118,6 +124,7 @@ int main(int argc, char const *argv[])
 
 	LOG_INFO("Exiting main loop...");
 
+	globalRenderer = nullptr;
 	delete renderer;
 
 	glfwDestroyWindow(window);

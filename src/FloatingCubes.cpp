@@ -102,7 +102,7 @@ namespace cubedemo
 	};
 
 	FloatingCubesRenderer::FloatingCubesRenderer()
-		: m_instanceCount{ 0 }
+		: m_instanceCount{ 0 }, m_modelviewMatrix{ glm::lookAt(glm::vec3(0.0f, 3.0f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f)) }
 	{
 		// generate buffers and textures
 		gl::GenVertexArrays( 1.0f, &m_vao);
@@ -164,6 +164,11 @@ namespace cubedemo
 		GL_CHECK_ERRORS;
 	}
 
+	void cubedemo::FloatingCubesRenderer::onWindowSizeChanged(size_t width, size_t height)
+	{
+		m_projectionMatrix = glm::perspective(glm::quarter_pi<float>(), (float)width / height, 0.1f, 1000.0f);
+	}
+
 	void FloatingCubesRenderer::update(const FloatingCubes & cubes)
 	{
 		m_instanceCount = cubes.count();
@@ -188,12 +193,10 @@ namespace cubedemo
         const glm::vec3 DIFFUSE_COLOR {0.0f, 0.75f, 0.75f};
         const glm::vec3 SPECULAR_COLOR {0.5f, 0.5f, 0.5f};
         
-        auto modelviewMat = glm::lookAt(glm::vec3(0.0f, 3.0f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        auto projectionMat = glm::perspective(glm::quarter_pi<float>(), 1280.0f / 720.0f, 1.0f, 1000.0f);
-        auto mvp = projectionMat * modelviewMat;
-        auto normalMat = glm::inverseTranspose(glm::mat3(modelviewMat));
+        auto mvp = m_projectionMatrix * m_modelviewMatrix;
+        auto normalMat = glm::inverseTranspose(glm::mat3(m_modelviewMatrix));
         
-        glm::vec3 lightPos { 1.0f, 1.0f, 0.0f };
+        glm::vec3 lightPos { 0.0f, 10.0f, 1.0f };
         
 		gl::BindVertexArray(m_vao);
 		m_shader.use();

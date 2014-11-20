@@ -20,12 +20,12 @@ uniform samplerBuffer InstancePositions;
 
 void main()
 {
-    eyespaceNormal = NormalMatrix * normal;
+	vec4 offset = texelFetch(InstancePositions, gl_InstanceID);
+
+	eyespaceNormal = NormalMatrix * normal;
     diffuseColor = DiffuseColor;
     
-	vec4 position4 = vec4(position, 1.0);
-	vec4 offset = texelFetch(InstancePositions, gl_InstanceID);
-	vec4 offsetPosition = position4 + offset;
+	vec4 offsetPosition = vec4(position, 1.0) + offset;
 	gl_Position = MVP * offsetPosition;
 }
 )glsl";

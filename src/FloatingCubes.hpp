@@ -2,6 +2,7 @@
 
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
+#include <glm/matrix.hpp>
 #include <glm/gtc/quaternion.hpp>
 
 #include "gl_core_3_3.hpp"
@@ -61,13 +62,19 @@ namespace cubedemo
 		GLuint m_indices; // EBO for cube indices
 		GLShader m_shader; // GLSL shader program
 
-		size_t m_instanceCount;
+		size_t m_instanceCount; // Count of instances to render
 		GLuint m_positionBufferTexture; // Buffer texture for instance position offsets
 		GLuint m_instancePositionsVBO; // Backing VBO for instance position offset data
+
+		// Matrices
+		glm::mat4 m_projectionMatrix;
+		glm::mat4 m_modelviewMatrix;
 
 	public:
 		FloatingCubesRenderer();
 		~FloatingCubesRenderer();
+
+		void onWindowSizeChanged(size_t width, size_t height); // Notify the renderer of a changed window size, to allow it to update the projection matrix
 
 		void update(const FloatingCubes& cubes); // Update renderer state, pulling data from a FloatingCubes instance
 		void render(double deltaTime); // Draw latest cube data to the screen
