@@ -16,11 +16,11 @@ namespace cubedemo
 	// Dead - Ready to be destroyed
 	enum class CubeState
 	{
+		Dead,
 		Spawned,
 		FadeIn,
 		Moving,
 		FadeOut,
-		Dead,
 	};
 
 	// Collects the state of a bunch of cubes, floating in space

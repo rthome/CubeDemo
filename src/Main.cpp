@@ -84,12 +84,13 @@ int main(int argc, char const *argv[])
 	logRendererInfo();
 
 	gl::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	gl::Enable(gl::DEPTH_TEST);
 
 	// Check for any errors so far
 	GL_CHECK_ERRORS;
 
 	// Set up cubes
-	cubedemo::FloatingCubes floatingCubes{ 10 };
+	cubedemo::FloatingCubes floatingCubes{ 3 };
 	cubedemo::FloatingCubesRenderer *renderer = new cubedemo::FloatingCubesRenderer();
 
 	LOG_INFO("Entering main loop...");

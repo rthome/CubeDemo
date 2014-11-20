@@ -1,6 +1,8 @@
 #include "FloatingCubes.hpp"
 
 #include <vector>
+#include <algorithm>
+#include <iterator>
 
 #include <glm/gtc/constants.hpp>
 #include <glm/vec4.hpp>
@@ -37,20 +39,14 @@ namespace cubedemo
 		{
 			if (m_cubeStates[i] == CubeState::Dead)
 			{
-				m_cubePositions[i] = glm::vec3(2.0f - (float)((double)rand() / RAND_MAX)*4, 0.0f, 0.0f);
+				m_cubePositions[i] = glm::vec3((float)i * 2, 0.0f, 0.0f);
 				m_cubeStates[i] = CubeState::Moving;
 			}
-			else
-			{
-				if (m_cubePositions[i].y > 5.0f)
-				{
-					m_cubeStates[i] = CubeState::Dead;
-				}
-				else
-				{
-					m_cubePositions[i].y += (float)(0.00025);
-				}
-			}
+
+			m_cubePositions[i].y += (float)(0.00025 * time);
+
+			if (m_cubePositions[i].y > 5.0f)
+				m_cubePositions[i].y = 0.0f;
 		}
 	}
 
@@ -164,9 +160,15 @@ namespace cubedemo
 	void FloatingCubesRenderer::update(const FloatingCubes & cubes)
 	{
 		m_instanceCount = cubes.count();
+		std::vector<glm::vec4> processedPositions;
+
+		auto source = cubes.cubePositions();
+		std::transform(source, source + cubes.count(), std::back_inserter(processedPositions),
+			[](glm::vec3& v) { return glm::vec4(v, 0.0f); });
+
 		gl::BindBuffer(gl::TEXTURE_BUFFER, m_instancePositionsVBO);
 		{
-			gl::BufferData(gl::TEXTURE_BUFFER, sizeof(glm::vec3) * cubes.count(), cubes.cubePositions(), gl::STREAM_DRAW);
+			gl::BufferData(gl::TEXTURE_BUFFER, sizeof(glm::vec4) * processedPositions.size(), processedPositions.data(), gl::STREAM_DRAW);
 		}
 		gl::BindBuffer(gl::TEXTURE_BUFFER, 0);
 	}
@@ -174,7 +176,7 @@ namespace cubedemo
 	void FloatingCubesRenderer::render()
 	{
 		auto mvp = glm::perspective(glm::quarter_pi<float>(), 1280.0f / 720.0f, 1.0f, 1000.0f)
-			* glm::lookAt(glm::vec3(10.0f, 3.0f, 10.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			* glm::lookAt(glm::vec3(0.0f, 3.0f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		gl::BindVertexArray(m_vao);
 		m_shader.use();
