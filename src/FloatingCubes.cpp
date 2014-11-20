@@ -18,22 +18,30 @@
 namespace cubedemo
 {
 	// // //
+	// CubeStates implementation
+	// // //
+
+	CubeStates::CubeStates(size_t size)
+		: states{ new CubeState[size] }, positions{ new glm::vec3[size] }, velocities{ new glm::vec3[size] }, rotations{ new glm::quat[size] }
+	{
+
+	}
+
+	CubeStates::~CubeStates()
+	{
+		delete[] states;
+		delete[] positions;
+		delete[] velocities;
+		delete[] rotations;
+	}
+
+	// // //
 	// FloatingCubes implementation
 	// // //
 
 	FloatingCubes::FloatingCubes(size_t count)
-		: m_cubeCount{ count }, m_cubeColor{ glm::vec4{1.0f} }, m_cubeStates{ new CubeState[count] }, m_cubePositions{ new glm::vec3[count] }, m_cubeVelocities{ new glm::vec3[count] }, m_cubeRotations{ new glm::quat[count] }
+		: m_cubeCount{ count }, m_cubeStates{ count }
 	{
-		for (size_t i = 0; i < m_cubeCount; i++)
-			m_cubeStates[i] = CubeState::Dead;
-	}
-
-	FloatingCubes::~FloatingCubes()
-	{
-		delete[] m_cubeStates;
-		delete[] m_cubePositions;
-		delete[] m_cubeVelocities;
-		delete[] m_cubeRotations;
 	}
 
 	void FloatingCubes::update(double deltaTime)
@@ -44,17 +52,17 @@ namespace cubedemo
 
 		for (size_t i = 0; i < m_cubeCount; i++)
 		{
-			if (m_cubeStates[i] == CubeState::Dead)
+			if (m_cubeStates.states[i] == CubeState::Dead)
 			{
-				m_cubePositions[i] = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
-				m_cubeVelocities[i] = glm::vec3{ velocityRandDistrib(randEngine), velocityRandDistrib(randEngine), velocityRandDistrib(randEngine) };
-				m_cubeStates[i] = CubeState::Moving;
+				m_cubeStates.positions[i] = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
+				m_cubeStates.velocities[i] = glm::vec3{ velocityRandDistrib(randEngine), velocityRandDistrib(randEngine), velocityRandDistrib(randEngine) };
+				m_cubeStates.states[i] = CubeState::Moving;
 			}
 
-			m_cubePositions[i] += m_cubeVelocities[i] * (float)deltaTime;
+			m_cubeStates.positions[i] += m_cubeStates.velocities[i] * (float)deltaTime;
 
-			if (glm::length(m_cubePositions[i] - glm::vec3{ 0.0f }) > 600.0f)
-				m_cubeStates[i] = CubeState::Dead;
+			if (glm::length(m_cubeStates.positions[i] - glm::vec3{ 0.0f }) > 600.0f)
+				m_cubeStates.states[i] = CubeState::Dead;
 		}
 	}
 
@@ -86,7 +94,7 @@ namespace cubedemo
 		glm::normalize(glm::vec3{ 1.0f,  1.0f,  1.0f }),
 	};
 
-	static const std::vector<unsigned int> CUBE_INDICES
+	static const std::vector<uint8_t> CUBE_INDICES
 	{
 		// front
 		0, 1, 3,
@@ -112,7 +120,7 @@ namespace cubedemo
 		: m_instanceCount{ 0 }, m_modelviewMatrix{ glm::lookAt(glm::vec3(0.0f, 3.0f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f)) }
 	{
 		// generate buffers and textures
-		gl::GenVertexArrays(1.0f, &m_vao);
+		gl::GenVertexArrays(1, &m_vao);
 		gl::GenBuffers(1, &m_positionsVBO);
 		gl::GenBuffers(1, &m_normalsVBO);
 		gl::GenBuffers(1, &m_indices);
@@ -183,7 +191,7 @@ namespace cubedemo
 
 		auto source = cubes.cubePositions();
 		std::transform(source, source + cubes.count(), std::back_inserter(processedPositions),
-			[](glm::vec3& v) { return glm::vec4(v, 0.0f); });
+			[](const glm::vec3& v) { return glm::vec4(v, 0.0f); });
 
 		gl::BindBuffer(gl::TEXTURE_BUFFER, m_instancePositionsVBO);
 		{
@@ -193,7 +201,7 @@ namespace cubedemo
 		GL_CHECK_ERRORS;
 	}
 
-	void FloatingCubesRenderer::render(double deltaTime)
+	void FloatingCubesRenderer::render()
 	{
 		const float SHININESS = 50.0f;
 		const glm::vec3 AMBIENT_COLOR{ 0.1f, 0.1f, 0.1f };
@@ -221,7 +229,7 @@ namespace cubedemo
 			gl::Uniform3fv(m_shader("DiffuseColor"), 1, glm::value_ptr(DIFFUSE_COLOR));
 			gl::Uniform3fv(m_shader("SpecularColor"), 1, glm::value_ptr(SPECULAR_COLOR));
 
-			gl::DrawElementsInstanced(gl::TRIANGLES, CUBE_INDICES.size(), gl::UNSIGNED_INT, nullptr, m_instanceCount);
+			gl::DrawElementsInstanced(gl::TRIANGLES, (GLsizei)CUBE_INDICES.size(), gl::UNSIGNED_BYTE, nullptr, (GLsizei)m_instanceCount);
 			GL_CHECK_ERRORS;
 		}
 		m_shader.unuse();

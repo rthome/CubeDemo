@@ -25,30 +25,31 @@ namespace cubedemo
 		FadeOut,
 	};
 
+	struct CubeStates
+	{
+		CubeState *states; // The state each vector is in
+		glm::vec3 *positions; // The center of each cube
+		glm::vec3 *velocities; // The movement direction and speed of each cube
+		glm::quat *rotations; // The rotation of each cube
+
+		CubeStates(size_t size);
+		~CubeStates();
+	};
+
 	// Collects the state of a bunch of cubes, floating in space
 	class FloatingCubes
 	{
 	private:
 		size_t m_cubeCount; // Amount of managed cubes
-        
-        // global cube state
-        glm::vec4 m_cubeColor;
-        
-        // per-cube state
-		CubeState *m_cubeStates; // The state each cube is in
-		glm::vec3 *m_cubePositions; // Position of each cube
-		glm::vec3 *m_cubeVelocities; // Movement direction and speed of each cube
-		glm::quat *m_cubeRotations; // Rotation of each cube
+		CubeStates m_cubeStates; // Per-cube state
 
 	public:
         FloatingCubes(size_t count);
-		~FloatingCubes();
 
 		inline size_t count() const { return m_cubeCount; }
-        inline const glm::vec4& cubeColor() const { return m_cubeColor; }
-		inline CubeState* cubeStates() const { return m_cubeStates; }
-		inline glm::vec3* cubePositions() const { return m_cubePositions; }
-		inline glm::quat* cubeRotations() const { return m_cubeRotations; }
+		inline const CubeState* cubeStates() const { return m_cubeStates.states; }
+		inline const glm::vec3* cubePositions() const { return m_cubeStates.positions; }
+		inline const glm::quat* cubeRotations() const { return m_cubeStates.rotations; }
 
 		void update(double deltaTime); // Update the state of each cube and
 	};
@@ -78,6 +79,6 @@ namespace cubedemo
 		void onWindowSizeChanged(size_t width, size_t height); // Notify the renderer of a changed window size, to allow it to update the projection matrix
 
 		void update(const FloatingCubes& cubes); // Update renderer state, pulling data from a FloatingCubes instance
-		void render(double deltaTime); // Draw latest cube data to the screen
+		void render(); // Draw latest cube data to the screen
 	};
 }

@@ -114,7 +114,7 @@ int main(int argc, char const *argv[])
 		floatingCubes.update(deltaTime);
 
 		renderer->update(floatingCubes);
-		renderer->render(deltaTime);
+		renderer->render();
 
 		GL_CHECK_ERRORS;
 
