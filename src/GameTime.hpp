@@ -12,8 +12,8 @@ namespace cubedemo
 
 	struct GameTime final
 	{
-		GTAccumDuration totalTime; // Total runtime
-		GTDeltaDuration deltaTime; // Time since last update
+		GTAccumDuration totalTime; // Total runtime in full milliseconds
+		GTDeltaDuration deltaTime; // Time since last update in milliseconds
 		GameTimePoint point; // Time of creation
 
 		GameTime();
