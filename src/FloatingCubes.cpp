@@ -9,6 +9,7 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_inverse.hpp>
 
 #include "Util.hpp"
 #include "Shaders.hpp"
@@ -120,7 +121,12 @@ namespace cubedemo
 		m_shader.addAttribute("normal");
 		m_shader.addUniform("MVP");
 		m_shader.addUniform("InstancePositions");
-        m_shader.addUniform("CubeColor");
+        m_shader.addUniform("NormalMatrix");
+        m_shader.addUniform("AmbientColor");
+        m_shader.addUniform("DiffuseColor");
+        m_shader.addUniform("SpecularColor");
+        m_shader.addUniform("Shininess");
+        m_shader.addUniform("LightPosition");
 		GL_CHECK_ERRORS;
 
 		// set up vao
@@ -134,11 +140,11 @@ namespace cubedemo
 			GL_CHECK_ERRORS;
 
 			// normals
-            //gl::BindBuffer(gl::ARRAY_BUFFER, m_normalsVBO);
-            //gl::BufferData(gl::ARRAY_BUFFER, sizeof(glm::vec3) * CUBE_NORMALS.size(), CUBE_NORMALS.data(), gl::STATIC_DRAW);
-            //gl::EnableVertexAttribArray(m_shader["normal"]);
-            //gl::VertexAttribPointer(m_shader["normal"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
-            //GL_CHECK_ERRORS;
+            gl::BindBuffer(gl::ARRAY_BUFFER, m_normalsVBO);
+            gl::BufferData(gl::ARRAY_BUFFER, sizeof(glm::vec3) * CUBE_NORMALS.size(), CUBE_NORMALS.data(), gl::STATIC_DRAW);
+            gl::EnableVertexAttribArray(m_shader["normal"]);
+            gl::VertexAttribPointer(m_shader["normal"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
+            GL_CHECK_ERRORS;
 
 			// indices
 			gl::BindBuffer(gl::ELEMENT_ARRAY_BUFFER, m_indices);
@@ -173,28 +179,37 @@ namespace cubedemo
 		}
 		gl::BindBuffer(gl::TEXTURE_BUFFER, 0);
         GL_CHECK_ERRORS;
-        
-        // set cube color
-        m_shader.use();
-        gl::Uniform4fv(m_shader("CubeColor"), 1, glm::value_ptr(cubes.cubeColor()));
-        m_shader.unuse();
-        GL_CHECK_ERRORS;
 	}
 
 	void FloatingCubesRenderer::render()
 	{
-		auto mvp = glm::perspective(glm::quarter_pi<float>(), 1280.0f / 720.0f, 1.0f, 1000.0f)
-			* glm::lookAt(glm::vec3(0.0f, 3.0f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-
+        const float SHININESS = 50.0f;
+        const glm::vec3 LIGHT_POSITION {0.0f, 10.0f, 0.0f};
+        const glm::vec3 AMBIENT_COLOR {0.1f, 0.1f, 0.1f};
+        const glm::vec3 DIFFUSE_COLOR {0.0f, 0.75f, 0.75f};
+        const glm::vec3 SPECULAR_COLOR {0.5f, 0.5f, 0.5f};
+        
+        auto modelviewMat = glm::lookAt(glm::vec3(0.0f, 3.0f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        auto projectionMat = glm::perspective(glm::quarter_pi<float>(), 1280.0f / 720.0f, 1.0f, 1000.0f);
+        auto mvp = projectionMat * modelviewMat;
+        auto normalMat = glm::mat3(modelviewMat);
+        
+        
 		gl::BindVertexArray(m_vao);
 		m_shader.use();
 		{
-			GL_CHECK_ERRORS;
 			gl::ActiveTexture(gl::TEXTURE0);
 			gl::BindTexture(gl::TEXTURE_BUFFER, m_positionBufferTexture);
 			gl::TexBuffer(gl::TEXTURE_BUFFER, gl::RGBA32F, m_instancePositionsVBO);
+            
 			gl::Uniform1i(m_shader("InstancePositions"), 0);
 			gl::UniformMatrix4fv(m_shader("MVP"), 1, gl::FALSE_, glm::value_ptr(mvp));
+            gl::UniformMatrix3fv(m_shader("NormalMatrix"), 1, gl::FALSE_, glm::value_ptr(normalMat));
+            gl::Uniform1f(m_shader("Shininess"), SHININESS);
+            gl::Uniform3fv(m_shader("LightPosition"), 1, glm::value_ptr(LIGHT_POSITION));
+            gl::Uniform3fv(m_shader("AmbientColor"), 1, glm::value_ptr(AMBIENT_COLOR));
+            gl::Uniform3fv(m_shader("DiffuseColor"), 1, glm::value_ptr(DIFFUSE_COLOR));
+            gl::Uniform3fv(m_shader("SpecularColor"), 1, glm::value_ptr(SPECULAR_COLOR));
 
 			gl::DrawElementsInstanced(gl::TRIANGLES, CUBE_INDICES.size(), gl::UNSIGNED_INT, nullptr, m_instanceCount);
 			GL_CHECK_ERRORS;
