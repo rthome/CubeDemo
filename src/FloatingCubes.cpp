@@ -19,8 +19,8 @@ namespace cubedemo
 	// FloatingCubes implementation
 	// // //
 
-	FloatingCubes::FloatingCubes(size_t count)
-		: m_cubeCount{ count }, m_cubeStates{ new CubeState[count] }, m_cubePositions{ new glm::vec3[count] }, m_cubeRotations{ new glm::quat[count] }
+    FloatingCubes::FloatingCubes(size_t count, const glm::vec4& cubeColor)
+        : m_cubeCount{ count }, m_cubeColor{ cubeColor }, m_cubeStates{ new CubeState[count] }, m_cubePositions{ new glm::vec3[count] }, m_cubeRotations{ new glm::quat[count] }
 	{
 		for (size_t i = 0; i < m_cubeCount; i++)
 			m_cubeStates[i] = CubeState::Dead;
@@ -120,6 +120,7 @@ namespace cubedemo
 		m_shader.addAttribute("normal");
 		m_shader.addUniform("MVP");
 		m_shader.addUniform("InstancePositions");
+        m_shader.addUniform("CubeColor");
 		GL_CHECK_ERRORS;
 
 		// set up vao
@@ -133,11 +134,11 @@ namespace cubedemo
 			GL_CHECK_ERRORS;
 
 			// normals
-			gl::BindBuffer(gl::ARRAY_BUFFER, m_normalsVBO);
-			gl::BufferData(gl::ARRAY_BUFFER, sizeof(glm::vec3) * CUBE_NORMALS.size(), CUBE_NORMALS.data(), gl::STATIC_DRAW);
-			gl::EnableVertexAttribArray(m_shader["normal"]);
-			gl::VertexAttribPointer(m_shader["normal"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
-			GL_CHECK_ERRORS;
+            //gl::BindBuffer(gl::ARRAY_BUFFER, m_normalsVBO);
+            //gl::BufferData(gl::ARRAY_BUFFER, sizeof(glm::vec3) * CUBE_NORMALS.size(), CUBE_NORMALS.data(), gl::STATIC_DRAW);
+            //gl::EnableVertexAttribArray(m_shader["normal"]);
+            //gl::VertexAttribPointer(m_shader["normal"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
+            //GL_CHECK_ERRORS;
 
 			// indices
 			gl::BindBuffer(gl::ELEMENT_ARRAY_BUFFER, m_indices);
@@ -171,6 +172,13 @@ namespace cubedemo
 			gl::BufferData(gl::TEXTURE_BUFFER, sizeof(glm::vec4) * processedPositions.size(), processedPositions.data(), gl::STREAM_DRAW);
 		}
 		gl::BindBuffer(gl::TEXTURE_BUFFER, 0);
+        GL_CHECK_ERRORS;
+        
+        // set cube color
+        m_shader.use();
+        gl::Uniform4fv(m_shader("CubeColor"), 1, glm::value_ptr(cubes.cubeColor()));
+        m_shader.unuse();
+        GL_CHECK_ERRORS;
 	}
 
 	void FloatingCubesRenderer::render()

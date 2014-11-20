@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 #include <glm/gtc/quaternion.hpp>
 
 #include "gl_core_3_3.hpp"
@@ -28,15 +29,21 @@ namespace cubedemo
 	{
 	private:
 		size_t m_cubeCount; // Amount of managed cubes
+        
+        // global cube state
+        glm::vec4 m_cubeColor;
+        
+        // per-cube state
 		CubeState *m_cubeStates; // The state each cube is in
 		glm::vec3 *m_cubePositions; // Position of each cube
 		glm::quat *m_cubeRotations; // Rotation of each cube
 
 	public:
-		FloatingCubes(size_t count);
+        FloatingCubes(size_t count, const glm::vec4& cubeColor = glm::vec4{1.0f});
 		~FloatingCubes();
 
 		inline size_t count() const { return m_cubeCount; }
+        inline const glm::vec4& cubeColor() const { return m_cubeColor; }
 		inline CubeState* cubeStates() const { return m_cubeStates; }
 		inline glm::vec3* cubePositions() const { return m_cubePositions; }
 		inline glm::quat* cubeRotations() const { return m_cubeRotations; }
