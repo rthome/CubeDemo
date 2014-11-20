@@ -24,7 +24,7 @@ namespace cubedemo
 	CubeStates::CubeStates(size_t size)
 		: states{ new CubeState[size] }, positions{ new glm::vec3[size] }, velocities{ new glm::vec3[size] }, rotations{ new glm::quat[size] }
 	{
-		std::fill_n(states, size, CubeState::Dead);
+		std::fill(states, states + size, CubeState::Dead);
 	}
 
 	CubeStates::~CubeStates()
@@ -44,11 +44,11 @@ namespace cubedemo
 	{
 	}
 
-	void FloatingCubes::update(double deltaTime)
+	void FloatingCubes::update(const GameTime& time)
 	{
 		static std::default_random_engine randEngine;
 		static std::uniform_real_distribution<float> startRandDistrib{ -300.0f, 300.0f };
-		static std::normal_distribution<float> velocityRandDistrib{ 0.0f, 8.0f };
+		static std::normal_distribution<float> velocityRandDistrib{ 0.0f, 4.0f };
 
 		for (size_t i = 0; i < m_cubeCount; i++)
 		{
@@ -59,7 +59,7 @@ namespace cubedemo
 				m_cubeStates.states[i] = CubeState::Moving;
 			}
 
-			m_cubeStates.positions[i] += m_cubeStates.velocities[i] * (float)deltaTime;
+			m_cubeStates.positions[i] += m_cubeStates.velocities[i] * time.deltaTime.count() * 0.01f;
 
 			if (glm::length(m_cubeStates.positions[i] - glm::vec3{ 0.0f }) > 600.0f)
 				m_cubeStates.states[i] = CubeState::Dead;

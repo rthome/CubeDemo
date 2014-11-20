@@ -7,6 +7,7 @@
 
 #include "gl_core_3_3.hpp"
 #include "GLShader.hpp"
+#include "GameTime.hpp"
 
 namespace cubedemo
 {
@@ -51,7 +52,7 @@ namespace cubedemo
 		inline const glm::vec3* cubePositions() const { return m_cubeStates.positions; }
 		inline const glm::quat* cubeRotations() const { return m_cubeStates.rotations; }
 
-		void update(double deltaTime); // Update the state of each cube and
+		void update(const GameTime& time); // Update the state of each cube
 	};
 
 	// Renders cubes from FloatingCubes

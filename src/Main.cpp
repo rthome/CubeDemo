@@ -5,6 +5,7 @@
 
 #include "Util.hpp"
 #include "FloatingCubes.hpp"
+#include "GameTime.hpp"
 
 // Constants for initial window size
 static const size_t WINDOW_WIDTH = 1280;
@@ -99,19 +100,18 @@ int main(int argc, char const *argv[])
 	renderer->onWindowSizeChanged(WINDOW_WIDTH, WINDOW_HEIGHT);
 	globalRenderer = renderer;
 
-    double time = glfwGetTime();
+	cubedemo::GameTime time;
     
 	LOG_INFO("Entering main loop...");
 	while (!glfwWindowShouldClose(window))
 	{
+		time = cubedemo::GameTime::next(time);
+
 		GL_CHECK_ERRORS;
 
 		gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
-        
-        double deltaTime = glfwGetTime() - time;
-        time = glfwGetTime();
 
-		floatingCubes.update(deltaTime);
+		floatingCubes.update(time);
 
 		renderer->update(floatingCubes);
 		renderer->render();

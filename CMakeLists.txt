@@ -34,6 +34,7 @@ set(CD_SOURCES
 	src/gl_core_3_3.cpp
 	src/GLShader.cpp
 	src/FloatingCubes.cpp
+	src/GameTime.cpp
 	src/Main.cpp)
 
 set(CD_HEADERS
@@ -41,6 +42,7 @@ set(CD_HEADERS
 	src/GLShader.hpp
 	src/FloatingCubes.hpp
 	src/Shaders.hpp
+	src/GameTime.hpp
 	src/Util.hpp)
 
 # Add GLM and GLFW
