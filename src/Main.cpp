@@ -94,7 +94,7 @@ int main(int argc, char const *argv[])
 	GL_CHECK_ERRORS;
 
 	// Set up cubes
-	cubedemo::FloatingCubes floatingCubes{ 10 };
+	cubedemo::FloatingCubes floatingCubes{ 100 };
 	cubedemo::FloatingCubesRenderer *renderer = new cubedemo::FloatingCubesRenderer();
 	renderer->onWindowSizeChanged(WINDOW_WIDTH, WINDOW_HEIGHT);
 	globalRenderer = renderer;

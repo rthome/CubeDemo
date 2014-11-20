@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include <random>
 
 #include <glm/gtc/constants.hpp>
 #include <glm/vec4.hpp>
@@ -20,8 +21,8 @@ namespace cubedemo
 	// FloatingCubes implementation
 	// // //
 
-    FloatingCubes::FloatingCubes(size_t count, const glm::vec4& cubeColor)
-        : m_cubeCount{ count }, m_cubeColor{ cubeColor }, m_cubeStates{ new CubeState[count] }, m_cubePositions{ new glm::vec3[count] }, m_cubeRotations{ new glm::quat[count] }
+	FloatingCubes::FloatingCubes(size_t count)
+		: m_cubeCount{ count }, m_cubeColor{ glm::vec4{1.0f} }, m_cubeStates{ new CubeState[count] }, m_cubePositions{ new glm::vec3[count] }, m_cubeVelocities{ new glm::vec3[count] }, m_cubeRotations{ new glm::quat[count] }
 	{
 		for (size_t i = 0; i < m_cubeCount; i++)
 			m_cubeStates[i] = CubeState::Dead;
@@ -31,23 +32,29 @@ namespace cubedemo
 	{
 		delete[] m_cubeStates;
 		delete[] m_cubePositions;
+		delete[] m_cubeVelocities;
 		delete[] m_cubeRotations;
 	}
 
 	void FloatingCubes::update(double deltaTime)
 	{
+		static std::default_random_engine randEngine;
+		static std::uniform_real_distribution<float> startRandDistrib{ -50.0f, 50.0f };
+		static std::normal_distribution<float> velocityRandDistrib{ 0.0f, 2.0f };
+
 		for (size_t i = 0; i < m_cubeCount; i++)
 		{
 			if (m_cubeStates[i] == CubeState::Dead)
 			{
-				m_cubePositions[i] = glm::vec3((float)i * 2, 0.0f, 0.0f);
+				m_cubePositions[i] = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
+				m_cubeVelocities[i] = glm::vec3{ velocityRandDistrib(randEngine) , velocityRandDistrib(randEngine) , velocityRandDistrib(randEngine) };
 				m_cubeStates[i] = CubeState::Moving;
 			}
 
-			m_cubePositions[i].y += (float)(2.5 * deltaTime);
+			m_cubePositions[i] += m_cubeVelocities[i] * (float)deltaTime;
 
-			if (m_cubePositions[i].y > 5.0f)
-				m_cubePositions[i].y = 0.0f;
+			if (glm::length(m_cubePositions[i] - glm::vec3{ 0.0f }) > 20.0f)
+				m_cubeStates[i] = CubeState::Dead;
 		}
 	}
 
@@ -105,7 +112,7 @@ namespace cubedemo
 		: m_instanceCount{ 0 }, m_modelviewMatrix{ glm::lookAt(glm::vec3(0.0f, 3.0f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f)) }
 	{
 		// generate buffers and textures
-		gl::GenVertexArrays( 1.0f, &m_vao);
+		gl::GenVertexArrays(1.0f, &m_vao);
 		gl::GenBuffers(1, &m_positionsVBO);
 		gl::GenBuffers(1, &m_normalsVBO);
 		gl::GenBuffers(1, &m_indices);
@@ -121,12 +128,12 @@ namespace cubedemo
 		m_shader.addAttribute("normal");
 		m_shader.addUniform("MVP");
 		m_shader.addUniform("InstancePositions");
-        m_shader.addUniform("NormalMatrix");
-        m_shader.addUniform("AmbientColor");
-        m_shader.addUniform("DiffuseColor");
-        m_shader.addUniform("SpecularColor");
-        m_shader.addUniform("Shininess");
-        m_shader.addUniform("LightPosition");
+		m_shader.addUniform("NormalMatrix");
+		m_shader.addUniform("AmbientColor");
+		m_shader.addUniform("DiffuseColor");
+		m_shader.addUniform("SpecularColor");
+		m_shader.addUniform("Shininess");
+		m_shader.addUniform("LightPosition");
 		GL_CHECK_ERRORS;
 
 		// set up vao
@@ -140,11 +147,11 @@ namespace cubedemo
 			GL_CHECK_ERRORS;
 
 			// normals
-            gl::BindBuffer(gl::ARRAY_BUFFER, m_normalsVBO);
-            gl::BufferData(gl::ARRAY_BUFFER, sizeof(glm::vec3) * CUBE_NORMALS.size(), CUBE_NORMALS.data(), gl::STATIC_DRAW);
-            gl::EnableVertexAttribArray(m_shader["normal"]);
-            gl::VertexAttribPointer(m_shader["normal"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
-            GL_CHECK_ERRORS;
+			gl::BindBuffer(gl::ARRAY_BUFFER, m_normalsVBO);
+			gl::BufferData(gl::ARRAY_BUFFER, sizeof(glm::vec3) * CUBE_NORMALS.size(), CUBE_NORMALS.data(), gl::STATIC_DRAW);
+			gl::EnableVertexAttribArray(m_shader["normal"]);
+			gl::VertexAttribPointer(m_shader["normal"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
+			GL_CHECK_ERRORS;
 
 			// indices
 			gl::BindBuffer(gl::ELEMENT_ARRAY_BUFFER, m_indices);
@@ -183,36 +190,36 @@ namespace cubedemo
 			gl::BufferData(gl::TEXTURE_BUFFER, sizeof(glm::vec4) * processedPositions.size(), processedPositions.data(), gl::STREAM_DRAW);
 		}
 		gl::BindBuffer(gl::TEXTURE_BUFFER, 0);
-        GL_CHECK_ERRORS;
+		GL_CHECK_ERRORS;
 	}
 
 	void FloatingCubesRenderer::render(double deltaTime)
 	{
-        const float SHININESS = 50.0f;
-        const glm::vec3 AMBIENT_COLOR {0.1f, 0.1f, 0.1f};
-        const glm::vec3 DIFFUSE_COLOR {0.0f, 0.75f, 0.75f};
-        const glm::vec3 SPECULAR_COLOR {0.5f, 0.5f, 0.5f};
-        
-        auto mvp = m_projectionMatrix * m_modelviewMatrix;
-        auto normalMat = glm::inverseTranspose(glm::mat3(m_modelviewMatrix));
-        
-        glm::vec3 lightPos { 0.0f, 10.0f, 1.0f };
-        
+		const float SHININESS = 50.0f;
+		const glm::vec3 AMBIENT_COLOR{ 0.1f, 0.1f, 0.1f };
+		const glm::vec3 DIFFUSE_COLOR{ 0.0f, 0.75f, 0.75f };
+		const glm::vec3 SPECULAR_COLOR{ 0.5f, 0.5f, 0.5f };
+
+		auto mvp = m_projectionMatrix * m_modelviewMatrix;
+		auto normalMat = glm::inverseTranspose(glm::mat3(m_modelviewMatrix));
+
+		glm::vec3 lightPos{ 0.0f, 10.0f, 1.0f };
+
 		gl::BindVertexArray(m_vao);
 		m_shader.use();
 		{
 			gl::ActiveTexture(gl::TEXTURE0);
 			gl::BindTexture(gl::TEXTURE_BUFFER, m_positionBufferTexture);
 			gl::TexBuffer(gl::TEXTURE_BUFFER, gl::RGBA32F, m_instancePositionsVBO);
-            
+
 			gl::Uniform1i(m_shader("InstancePositions"), 0);
 			gl::UniformMatrix4fv(m_shader("MVP"), 1, gl::FALSE_, glm::value_ptr(mvp));
-            gl::UniformMatrix3fv(m_shader("NormalMatrix"), 1, gl::FALSE_, glm::value_ptr(normalMat));
-            gl::Uniform1f(m_shader("Shininess"), SHININESS);
-            gl::Uniform3fv(m_shader("LightPosition"), 1, glm::value_ptr(lightPos));
-            gl::Uniform3fv(m_shader("AmbientColor"), 1, glm::value_ptr(AMBIENT_COLOR));
-            gl::Uniform3fv(m_shader("DiffuseColor"), 1, glm::value_ptr(DIFFUSE_COLOR));
-            gl::Uniform3fv(m_shader("SpecularColor"), 1, glm::value_ptr(SPECULAR_COLOR));
+			gl::UniformMatrix3fv(m_shader("NormalMatrix"), 1, gl::FALSE_, glm::value_ptr(normalMat));
+			gl::Uniform1f(m_shader("Shininess"), SHININESS);
+			gl::Uniform3fv(m_shader("LightPosition"), 1, glm::value_ptr(lightPos));
+			gl::Uniform3fv(m_shader("AmbientColor"), 1, glm::value_ptr(AMBIENT_COLOR));
+			gl::Uniform3fv(m_shader("DiffuseColor"), 1, glm::value_ptr(DIFFUSE_COLOR));
+			gl::Uniform3fv(m_shader("SpecularColor"), 1, glm::value_ptr(SPECULAR_COLOR));
 
 			gl::DrawElementsInstanced(gl::TRIANGLES, CUBE_INDICES.size(), gl::UNSIGNED_INT, nullptr, m_instanceCount);
 			GL_CHECK_ERRORS;

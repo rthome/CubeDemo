@@ -37,10 +37,11 @@ namespace cubedemo
         // per-cube state
 		CubeState *m_cubeStates; // The state each cube is in
 		glm::vec3 *m_cubePositions; // Position of each cube
+		glm::vec3 *m_cubeVelocities; // Movement direction and speed of each cube
 		glm::quat *m_cubeRotations; // Rotation of each cube
 
 	public:
-        FloatingCubes(size_t count, const glm::vec4& cubeColor = glm::vec4{1.0f});
+        FloatingCubes(size_t count);
 		~FloatingCubes();
 
 		inline size_t count() const { return m_cubeCount; }
