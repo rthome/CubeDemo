@@ -39,21 +39,21 @@ namespace cubedemo
 	void FloatingCubes::update(double deltaTime)
 	{
 		static std::default_random_engine randEngine;
-		static std::uniform_real_distribution<float> startRandDistrib{ -50.0f, 50.0f };
-		static std::normal_distribution<float> velocityRandDistrib{ 0.0f, 2.0f };
+		static std::uniform_real_distribution<float> startRandDistrib{ -300.0f, 300.0f };
+		static std::normal_distribution<float> velocityRandDistrib{ 0.0f, 8.0f };
 
 		for (size_t i = 0; i < m_cubeCount; i++)
 		{
 			if (m_cubeStates[i] == CubeState::Dead)
 			{
 				m_cubePositions[i] = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
-				m_cubeVelocities[i] = glm::vec3{ velocityRandDistrib(randEngine) , velocityRandDistrib(randEngine) , velocityRandDistrib(randEngine) };
+				m_cubeVelocities[i] = glm::vec3{ velocityRandDistrib(randEngine), velocityRandDistrib(randEngine), velocityRandDistrib(randEngine) };
 				m_cubeStates[i] = CubeState::Moving;
 			}
 
 			m_cubePositions[i] += m_cubeVelocities[i] * (float)deltaTime;
 
-			if (glm::length(m_cubePositions[i] - glm::vec3{ 0.0f }) > 20.0f)
+			if (glm::length(m_cubePositions[i] - glm::vec3{ 0.0f }) > 600.0f)
 				m_cubeStates[i] = CubeState::Dead;
 		}
 	}
