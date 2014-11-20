@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <thread>
 
 #include "gl_core_3_3.hpp"
 #include <GLFW/glfw3.h>
@@ -6,6 +7,9 @@
 #include "Util.hpp"
 #include "FloatingCubes.hpp"
 #include "GameTime.hpp"
+
+// Whether to limit rendering to 60 fps
+#define ENABLE_FRAMELIMITING
 
 // Constants for initial window size
 static const size_t WINDOW_WIDTH = 1280;
@@ -117,6 +121,13 @@ int main(int argc, char const *argv[])
 		renderer->render();
 
 		GL_CHECK_ERRORS;
+
+#ifdef ENABLE_FRAMELIMITING
+		const float TARGET_TIME = 15.0f;
+		auto timeSince = time.timeSince().count();
+		if (timeSince < TARGET_TIME)
+			std::this_thread::sleep_for(std::chrono::milliseconds((int)(TARGET_TIME - timeSince)));
+#endif
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
