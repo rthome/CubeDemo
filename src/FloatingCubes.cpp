@@ -24,7 +24,7 @@ namespace cubedemo
 	CubeStates::CubeStates(size_t size)
 		: states{ new CubeState[size] }, positions{ new glm::vec3[size] }, velocities{ new glm::vec3[size] }, rotations{ new glm::quat[size] }
 	{
-
+		std::fill_n(states, size, CubeState::Dead);
 	}
 
 	CubeStates::~CubeStates()
