@@ -192,7 +192,7 @@ namespace cubedemo
         auto modelviewMat = glm::lookAt(glm::vec3(0.0f, 3.0f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         auto projectionMat = glm::perspective(glm::quarter_pi<float>(), 1280.0f / 720.0f, 1.0f, 1000.0f);
         auto mvp = projectionMat * modelviewMat;
-        auto normalMat = glm::mat3(modelviewMat);
+        auto normalMat = glm::inverseTranspose(glm::mat3(modelviewMat));
         
         
 		gl::BindVertexArray(m_vao);
