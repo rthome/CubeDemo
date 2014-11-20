@@ -85,7 +85,7 @@ void main()
 	vertexColor = vec4(sh_light(normal, beach), 1.0);
 
 	vec4 position4 = vec4(position, 1.0);
-	vec4 offset = texelFetchBuffer(InstancePositions, gl_InstanceID);
+	vec4 offset = texelFetch(InstancePositions, gl_InstanceID);
 	vec4 offsetPosition = position4 + offset;
 	gl_Position = MVP * offsetPosition;
 }
