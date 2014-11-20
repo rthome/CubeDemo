@@ -68,7 +68,7 @@ int main(int argc, char const *argv[])
 
 	// Create window
 	LOG_INFO("Creating window...")
-		auto window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "cctris", nullptr, nullptr);
+		auto window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "CubeDemo", nullptr, nullptr);
 	if (window == nullptr)
 	{
 		LOG_ERROR("Error creating window. Exiting")
