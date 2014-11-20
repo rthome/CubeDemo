@@ -34,7 +34,7 @@ namespace cubedemo
 		delete[] m_cubeRotations;
 	}
 
-	void FloatingCubes::update(double time)
+	void FloatingCubes::update(double deltaTime)
 	{
 		for (size_t i = 0; i < m_cubeCount; i++)
 		{
@@ -44,7 +44,7 @@ namespace cubedemo
 				m_cubeStates[i] = CubeState::Moving;
 			}
 
-			m_cubePositions[i].y += (float)(0.00025 * time);
+			m_cubePositions[i].y += (float)(2.5 * deltaTime);
 
 			if (m_cubePositions[i].y > 5.0f)
 				m_cubePositions[i].y = 0.0f;
@@ -181,10 +181,9 @@ namespace cubedemo
         GL_CHECK_ERRORS;
 	}
 
-	void FloatingCubesRenderer::render()
+	void FloatingCubesRenderer::render(double deltaTime)
 	{
         const float SHININESS = 50.0f;
-        const glm::vec3 LIGHT_POSITION {0.0f, 10.0f, 0.0f};
         const glm::vec3 AMBIENT_COLOR {0.1f, 0.1f, 0.1f};
         const glm::vec3 DIFFUSE_COLOR {0.0f, 0.75f, 0.75f};
         const glm::vec3 SPECULAR_COLOR {0.5f, 0.5f, 0.5f};
@@ -194,6 +193,7 @@ namespace cubedemo
         auto mvp = projectionMat * modelviewMat;
         auto normalMat = glm::inverseTranspose(glm::mat3(modelviewMat));
         
+        glm::vec3 lightPos { 1.0f, 1.0f, 0.0f };
         
 		gl::BindVertexArray(m_vao);
 		m_shader.use();
@@ -206,7 +206,7 @@ namespace cubedemo
 			gl::UniformMatrix4fv(m_shader("MVP"), 1, gl::FALSE_, glm::value_ptr(mvp));
             gl::UniformMatrix3fv(m_shader("NormalMatrix"), 1, gl::FALSE_, glm::value_ptr(normalMat));
             gl::Uniform1f(m_shader("Shininess"), SHININESS);
-            gl::Uniform3fv(m_shader("LightPosition"), 1, glm::value_ptr(LIGHT_POSITION));
+            gl::Uniform3fv(m_shader("LightPosition"), 1, glm::value_ptr(lightPos));
             gl::Uniform3fv(m_shader("AmbientColor"), 1, glm::value_ptr(AMBIENT_COLOR));
             gl::Uniform3fv(m_shader("DiffuseColor"), 1, glm::value_ptr(DIFFUSE_COLOR));
             gl::Uniform3fv(m_shader("SpecularColor"), 1, glm::value_ptr(SPECULAR_COLOR));

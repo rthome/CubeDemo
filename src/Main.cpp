@@ -93,17 +93,22 @@ int main(int argc, char const *argv[])
 	cubedemo::FloatingCubes floatingCubes{ 3 };
 	cubedemo::FloatingCubesRenderer *renderer = new cubedemo::FloatingCubesRenderer();
 
+    double time = glfwGetTime();
+    
 	LOG_INFO("Entering main loop...");
 	while (!glfwWindowShouldClose(window))
 	{
 		GL_CHECK_ERRORS;
 
 		gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
+        
+        double deltaTime = glfwGetTime() - time;
+        time = glfwGetTime();
 
-		floatingCubes.update(glfwGetTime());
+		floatingCubes.update(deltaTime);
 
 		renderer->update(floatingCubes);
-		renderer->render();
+		renderer->render(deltaTime);
 
 		GL_CHECK_ERRORS;
 

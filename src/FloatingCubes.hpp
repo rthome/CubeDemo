@@ -48,7 +48,7 @@ namespace cubedemo
 		inline glm::vec3* cubePositions() const { return m_cubePositions; }
 		inline glm::quat* cubeRotations() const { return m_cubeRotations; }
 
-		void update(double time); // Update the state of each cube and 
+		void update(double deltaTime); // Update the state of each cube and
 	};
 
 	// Renders cubes from FloatingCubes
@@ -70,6 +70,6 @@ namespace cubedemo
 		~FloatingCubesRenderer();
 
 		void update(const FloatingCubes& cubes); // Update renderer state, pulling data from a FloatingCubes instance
-		void render(); // Draw latest cube data to the screen
+		void render(double deltaTime); // Draw latest cube data to the screen
 	};
 }
