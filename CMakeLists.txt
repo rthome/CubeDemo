@@ -52,11 +52,13 @@ set(CD_HEADERS
 	src/GameTime.hpp
 	src/Util.hpp)
 
-set(CD_SPECIALFILES
-	${CD_SOURCES_TEMPLATE_PATH}
-	${CD_SOURCES_HEADER_PATH}
+set(CD_SHADERFILES
 	src/shaders/vertex.glsl
 	src/shaders/fragment.glsl)
+
+set(CD_PROCESSEDFILES
+	${CD_SOURCES_TEMPLATE_PATH}
+	${CD_SOURCES_HEADER_PATH})
 
 # Add GLM and GLFW
 add_subdirectory(${PROJECT_SOURCE_DIR}/lib/glfw)
@@ -67,5 +69,8 @@ include_directories("${PROJECT_BINARY_DIR}") # For the generated shader source h
 include_directories(${PROJECT_SOURCE_DIR}/lib/glfw/include)
 include_directories(${PROJECT_SOURCE_DIR}/lib/glm)
 
-add_executable(CubeDemo ${CD_HEADERS} ${CD_SOURCES} ${CD_SPECIALFILES})
+add_executable(CubeDemo ${CD_HEADERS} ${CD_SOURCES} ${CD_SHADERFILES} ${CD_PROCESSEDFILES})
 target_link_libraries(CubeDemo glfw ${GLFW_LIBRARIES})
+
+source_group("GLSL Files" FILES ${CD_SHADERFILES})
+source_group("Generated Files" FILES ${CD_PROCESSEDFILES})
