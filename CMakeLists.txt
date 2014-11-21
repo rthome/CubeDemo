@@ -30,6 +30,14 @@ endif()
 # Tell GLM to always use radians
 add_definitions(-DGLM_FORCE_RADIANS)
 
+file(READ "${PROJECT_SOURCE_DIR}/src/shaders/vertex.glsl" CD_SHADERSRC_VERTEX)
+file(READ "${PROJECT_SOURCE_DIR}/src/shaders/fragment.glsl" CD_SHADERSRC_FRAGMENT)
+
+# Create shader header file
+set(CD_SOURCES_TEMPLATE_PATH "${PROJECT_SOURCE_DIR}/src/Shaders.hpp.in")
+set(CD_SOURCES_HEADER_PATH "${PROJECT_BINARY_DIR}/Shaders.hpp")
+configure_file(${CD_SOURCES_TEMPLATE_PATH} ${CD_SOURCES_HEADER_PATH})
+
 set(CD_SOURCES
 	src/gl_core_3_3.cpp
 	src/GLShader.cpp
@@ -41,17 +49,23 @@ set(CD_HEADERS
     src/gl_core_3_3.hpp
 	src/GLShader.hpp
 	src/FloatingCubes.hpp
-	src/Shaders.hpp
 	src/GameTime.hpp
 	src/Util.hpp)
+
+set(CD_SPECIALFILES
+	${CD_SOURCES_TEMPLATE_PATH}
+	${CD_SOURCES_HEADER_PATH}
+	src/shaders/vertex.glsl
+	src/shaders/fragment.glsl)
 
 # Add GLM and GLFW
 add_subdirectory(${PROJECT_SOURCE_DIR}/lib/glfw)
 add_subdirectory(${PROJECT_SOURCE_DIR}/lib/glm)
 
 # Fix up additional include directories
+include_directories("${PROJECT_BINARY_DIR}") # For the generated shader source header file
 include_directories(${PROJECT_SOURCE_DIR}/lib/glfw/include)
 include_directories(${PROJECT_SOURCE_DIR}/lib/glm)
 
-add_executable(CubeDemo ${CD_HEADERS} ${CD_SOURCES})
+add_executable(CubeDemo ${CD_HEADERS} ${CD_SOURCES} ${CD_SPECIALFILES})
 target_link_libraries(CubeDemo glfw ${GLFW_LIBRARIES})
