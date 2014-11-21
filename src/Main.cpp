@@ -123,10 +123,11 @@ int main(int argc, char const *argv[])
 		GL_CHECK_ERRORS;
 
 #ifdef ENABLE_FRAMELIMITING
-		const float TARGET_TIME = 15.0f;
-		auto timeSince = time.timeSince().count();
-		if (timeSince < TARGET_TIME)
-			std::this_thread::sleep_for(std::chrono::milliseconds((int)(TARGET_TIME - timeSince)));
+        const float TARGET_TIME = 16.667f; // 60 fps
+		while (time.timeSince().count() < TARGET_TIME)
+        {
+            std::this_thread::sleep_for(chrono::microseconds(600));
+        }
 #endif
 
 		glfwSwapBuffers(window);
