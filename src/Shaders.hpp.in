@@ -1,0 +1,19 @@
+#pragma once
+
+// // //
+// CMake-processed file
+// Changes to Shaders.hpp will be lost the next time CMake runs.
+// // //
+
+#include <string>
+
+namespace cubedemo
+{
+	const std::string CUBE_SHADER_VERTEX = R"glsl(
+@CD_SHADERSRC_VERTEX@
+)glsl";
+
+	const std::string CUBE_SHADER_FRAGMENT = R"glsl(
+@CD_SHADERSRC_FRAGMENT@
+)glsl";
+}
