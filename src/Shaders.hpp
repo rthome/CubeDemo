@@ -54,11 +54,11 @@ vec3 ads_light()
 	vec3 n = normalize(fragNormal);
 	vec3 s = normalize(LightPosition - fragPosition);
 	vec3 v = normalize(-fragPosition);
-	vec3 r = reflect(-s, n);
+	vec3 h = normalize(v + s);
 	
 	vec3 A = Ka;
-	vec3 D = Kd * max(dot(s, n), 0.0);
-	vec3 S = Ks * pow(max(dot(r, v), 0.0), Shininess);
+	vec3 D = Kd * max(dot(s, fragNormal), 0.0);
+	vec3 S = Ks * pow(max(dot(h, n), 0.0), Shininess);
 	vec3 L = LightIntensity * (A + D + S);
 	return L;
 }
