@@ -17,6 +17,7 @@ in vec3 normal;
 out vec3 fragPosition;
 out vec3 fragNormal;
 
+uniform samplerBuffer InstancePositions;
 uniform mat4 ModelViewMatrix;
 uniform mat4 ProjectionMatrix;
 uniform mat4 MVP;
@@ -28,7 +29,7 @@ void main()
 	vec3 offsetPosition = position + instanceOffset;
 
 	fragNormal = normalize(NormalMatrix * normal);
-	fragPosition = ModelViewMatrix * vec4(offsetPosition, 1.0);
+	fragPosition = vec3(ModelViewMatrix * vec4(offsetPosition, 1.0));
 	gl_Position = MVP * vec4(offsetPosition, 1.0);
 }
 )glsl";
@@ -64,7 +65,7 @@ vec3 ads_light()
 
 void main()
 {
-	fragment = vec4(light_ads(), 1.0);
+	fragment = vec4(ads_light(), 1.0);
 }
 )glsl";
 }
