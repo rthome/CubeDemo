@@ -133,7 +133,7 @@ namespace cubedemo
 		m_shader.attachShaderFromSource(gl::FRAGMENT_SHADER, CUBE_SHADER_FRAGMENT);
 		m_shader.link();
 		m_shader.addAttributes({ "position", "normal" });
-		m_shader.addUniforms({"MVP", "InstancePositions" , "ModelViewMatrix", "ProjectionMatrix", "NormalMatrix", "LightPosition", "LightIntensity", "Kd", "Ka", "Ks", "Shininess" });
+		m_shader.addUniforms({"MVP", "InstancePositions" , "ModelViewMatrix", "ProjectionMatrix", "NormalMatrix", "LightPosition", "LightIntensity", "Kd", "Ka", "Ks", "Shininess", "Gamma" });
 		GL_CHECK_ERRORS;
 
 		// set up vao
@@ -224,6 +224,7 @@ namespace cubedemo
 			gl::Uniform3fv(m_shader("Kd"), 1, glm::value_ptr(DIFFUSE_COLOR));
 			gl::Uniform3fv(m_shader("Ka"), 1, glm::value_ptr(AMBIENT_COLOR));
 			gl::Uniform3fv(m_shader("Ks"), 1, glm::value_ptr(SPECULAR_COLOR));
+			gl::Uniform1f(m_shader("Gamma"), GAMMA);
 
 			gl::DrawElementsInstanced(gl::TRIANGLES, (GLsizei)CUBE_INDICES.size(), gl::UNSIGNED_BYTE, nullptr, (GLsizei)m_instanceCount);
 			GL_CHECK_ERRORS;

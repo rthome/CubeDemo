@@ -48,6 +48,7 @@ uniform vec3 Kd;
 uniform vec3 Ka;
 uniform vec3 Ks;
 uniform float Shininess;
+uniform float Gamma;
 
 vec3 ads_light()
 {
@@ -63,9 +64,15 @@ vec3 ads_light()
 	return L;
 }
 
+vec3 correct_gamma(vec3 color)
+{
+	return pow(color, vec3(1.0 / Gamma));
+}
+
 void main()
 {
-	fragment = vec4(ads_light(), 1.0);
+	vec3 color = ads_light();
+	fragment = vec4(correct_gamma(color), 1.0);
 }
 )glsl";
 }

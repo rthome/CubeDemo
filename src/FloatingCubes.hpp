@@ -58,6 +58,10 @@ namespace cubedemo
 	// Renders cubes from FloatingCubes
 	class FloatingCubesRenderer
 	{
+	public:
+		// This should be set to a system-appropriate value
+		const float GAMMA = 2.2f;
+
 	private:
 		GLuint m_vao; // Vertex array object
 		GLuint m_positionsVBO; // VBO for base position data
