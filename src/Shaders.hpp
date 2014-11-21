@@ -2,6 +2,10 @@
 
 #include <string>
 
+// TODO: Put shader code into their own files
+// Either embed in executable or load from file system
+// CMake configure_file for that?
+
 namespace cubedemo
 {
 	const std::string CUBE_SHADER_VERTEX = R"glsl(
