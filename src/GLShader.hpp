@@ -3,6 +3,7 @@
 #include <list>
 #include <string>
 #include <unordered_map>
+#include <initializer_list>
 
 #include "gl_core_3_3.hpp"
 
@@ -30,6 +31,8 @@ namespace cubedemo
 
 		void addAttribute(const std::string& attribName);
 		void addUniform(const std::string& uniformName);
+		void addAttributes(std::initializer_list<std::string> attributeNames);
+		void addUniforms(std::initializer_list<std::string> uniformNames);
 
 		GLuint operator[](const std::string& attribName) const;
 		GLuint operator()(const std::string& uniformName) const;

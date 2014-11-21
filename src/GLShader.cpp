@@ -91,6 +91,18 @@ namespace cubedemo
 		m_uniforms[uniformName] = gl::GetUniformLocation(m_program, uniformName.c_str());
 	}
 
+	void GLShader::addAttributes(std::initializer_list<std::string> attributeNames)
+	{
+		for (auto attrib : attributeNames)
+			addAttribute(attrib);
+	}
+
+	void GLShader::addUniforms(std::initializer_list<std::string> uniformNames)
+	{
+		for (auto uniform : uniformNames)
+			addUniform(uniform);
+	}
+
 	GLuint GLShader::operator[](const std::string& attribName) const
 	{
 		return m_attributes.at(attribName);

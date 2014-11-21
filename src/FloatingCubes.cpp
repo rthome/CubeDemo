@@ -132,20 +132,8 @@ namespace cubedemo
 		m_shader.attachShaderFromSource(gl::VERTEX_SHADER, CUBE_SHADER_VERTEX);
 		m_shader.attachShaderFromSource(gl::FRAGMENT_SHADER, CUBE_SHADER_FRAGMENT);
 		m_shader.link();
-		m_shader.addAttribute("position");
-		m_shader.addAttribute("normal");
-		// TODO: Do something about this shit
-		m_shader.addUniform("MVP");
-		m_shader.addUniform("InstancePositions");
-		m_shader.addUniform("ModelViewMatrix");
-		m_shader.addUniform("ProjectionMatrix");
-		m_shader.addUniform("NormalMatrix");
-		m_shader.addUniform("LightPosition");
-		m_shader.addUniform("LightIntensity");
-		m_shader.addUniform("Kd");
-		m_shader.addUniform("Ka");
-		m_shader.addUniform("Ks");
-		m_shader.addUniform("Shininess");
+		m_shader.addAttributes({ "position", "normal" });
+		m_shader.addUniforms({"MVP", "InstancePositions" , "ModelViewMatrix", "ProjectionMatrix", "NormalMatrix", "LightPosition", "LightIntensity", "Kd", "Ka", "Ks", "Shininess" });
 		GL_CHECK_ERRORS;
 
 		// set up vao
