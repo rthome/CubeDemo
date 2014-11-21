@@ -9,7 +9,7 @@
 #include "GameTime.hpp"
 
 // Whether to limit rendering to 60 fps
-#define ENABLE_FRAMELIMITING
+// #define ENABLE_FRAMELIMITING
 
 // Constants for initial window size
 static const size_t WINDOW_WIDTH = 1280;
@@ -123,7 +123,8 @@ int main(int argc, char const *argv[])
 		GL_CHECK_ERRORS;
 
 #ifdef ENABLE_FRAMELIMITING
-        const float TARGET_TIME = 16.667f; // 60 fps
+        // TODO: Find out why this causes stuttering on Windows.
+		const float TARGET_TIME = 16.667f; // 60 fps
 		while (time.timeSince().count() < TARGET_TIME)
         {
             std::this_thread::sleep_for(chrono::microseconds(600));
