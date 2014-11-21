@@ -2,6 +2,10 @@
 
 #include <string>
 
+// TODO: Put shader code into their own files
+// Either embed in executable or load from file system
+// CMake configure_file for that?
+
 namespace cubedemo
 {
 	const std::string CUBE_SHADER_VERTEX = R"glsl(
@@ -10,53 +14,58 @@ namespace cubedemo
 in vec3 position;
 in vec3 normal;
 
-out vec3 eyespaceNormal;
-out vec3 diffuseColor;
+out vec3 fragPosition;
+out vec3 fragNormal;
 
+uniform samplerBuffer InstancePositions;
+uniform mat4 ModelViewMatrix;
+uniform mat4 ProjectionMatrix;
 uniform mat4 MVP;
 uniform mat3 NormalMatrix;
-uniform vec3 DiffuseColor;
-uniform samplerBuffer InstancePositions;
 
 void main()
 {
-	vec4 offset = texelFetch(InstancePositions, gl_InstanceID);
+	vec3 instanceOffset = texelFetch(InstancePositions, gl_InstanceID).xyz;
+	vec3 offsetPosition = position + instanceOffset;
 
-	eyespaceNormal = NormalMatrix * normal;
-    diffuseColor = DiffuseColor;
-    
-	vec4 offsetPosition = vec4(position, 1.0) + offset;
-	gl_Position = MVP * offsetPosition;
+	fragNormal = normalize(NormalMatrix * normal);
+	fragPosition = vec3(ModelViewMatrix * vec4(offsetPosition, 1.0));
+	gl_Position = MVP * vec4(offsetPosition, 1.0);
 }
 )glsl";
 
 	const std::string CUBE_SHADER_FRAGMENT = R"glsl(
 #version 330
 
-in vec3 eyespaceNormal;
-in vec3 diffuseColor;
+in vec3 fragPosition;
+in vec3 fragNormal;
 
 out vec4 fragment;
 
-uniform vec3 AmbientColor;
-uniform vec3 SpecularColor;
-uniform float Shininess;
 uniform vec3 LightPosition;
+uniform vec3 LightIntensity;
+uniform vec3 Kd;
+uniform vec3 Ka;
+uniform vec3 Ks;
+uniform float Shininess;
+
+vec3 ads_light()
+{
+	vec3 n = normalize(fragNormal);
+	vec3 s = normalize(LightPosition - fragPosition);
+	vec3 v = normalize(-fragPosition);
+	vec3 r = reflect(-s, n);
+	
+	vec3 A = Ka;
+	vec3 D = Kd * max(dot(s, n), 0.0);
+	vec3 S = Ks * pow(max(dot(r, v), 0.0), Shininess);
+	vec3 L = LightIntensity * (A + D + S);
+	return L;
+}
 
 void main()
 {
-    vec3 N = normalize(eyespaceNormal);
-    vec3 L = normalize(LightPosition);
-    vec3 E = vec3(0, 1, 0);
-    vec3 H = normalize(L + E);
-    
-    float df = max(0, dot(N, L));
-    float sf = max(0, dot(N, H));
-    sf = pow(sf, Shininess);
-    
-    vec3 color = AmbientColor + df * diffuseColor + sf * SpecularColor;
-    
-    fragment = vec4(color, 1);
+	fragment = vec4(ads_light(), 1.0);
 }
 )glsl";
 }

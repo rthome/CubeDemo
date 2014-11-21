@@ -134,14 +134,18 @@ namespace cubedemo
 		m_shader.link();
 		m_shader.addAttribute("position");
 		m_shader.addAttribute("normal");
+		// TODO: Do something about this shit
 		m_shader.addUniform("MVP");
 		m_shader.addUniform("InstancePositions");
+		m_shader.addUniform("ModelViewMatrix");
+		m_shader.addUniform("ProjectionMatrix");
 		m_shader.addUniform("NormalMatrix");
-		m_shader.addUniform("AmbientColor");
-		m_shader.addUniform("DiffuseColor");
-		m_shader.addUniform("SpecularColor");
-		m_shader.addUniform("Shininess");
 		m_shader.addUniform("LightPosition");
+		m_shader.addUniform("LightIntensity");
+		m_shader.addUniform("Kd");
+		m_shader.addUniform("Ka");
+		m_shader.addUniform("Ks");
+		m_shader.addUniform("Shininess");
 		GL_CHECK_ERRORS;
 
 		// set up vao
@@ -211,7 +215,8 @@ namespace cubedemo
 		auto mvp = m_projectionMatrix * m_modelviewMatrix;
 		auto normalMat = glm::inverseTranspose(glm::mat3(m_modelviewMatrix));
 
-		glm::vec3 lightPos{ 0.0f, 10.0f, 1.0f };
+		glm::vec3 lightPos{ 0.0f };
+		glm::vec3 lightIntensity{ 1.0f };
 
 		gl::BindVertexArray(m_vao);
 		m_shader.use();
@@ -222,12 +227,15 @@ namespace cubedemo
 
 			gl::Uniform1i(m_shader("InstancePositions"), 0);
 			gl::UniformMatrix4fv(m_shader("MVP"), 1, gl::FALSE_, glm::value_ptr(mvp));
+			gl::UniformMatrix4fv(m_shader("ModelViewMatrix"), 1, gl::FALSE_, glm::value_ptr(m_modelviewMatrix));
+			gl::UniformMatrix4fv(m_shader("ProjectionMatrix"), 1, gl::FALSE_, glm::value_ptr(m_projectionMatrix));
 			gl::UniformMatrix3fv(m_shader("NormalMatrix"), 1, gl::FALSE_, glm::value_ptr(normalMat));
 			gl::Uniform1f(m_shader("Shininess"), SHININESS);
 			gl::Uniform3fv(m_shader("LightPosition"), 1, glm::value_ptr(lightPos));
-			gl::Uniform3fv(m_shader("AmbientColor"), 1, glm::value_ptr(AMBIENT_COLOR));
-			gl::Uniform3fv(m_shader("DiffuseColor"), 1, glm::value_ptr(DIFFUSE_COLOR));
-			gl::Uniform3fv(m_shader("SpecularColor"), 1, glm::value_ptr(SPECULAR_COLOR));
+			gl::Uniform3fv(m_shader("LightIntensity"), 1, glm::value_ptr(lightIntensity));
+			gl::Uniform3fv(m_shader("Kd"), 1, glm::value_ptr(DIFFUSE_COLOR));
+			gl::Uniform3fv(m_shader("Ka"), 1, glm::value_ptr(AMBIENT_COLOR));
+			gl::Uniform3fv(m_shader("Ks"), 1, glm::value_ptr(SPECULAR_COLOR));
 
 			gl::DrawElementsInstanced(gl::TRIANGLES, (GLsizei)CUBE_INDICES.size(), gl::UNSIGNED_BYTE, nullptr, (GLsizei)m_instanceCount);
 			GL_CHECK_ERRORS;
