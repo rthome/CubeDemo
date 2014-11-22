@@ -11,6 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_inverse.hpp>
+#include <glm/gtc/noise.hpp>
 
 #include "Util.hpp"
 #include "Shaders.hpp"
@@ -59,7 +60,8 @@ namespace cubedemo
 				m_cubeStates.states[i] = CubeState::Moving;
 			}
 
-			m_cubeStates.positions[i] += m_cubeStates.velocities[i] * time.deltaTime.count() * 0.01f;
+			m_cubeStates.positions[i] += m_cubeStates.velocities[i] * time.deltaTime.count() * 0.01f
+				* (glm::simplex(m_cubeStates.positions[i] * 0.06f) * 0.5f + 0.5f);
 
 			if (glm::length(m_cubeStates.positions[i] - glm::vec3{ 0.0f }) > 600.0f)
 				m_cubeStates.states[i] = CubeState::Dead;
