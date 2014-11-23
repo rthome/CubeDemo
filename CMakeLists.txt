@@ -43,6 +43,7 @@ set(CD_SOURCES
 	src/GLShader.cpp
 	src/FloatingCubes.cpp
 	src/GameTime.cpp
+    src/Spiral.cpp
 	src/Main.cpp)
 
 set(CD_HEADERS
@@ -50,6 +51,7 @@ set(CD_HEADERS
 	src/GLShader.hpp
 	src/FloatingCubes.hpp
 	src/GameTime.hpp
+    src/Spiral.hpp
 	src/Util.hpp)
 
 set(CD_SHADERFILES

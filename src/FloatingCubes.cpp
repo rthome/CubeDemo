@@ -15,6 +15,7 @@
 
 #include "Util.hpp"
 #include "Shaders.hpp"
+#include "Spiral.hpp"
 
 namespace cubedemo
 {
@@ -23,7 +24,7 @@ namespace cubedemo
 	// // //
 
 	CubeStates::CubeStates(size_t size)
-		: states{ new CubeState[size] }, positions{ new glm::vec3[size] }, velocities{ new glm::vec3[size] }, rotations{ new glm::quat[size] }
+    : states{ new CubeState[size] }, helices{ new HelixData[size] }, positions{ new glm::vec3[size] }, hpositions{ new glm::vec3[size] }, velocities{ new glm::vec3[size] }, rotations{ new glm::quat[size] }
 	{
 		std::fill(states, states + size, CubeState::Dead);
 	}
@@ -31,7 +32,9 @@ namespace cubedemo
 	CubeStates::~CubeStates()
 	{
 		delete[] states;
+        delete[] helices;
 		delete[] positions;
+        delete[] hpositions;
 		delete[] velocities;
 		delete[] rotations;
 	}
@@ -57,13 +60,13 @@ namespace cubedemo
 			{
 				m_cubeStates.positions[i] = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
 				m_cubeStates.velocities[i] = glm::vec3{ velocityRandDistrib(randEngine), velocityRandDistrib(randEngine), velocityRandDistrib(randEngine) };
+                m_cubeStates.helices[i] = HelixData{ 2 + 3 * velocityRandDistrib(randEngine), velocityRandDistrib(randEngine), velocityRandDistrib(randEngine) };
 				m_cubeStates.states[i] = CubeState::Moving;
 			}
 
-			m_cubeStates.positions[i] += m_cubeStates.velocities[i] * time.deltaTime.count() * 0.01f
-				* (glm::simplex(m_cubeStates.positions[i] * 0.06f) * 0.5f + 0.5f);
+            m_cubeStates.hpositions[i] = mapOntoHelix(m_cubeStates.positions[i], m_cubeStates.helices[i], 0.001f * (float)time.totalTime.count());
 
-			if (glm::length(m_cubeStates.positions[i] - glm::vec3{ 0.0f }) > 600.0f)
+			if (glm::length(m_cubeStates.hpositions[i] - glm::vec3{ 0.0f }) > 600.0f)
 				m_cubeStates.states[i] = CubeState::Dead;
 		}
 	}

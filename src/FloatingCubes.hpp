@@ -8,6 +8,7 @@
 #include "gl_core_3_3.hpp"
 #include "GLShader.hpp"
 #include "GameTime.hpp"
+#include "Spiral.hpp"
 
 namespace cubedemo
 {
@@ -26,10 +27,13 @@ namespace cubedemo
 		FadeOut,
 	};
 
+    // Contains per-cube state for a collection of cubes
 	struct CubeStates
 	{
 		CubeState *states; // The state each vector is in
+        HelixData *helices; // Helix data for each cube
 		glm::vec3 *positions; // The center of each cube
+        glm::vec3 *hpositions; // The mapped center position of each cube
 		glm::vec3 *velocities; // The movement direction and speed of each cube
 		glm::quat *rotations; // The rotation of each cube
 
@@ -49,7 +53,7 @@ namespace cubedemo
 
 		inline size_t count() const { return m_cubeCount; }
 		inline const CubeState* cubeStates() const { return m_cubeStates.states; }
-		inline const glm::vec3* cubePositions() const { return m_cubeStates.positions; }
+		inline const glm::vec3* cubePositions() const { return m_cubeStates.hpositions; }
 		inline const glm::quat* cubeRotations() const { return m_cubeStates.rotations; }
 
 		void update(const GameTime& time); // Update the state of each cube

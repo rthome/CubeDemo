@@ -16,6 +16,9 @@ namespace cubedemo
 		GTDeltaDuration deltaTime; // Time since last update in milliseconds
 		GameTimePoint point; // Time of creation
 
+        // TODO: Provide elapsed time in full seconds and a fraction of the ongoing millisecond
+        // This would provide maximum accuracy when required without sacrificing it when t becomes large
+        
 		GameTime();
 		GameTime(const GameTime&) = default;
 		GameTime(const GameTimePoint& point, const GTAccumDuration& total, const GTDeltaDuration& delta);
