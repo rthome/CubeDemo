@@ -13,6 +13,7 @@ namespace cubedemo
         auto x = helix.r * cos(t * TWO_PI + helix.t0);
         auto z = helix.r * sin(t * TWO_PI + helix.t0);
         auto y = helix.h * t;
-        return helix.position + glm::vec3 { x, y, z };
+        auto curvePos = glm::vec3 { x, y, z };
+		return helix.position + curvePos;
     }
 }

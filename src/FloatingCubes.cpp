@@ -57,14 +57,14 @@ namespace cubedemo
 			if (m_cubeStates.states[i] == CubeState::Dead)
 			{
 				m_cubeStates.states[i] = CubeState::Moving;
-				m_cubeStates.helices[i].r = 2 + 3 * velocityRandDistrib(randEngine);
+				m_cubeStates.helices[i].r = 2 + 10 * velocityRandDistrib(randEngine);
 				m_cubeStates.helices[i].h = 1 + velocityRandDistrib(randEngine);
 				m_cubeStates.helices[i].t0 = velocityRandDistrib(randEngine);
 				m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
-				m_cubeStates.helices[i].direction = glm::vec3(1.0f, 0.0f, 0.0f);
+				m_cubeStates.helices[i].direction = glm::vec3(0.0f);
 			}
 
-			m_cubeStates.positions[i] = mapOntoHelix(m_cubeStates.helices[i], 0.001f * (float)time.totalTime.count());
+			m_cubeStates.positions[i] = mapOntoHelix(m_cubeStates.helices[i], 0.0001f * (float)time.totalTime.count());
 
 			if (glm::length(m_cubeStates.positions[i] - glm::vec3{ 0.0f }) > 600.0f)
 				m_cubeStates.states[i] = CubeState::Dead;
