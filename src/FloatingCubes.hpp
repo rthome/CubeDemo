@@ -32,9 +32,7 @@ namespace cubedemo
 	{
 		CubeState *states; // The state each vector is in
         HelixData *helices; // Helix data for each cube
-		glm::vec3 *positions; // The center of each cube
-        glm::vec3 *hpositions; // The mapped center position of each cube
-		glm::vec3 *velocities; // The movement direction and speed of each cube
+		glm::vec3 *positions; // The center of each cube after applying any mapping and movement
 		glm::quat *rotations; // The rotation of each cube
 
 		CubeStates(size_t size);
@@ -53,7 +51,7 @@ namespace cubedemo
 
 		inline size_t count() const { return m_cubeCount; }
 		inline const CubeState* cubeStates() const { return m_cubeStates.states; }
-		inline const glm::vec3* cubePositions() const { return m_cubeStates.hpositions; }
+		inline const glm::vec3* cubePositions() const { return m_cubeStates.positions; }
 		inline const glm::quat* cubeRotations() const { return m_cubeStates.rotations; }
 
 		void update(const GameTime& time); // Update the state of each cube

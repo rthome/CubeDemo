@@ -8,11 +8,11 @@ namespace cubedemo
 {
     static const float TWO_PI = glm::pi<float>() * 2.0f;
     
-    glm::vec3 mapOntoHelix(const glm::vec3& pos, const HelixData& helix, float t)
+    glm::vec3 mapOntoHelix(const HelixData& helix, float t)
     {
         auto x = helix.r * cos(t * TWO_PI + helix.t0);
         auto z = helix.r * sin(t * TWO_PI + helix.t0);
         auto y = helix.h * t;
-        return pos + glm::vec3 { x, y, z };
+        return helix.position + glm::vec3 { x, y, z };
     }
 }

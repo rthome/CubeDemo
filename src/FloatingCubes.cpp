@@ -24,7 +24,7 @@ namespace cubedemo
 	// // //
 
 	CubeStates::CubeStates(size_t size)
-    : states{ new CubeState[size] }, helices{ new HelixData[size] }, positions{ new glm::vec3[size] }, hpositions{ new glm::vec3[size] }, velocities{ new glm::vec3[size] }, rotations{ new glm::quat[size] }
+		: states{ new CubeState[size] }, helices{ new HelixData[size] }, positions{ new glm::vec3[size] }, rotations{ new glm::quat[size] }
 	{
 		std::fill(states, states + size, CubeState::Dead);
 	}
@@ -32,10 +32,8 @@ namespace cubedemo
 	CubeStates::~CubeStates()
 	{
 		delete[] states;
-        delete[] helices;
+		delete[] helices;
 		delete[] positions;
-        delete[] hpositions;
-		delete[] velocities;
 		delete[] rotations;
 	}
 
@@ -58,15 +56,17 @@ namespace cubedemo
 		{
 			if (m_cubeStates.states[i] == CubeState::Dead)
 			{
-				m_cubeStates.positions[i] = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
-				m_cubeStates.velocities[i] = glm::vec3{ velocityRandDistrib(randEngine), velocityRandDistrib(randEngine), velocityRandDistrib(randEngine) };
-                m_cubeStates.helices[i] = HelixData{ 2 + 3 * velocityRandDistrib(randEngine), velocityRandDistrib(randEngine), velocityRandDistrib(randEngine) };
 				m_cubeStates.states[i] = CubeState::Moving;
+				m_cubeStates.helices[i].r = 2 + 3 * velocityRandDistrib(randEngine);
+				m_cubeStates.helices[i].h = 1 + velocityRandDistrib(randEngine);
+				m_cubeStates.helices[i].t0 = velocityRandDistrib(randEngine);
+				m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
+				m_cubeStates.helices[i].direction = glm::vec3(1.0f, 0.0f, 0.0f);
 			}
 
-            m_cubeStates.hpositions[i] = mapOntoHelix(m_cubeStates.positions[i], m_cubeStates.helices[i], 0.001f * (float)time.totalTime.count());
+			m_cubeStates.positions[i] = mapOntoHelix(m_cubeStates.helices[i], 0.001f * (float)time.totalTime.count());
 
-			if (glm::length(m_cubeStates.hpositions[i] - glm::vec3{ 0.0f }) > 600.0f)
+			if (glm::length(m_cubeStates.positions[i] - glm::vec3{ 0.0f }) > 600.0f)
 				m_cubeStates.states[i] = CubeState::Dead;
 		}
 	}
@@ -138,7 +138,7 @@ namespace cubedemo
 		m_shader.attachShaderFromSource(gl::FRAGMENT_SHADER, CUBE_SHADER_FRAGMENT);
 		m_shader.link();
 		m_shader.addAttributes({ "position", "normal" });
-		m_shader.addUniforms({"MVP", "InstancePositions" , "ModelViewMatrix", "ProjectionMatrix", "NormalMatrix", "LightPosition", "LightIntensity", "Kd", "Ka", "Ks", "Shininess", "Gamma" });
+		m_shader.addUniforms({ "MVP", "InstancePositions" , "ModelViewMatrix", "ProjectionMatrix", "NormalMatrix", "LightPosition", "LightIntensity", "Kd", "Ka", "Ks", "Shininess", "Gamma" });
 		GL_CHECK_ERRORS;
 
 		// set up vao
