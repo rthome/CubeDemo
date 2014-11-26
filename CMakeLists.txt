@@ -56,6 +56,7 @@ set(CD_HEADERS
     src/TriangleBackground.hpp
 	src/GameTime.hpp
     src/Spiral.hpp
+	src/NonCopyable.hpp
 	src/Util.hpp)
 
 set(CD_SHADERFILES

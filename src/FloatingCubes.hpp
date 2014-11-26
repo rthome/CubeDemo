@@ -9,6 +9,7 @@
 #include "GLShader.hpp"
 #include "GameTime.hpp"
 #include "Spiral.hpp"
+#include "NonCopyable.hpp"
 
 namespace cubedemo
 {
@@ -60,7 +61,7 @@ namespace cubedemo
 	};
 
 	// Renders cubes from FloatingCubes
-	class FloatingCubesRenderer
+	class FloatingCubesRenderer : private NonCopyable
 	{
 	public:
 		// This should be set to a system-appropriate value
