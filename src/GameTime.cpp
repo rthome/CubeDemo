@@ -1,4 +1,4 @@
-#include "gametime.hpp"
+#include "GameTime.hpp"
 
 namespace cubedemo
 {
