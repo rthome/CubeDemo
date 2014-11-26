@@ -14,7 +14,6 @@
 namespace cubedemo
 {
 	// The states a cube can be in:
-	// Spawned - Just spawned, not yet fading in
 	// FadeIn - Just spawned, fading it in
 	// Moving - Moving around
 	// FadeOut - Despawning, but still fading out
@@ -22,7 +21,6 @@ namespace cubedemo
 	enum class CubeState
 	{
 		Dead,
-		Spawned,
 		FadeIn,
 		Moving,
 		FadeOut,

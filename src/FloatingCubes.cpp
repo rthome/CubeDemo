@@ -41,11 +41,6 @@ namespace cubedemo
 	// // //
 	// FloatingCubes implementation
 	// // //
-
-    inline bool isAlive(CubeState state)
-    {
-        return state != CubeState::Dead;
-    }
     
     inline float deltaOpacity(float seconds, const GameTime& time)
     {
@@ -59,6 +54,7 @@ namespace cubedemo
 
 	void FloatingCubes::update(const GameTime& time)
 	{
+		// TODO: Change random number generation to be less shitty
 		static std::default_random_engine randEngine;
 		static std::uniform_real_distribution<float> startRandDistrib{ -300.0f, 300.0f };
         static std::uniform_real_distribution<float> directionRandDistrib { -1.0f, 1.0f };
@@ -271,17 +267,17 @@ namespace cubedemo
 			gl::ActiveTexture(gl::TEXTURE0 + 0);
 			gl::BindTexture(gl::TEXTURE_BUFFER, m_positionBufferTexture);
 			gl::TexBuffer(gl::TEXTURE_BUFFER, gl::RGBA32F, m_instancePositionsVBO);
+			gl::Uniform1i(m_shader("InstancePositions"), 0);
             GL_CHECK_ERRORS;
             
             // Opacity buffer texture
             gl::ActiveTexture(gl::TEXTURE0 + 1);
             gl::BindTexture(gl::TEXTURE_BUFFER, m_opacityBufferTexture);
             gl::TexBuffer(gl::TEXTURE_BUFFER, gl::R32F, m_instanceOpacitiesVBO);
+            gl::Uniform1i(m_shader("InstanceOpacities"), 1);
             GL_CHECK_ERRORS;
 
             // Uniforms
-			gl::Uniform1i(m_shader("InstancePositions"), 0);
-            gl::Uniform1i(m_shader("InstanceOpacities"), 1);
 			gl::UniformMatrix4fv(m_shader("MVP"), 1, gl::FALSE_, glm::value_ptr(mvp));
 			gl::UniformMatrix4fv(m_shader("ModelViewMatrix"), 1, gl::FALSE_, glm::value_ptr(m_modelviewMatrix));
 			gl::UniformMatrix4fv(m_shader("ProjectionMatrix"), 1, gl::FALSE_, glm::value_ptr(m_projectionMatrix));
