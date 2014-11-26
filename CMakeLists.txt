@@ -32,6 +32,8 @@ add_definitions(-DGLM_FORCE_RADIANS)
 
 file(READ "${PROJECT_SOURCE_DIR}/src/shaders/cubes_vert.glsl" CD_SHADERSRC_CUBES_VERTEX)
 file(READ "${PROJECT_SOURCE_DIR}/src/shaders/cubes_frag.glsl" CD_SHADERSRC_CUBES_FRAGMENT)
+file(READ "${PROJECT_SOURCE_DIR}/src/shaders/background_vert.glsl" CD_SHADERSRC_BACKGROUND_VERTEX)
+file(READ "${PROJECT_SOURCE_DIR}/src/shaders/background_frag.glsl" CD_SHADERSRC_BACKGROUND_FRAGMENT)
 
 # Create shader header file
 set(CD_SOURCES_TEMPLATE_PATH "${PROJECT_SOURCE_DIR}/src/Shaders.hpp.in")
@@ -55,6 +57,8 @@ set(CD_HEADERS
 	src/Util.hpp)
 
 set(CD_SHADERFILES
+    src/shaders/background_vert.glsl
+    src/shaders/background_frag.glsl
 	src/shaders/cubes_vert.glsl
 	src/shaders/cubes_frag.glsl)
 

@@ -10,10 +10,18 @@
 namespace cubedemo
 {
 	const std::string CUBE_SHADER_CUBES_VERTEX = R"glsl(
-@CD_SHADERSRC_VERTEX@
+@CD_SHADERSRC_CUBES_VERTEX@
 )glsl";
 
 	const std::string CUBE_SHADER_CUBES_FRAGMENT = R"glsl(
-@CD_SHADERSRC_FRAGMENT@
+@CD_SHADERSRC_CUBES_FRAGMENT@
+)glsl";
+
+const std::string CUBE_SHADER_BACKGROUND_VERTEX = R"glsl(
+@CD_SHADERSRC_BACKGROUND_VERTEX@
+)glsl";
+
+const std::string CUBE_SHADER_BACKGROUND_FRAGMENT = R"glsl(
+@CD_SHADERSRC_BACKGROUND_FRAGMENT@
 )glsl";
 }
