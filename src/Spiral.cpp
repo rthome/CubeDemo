@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include <glm/gtc/constants.hpp>
 
 namespace cubedemo
@@ -14,6 +16,10 @@ namespace cubedemo
         auto z = helix.r * sin(t * TWO_PI + helix.t0);
         auto y = helix.h * t;
         auto curvePos = glm::vec3 { x, y, z };
-		return helix.position + curvePos;
+        
+        auto rotationQuat = glm::rotation(glm::normalize(curvePos - helix.position), glm::normalize(helix.direction));
+        auto rotatedCurvePos = glm::rotate(rotationQuat, curvePos);
+        
+        return helix.position + rotatedCurvePos;
     }
 }

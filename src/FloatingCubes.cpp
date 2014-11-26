@@ -50,18 +50,19 @@ namespace cubedemo
 	{
 		static std::default_random_engine randEngine;
 		static std::uniform_real_distribution<float> startRandDistrib{ -300.0f, 300.0f };
-		static std::normal_distribution<float> velocityRandDistrib{ 0.0f, 4.0f };
+        static std::uniform_real_distribution<float> directionRandDistrib { -1.0f, 1.0f };
+        static std::normal_distribution<float> movementRandDistrib { 1.0f, 2.0f };
 
 		for (size_t i = 0; i < m_cubeCount; i++)
 		{
 			if (m_cubeStates.states[i] == CubeState::Dead)
 			{
 				m_cubeStates.states[i] = CubeState::Moving;
-				m_cubeStates.helices[i].r = 2 + 10 * velocityRandDistrib(randEngine);
-				m_cubeStates.helices[i].h = 1 + velocityRandDistrib(randEngine);
-				m_cubeStates.helices[i].t0 = velocityRandDistrib(randEngine);
+                m_cubeStates.helices[i].r = 2 + 10.0f * abs(movementRandDistrib(randEngine));
+				m_cubeStates.helices[i].h = 0.5f + 2.0f * movementRandDistrib(randEngine);
+                m_cubeStates.helices[i].t0 = movementRandDistrib(randEngine);
 				m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
-				m_cubeStates.helices[i].direction = glm::vec3(0.0f);
+                m_cubeStates.helices[i].direction = glm::vec3 { directionRandDistrib(randEngine), directionRandDistrib(randEngine), directionRandDistrib(randEngine) };
 			}
 
 			m_cubeStates.positions[i] = mapOntoHelix(m_cubeStates.helices[i], 0.0001f * (float)time.totalTime.count());
