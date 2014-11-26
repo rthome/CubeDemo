@@ -1,7 +1,7 @@
 #version 330
 
 in vec3 position;
-in vec3 brightness;
+in float brightness;
 
 out vec4 vertColor;
 
@@ -10,6 +10,6 @@ uniform mat4 MVP;
 
 void main()
 {
-	vertColor = abs(normalize(BaseColor + vec4(brightness, 1.0)));
+	vertColor = vec4(BaseColor.rgb, brightness);
 	gl_Position = MVP * vec4(position, 1.0);
 }

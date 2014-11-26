@@ -94,9 +94,9 @@ namespace cubedemo
 			// Brightness
 			// No data yet, will be copied in update()
 			gl::BindBuffer(gl::ARRAY_BUFFER, m_brightnessVBO);
-			gl::BufferData(gl::ARRAY_BUFFER, sizeof(glm::vec3) * m_hcount * m_vcount, nullptr, gl::STREAM_DRAW);
+			gl::BufferData(gl::ARRAY_BUFFER, sizeof(float) * m_hcount * m_vcount, nullptr, gl::STREAM_DRAW);
 			gl::EnableVertexAttribArray(m_shader["brightness"]);
-			gl::VertexAttribPointer(m_shader["brightness"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
+			gl::VertexAttribPointer(m_shader["brightness"], 1, gl::FLOAT, gl::FALSE_, 0, nullptr);
 			GL_CHECK_ERRORS;
 
 			// Indices
@@ -118,20 +118,20 @@ namespace cubedemo
 
 	void TriangleBackground::update(const GameTime& time)
 	{
-		std::vector<glm::vec3> brightnessData;
+		std::vector<float> brightnessData;
 		for (size_t y = 0; y < m_vcount; y++)
 		{
 			for (size_t x = 0; x < m_hcount; x++)
 			{
-				auto noise = glm::simplex(glm::vec3{ (float)x, (float)y, time.totalTime.count() * 0.00025f });
-				brightnessData.push_back(glm::vec3{ noise, 0.0f, 0.0f });
+				auto noise = 0.5f * (1 + glm::simplex(glm::vec3{ (float)x, (float)y, time.totalTime.count() * 0.00025f }));
+				brightnessData.push_back(noise);
 			}
 		}
 
 		// Copy data into brightness VBO
 		gl::BindBuffer(gl::ARRAY_BUFFER, m_brightnessVBO);
 		{
-			gl::BufferSubData(gl::ARRAY_BUFFER, 0, sizeof(glm::vec3) * brightnessData.size(), brightnessData.data());
+			gl::BufferSubData(gl::ARRAY_BUFFER, 0, sizeof(float) * brightnessData.size(), brightnessData.data());
 		}
 		gl::BindBuffer(gl::ARRAY_BUFFER, 0);
 		GL_CHECK_ERRORS;
@@ -139,7 +139,7 @@ namespace cubedemo
 
 	void TriangleBackground::render(const GameTime& time)
 	{
-		glm::vec4 baseColor{ 1.0f, 0.2f, 0.3f, 0.5f };
+		glm::vec4 baseColor{ 1.0f, 0.761f, 0.0f, 1.0f };
 		glm::mat4 mvp = glm::ortho(0.0f, (float)m_hcount - 1, 0.0f, (float)m_vcount - 1);
 
 		gl::BindVertexArray(m_vao);
