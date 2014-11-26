@@ -30,8 +30,8 @@ endif()
 # Tell GLM to always use radians
 add_definitions(-DGLM_FORCE_RADIANS)
 
-file(READ "${PROJECT_SOURCE_DIR}/src/shaders/vertex.glsl" CD_SHADERSRC_VERTEX)
-file(READ "${PROJECT_SOURCE_DIR}/src/shaders/fragment.glsl" CD_SHADERSRC_FRAGMENT)
+file(READ "${PROJECT_SOURCE_DIR}/src/shaders/cubes_vert.glsl" CD_SHADERSRC_CUBES_VERTEX)
+file(READ "${PROJECT_SOURCE_DIR}/src/shaders/cubes_frag.glsl" CD_SHADERSRC_CUBES_FRAGMENT)
 
 # Create shader header file
 set(CD_SOURCES_TEMPLATE_PATH "${PROJECT_SOURCE_DIR}/src/Shaders.hpp.in")
@@ -55,8 +55,8 @@ set(CD_HEADERS
 	src/Util.hpp)
 
 set(CD_SHADERFILES
-	src/shaders/vertex.glsl
-	src/shaders/fragment.glsl)
+	src/shaders/cubes_vert.glsl
+	src/shaders/cubes_frag.glsl)
 
 set(CD_PROCESSEDFILES
 	${CD_SOURCES_TEMPLATE_PATH}
