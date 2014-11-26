@@ -124,7 +124,9 @@ int main(int argc, char const *argv[])
         background->update(time); // Update background animations
         floatingCubes.update(time); // Update cube states
 
-        background->render(); // Render background first
+        background->render(time); // Render background first
+		gl::Clear(gl::DEPTH_BUFFER_BIT); // Clear depth buffer to allow overdrawing of background
+
         renderer->update(floatingCubes); // Update renderer with new cube states
         renderer->render(); // Render cubes
 
