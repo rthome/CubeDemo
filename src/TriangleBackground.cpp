@@ -79,7 +79,7 @@ namespace cubedemo
 		// Generate triangle mesh data
 		auto positions = generateTriangleMeshPositions(hcount, vcount);
 		auto indices = generateTriangleMeshIndices(hcount, vcount);
-		m_elementCount = indices.size();
+		m_elementCount = (GLsizei)indices.size();
 
 		// Set up VAO and buffer data
 		gl::BindVertexArray(m_vao);
