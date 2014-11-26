@@ -124,8 +124,12 @@ int main(int argc, char const *argv[])
         background->update(time); // Update background animations
         floatingCubes.update(time); // Update cube states
 
+		// Draw background without depth testing because
+		// a) no overlap is possible
+		// b) we want to overdraw later with cubes
+		gl::Disable(gl::DEPTH_TEST);
         background->render(time); // Render background first
-		gl::Clear(gl::DEPTH_BUFFER_BIT); // Clear depth buffer to allow overdrawing of background
+		gl::Enable(gl::DEPTH_TEST);
 
         renderer->update(floatingCubes); // Update renderer with new cube states
         renderer->render(); // Render cubes
