@@ -1,12 +1,14 @@
 #include "TriangleBackground.hpp"
 
 #include <vector>
+#include <random>
 
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <glm/matrix.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/noise.hpp>
 
 #include "Shaders.hpp"
 #include "Util.hpp"
@@ -53,22 +55,26 @@ namespace cubedemo
 		return indices;
 	}
 
-    TriangleBackground::TriangleBackground(size_t hcount, size_t vcount)
-        : m_hcount{ hcount }, m_vcount{ vcount }
-    {
+	TriangleBackground::TriangleBackground(size_t hcount, size_t vcount)
+		: m_hcount{ hcount }, m_vcount{ vcount }
+	{
 		// Generate buffers etc
-        gl::GenVertexArrays(1, &m_vao);
+		gl::GenVertexArrays(1, &m_vao);
 		gl::GenBuffers(1, &m_positionsVBO);
 		gl::GenBuffers(1, &m_indices);
+		gl::GenBuffers(1, &m_brightnessVBO);
 		GL_CHECK_ERRORS;
 
 		// Set up shader
 		m_shader.attachShaderFromSource(gl::VERTEX_SHADER, CUBE_SHADER_BACKGROUND_VERTEX);
 		m_shader.attachShaderFromSource(gl::FRAGMENT_SHADER, CUBE_SHADER_BACKGROUND_FRAGMENT);
 		m_shader.link();
-		m_shader.addAttributes({ "position" });
-		m_shader.addUniforms({ "BaseColor", "MVP" });
+		m_shader.addAttributes({ "position", "brightness" });
+		m_shader.addUniforms({ "BaseColor", "MVP", "Gamma" });
 		GL_CHECK_ERRORS;
+
+		// TODO: Regenerate positions and indices when window size changes
+		// Preserve ratio of vertical to horizontal triangles
 
 		// Generate triangle mesh data
 		auto positions = generateTriangleMeshPositions(hcount, vcount);
@@ -85,40 +91,69 @@ namespace cubedemo
 			gl::VertexAttribPointer(m_shader["position"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
 			GL_CHECK_ERRORS;
 
+			// Brightness
+			// No data yet, will be copied in update()
+			gl::BindBuffer(gl::ARRAY_BUFFER, m_brightnessVBO);
+			gl::BufferData(gl::ARRAY_BUFFER, sizeof(glm::vec3) * m_hcount * m_vcount, nullptr, gl::STREAM_DRAW);
+			gl::EnableVertexAttribArray(m_shader["brightness"]);
+			gl::VertexAttribPointer(m_shader["brightness"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
+			GL_CHECK_ERRORS;
+
 			// Indices
 			gl::BindBuffer(gl::ELEMENT_ARRAY_BUFFER, m_indices);
 			gl::BufferData(gl::ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), indices.data(), gl::STATIC_DRAW);
 			GL_CHECK_ERRORS;
 		}
 		gl::BindVertexArray(0);
-    }
-    
-    TriangleBackground::~TriangleBackground()
-    {
+	}
+
+	TriangleBackground::~TriangleBackground()
+	{
+		gl::DeleteBuffers(1, &m_brightnessVBO);
 		gl::DeleteBuffers(1, &m_indices);
 		gl::DeleteBuffers(1, &m_positionsVBO);
-        gl::DeleteVertexArrays(1, &m_vao);
+		gl::DeleteVertexArrays(1, &m_vao);
 		GL_CHECK_ERRORS;
-    }
-    
-    void TriangleBackground::update(const GameTime& time)
-    {
-        
-    }
-    
-    void TriangleBackground::render(const GameTime& time)
-    {
+	}
+
+	void TriangleBackground::update(const GameTime& time)
+	{
+		std::vector<glm::vec3> brightnessData;
+		for (size_t y = 0; y < m_vcount; y++)
+		{
+			for (size_t x = 0; x < m_hcount; x++)
+			{
+				auto noise = glm::simplex(glm::vec3{ (float)x, (float)y, time.totalTime.count() * 0.00025f });
+				brightnessData.push_back(glm::vec3{ noise, 0.0f, 0.0f });
+			}
+		}
+
+		// Copy data into brightness VBO
+		gl::BindBuffer(gl::ARRAY_BUFFER, m_brightnessVBO);
+		{
+			gl::BufferSubData(gl::ARRAY_BUFFER, 0, sizeof(glm::vec3) * brightnessData.size(), brightnessData.data());
+		}
+		gl::BindBuffer(gl::ARRAY_BUFFER, 0);
+		GL_CHECK_ERRORS;
+	}
+
+	void TriangleBackground::render(const GameTime& time)
+	{
 		glm::vec4 baseColor{ 1.0f, 0.2f, 0.3f, 0.5f };
 		glm::mat4 mvp = glm::ortho(0.0f, (float)m_hcount - 1, 0.0f, (float)m_vcount - 1);
 
 		gl::BindVertexArray(m_vao);
 		m_shader.use();
 		{
+			gl::Uniform1f(m_shader("Gamma"), GAMMA);
 			gl::Uniform4fv(m_shader("BaseColor"), 1, glm::value_ptr(baseColor));
 			gl::UniformMatrix4fv(m_shader("MVP"), 1, gl::FALSE_, glm::value_ptr(mvp));
+			GL_CHECK_ERRORS;
+
 			gl::DrawElements(gl::TRIANGLES, m_elementCount, gl::UNSIGNED_INT, nullptr);
+			GL_CHECK_ERRORS;
 		}
 		m_shader.unuse();
 		gl::BindVertexArray(0);
-    }
+	}
 }

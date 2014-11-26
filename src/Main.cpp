@@ -108,7 +108,7 @@ int main(int argc, char const *argv[])
 	globalRenderer = renderer;
     
     // set up background
-    cubedemo::TriangleBackground *background = new cubedemo::TriangleBackground(10, 10);
+    cubedemo::TriangleBackground *background = new cubedemo::TriangleBackground(7, 5);
 
 	cubedemo::GameTime time;
     

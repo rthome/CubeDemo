@@ -16,6 +16,7 @@ namespace cubedemo
         GLuint m_vao;
 		GLuint m_positionsVBO;
 		GLuint m_indices;
+		GLuint m_brightnessVBO;
         GLShader m_shader;
         
 		GLsizei m_elementCount; // Count of indices to draw
