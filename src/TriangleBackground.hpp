@@ -12,7 +12,12 @@ namespace cubedemo
         GLuint m_vao;
         GLShader m_shader;
         
+        size_t m_hcount, m_vcount;
+        
     public:
+        TriangleBackground(size_t hcount, size_t vcount);
+        ~TriangleBackground();
+        
         void update(const GameTime& time);
         void render();
     };

@@ -106,7 +106,7 @@ int main(int argc, char const *argv[])
 	globalRenderer = renderer;
     
     // set up background
-    cubedemo::TriangleBackground *background = new cubedemo::TriangleBackground();
+    cubedemo::TriangleBackground *background = new cubedemo::TriangleBackground(10, 10);
 
 	cubedemo::GameTime time;
     
@@ -145,6 +145,7 @@ int main(int argc, char const *argv[])
 
 	globalRenderer = nullptr;
 	delete renderer;
+    delete background;
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
