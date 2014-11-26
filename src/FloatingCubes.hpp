@@ -34,6 +34,7 @@ namespace cubedemo
         HelixData *helices; // Helix data for each cube
 		glm::vec3 *positions; // The center of each cube after applying any mapping and movement
 		glm::quat *rotations; // The rotation of each cube
+        float     *opacities; // The opacity of each cube, used for fade in and fade out
 
 		CubeStates(size_t size);
 		~CubeStates();
@@ -53,6 +54,7 @@ namespace cubedemo
 		inline const CubeState* cubeStates() const { return m_cubeStates.states; }
 		inline const glm::vec3* cubePositions() const { return m_cubeStates.positions; }
 		inline const glm::quat* cubeRotations() const { return m_cubeStates.rotations; }
+        inline const float* cubeOpacities() const { return m_cubeStates.opacities; }
 
 		void update(const GameTime& time); // Update the state of each cube
 	};
@@ -74,6 +76,8 @@ namespace cubedemo
 		size_t m_instanceCount; // Count of instances to render
 		GLuint m_positionBufferTexture; // Buffer texture for instance position offsets
 		GLuint m_instancePositionsVBO; // Backing VBO for instance position offset data
+        GLuint m_opacityBufferTexture; // Buffer texture for instance opacities
+        GLuint m_instanceOpacitiesVBO; // Backing VBO for instance opacity data
 
 		// Matrices
 		glm::mat4 m_projectionMatrix;

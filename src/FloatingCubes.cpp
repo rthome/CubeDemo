@@ -24,7 +24,7 @@ namespace cubedemo
 	// // //
 
 	CubeStates::CubeStates(size_t size)
-		: states{ new CubeState[size] }, helices{ new HelixData[size] }, positions{ new glm::vec3[size] }, rotations{ new glm::quat[size] }
+        : states{ new CubeState[size] }, helices{ new HelixData[size] }, positions{ new glm::vec3[size] }, rotations{ new glm::quat[size] }, opacities{ new float[size] }
 	{
 		std::fill(states, states + size, CubeState::Dead);
 	}
@@ -35,12 +35,23 @@ namespace cubedemo
 		delete[] helices;
 		delete[] positions;
 		delete[] rotations;
+        delete[] opacities;
 	}
 
 	// // //
 	// FloatingCubes implementation
 	// // //
 
+    inline bool isAlive(CubeState state)
+    {
+        return state != CubeState::Dead;
+    }
+    
+    inline float deltaOpacity(float seconds, const GameTime& time)
+    {
+        return (1.0f / seconds) * 0.001f * time.deltaTime.count();
+    }
+    
 	FloatingCubes::FloatingCubes(size_t count)
 		: m_cubeCount{ count }, m_cubeStates{ count }
 	{
@@ -57,18 +68,43 @@ namespace cubedemo
 		{
 			if (m_cubeStates.states[i] == CubeState::Dead)
 			{
-				m_cubeStates.states[i] = CubeState::Moving;
+                // When a cube spawns, fill in a bunch of random data
+				m_cubeStates.states[i] = CubeState::FadeIn;
                 m_cubeStates.helices[i].r = 2 + 10.0f * abs(movementRandDistrib(randEngine));
 				m_cubeStates.helices[i].h = 0.5f + 2.0f * movementRandDistrib(randEngine);
                 m_cubeStates.helices[i].t0 = movementRandDistrib(randEngine);
 				m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
                 m_cubeStates.helices[i].direction = glm::vec3 { directionRandDistrib(randEngine), directionRandDistrib(randEngine), directionRandDistrib(randEngine) };
 			}
+            
+            if (m_cubeStates.states[i] == CubeState::FadeIn)
+            {
+                // Fade in over 3 seconds
+                m_cubeStates.opacities[i] += deltaOpacity(3.0f, time);
+                // Once the opacity reaches 1, stop fading in
+                if (m_cubeStates.opacities[i] >= 1.0f)
+                {
+                    m_cubeStates.opacities[i] = 1.0f;
+                    m_cubeStates.states[i] = CubeState::Moving;
+                }
+            }
+            
+            if (m_cubeStates.states[i] == CubeState::FadeOut)
+            {
+                // Fade out over 3 seconds
+                m_cubeStates.opacities[i] -= deltaOpacity(3.0f, time);
+                // If opacity reaches 0, kill the cube
+                if (m_cubeStates.opacities[i] <= 0.0f)
+                {
+                    m_cubeStates.opacities[i] = 0.0f;
+                    m_cubeStates.states[i] = CubeState::Dead;
+                }
+            }
 
 			m_cubeStates.positions[i] = mapOntoHelix(m_cubeStates.helices[i], 0.0001f * (float)time.totalTime.count());
 
-			if (glm::length(m_cubeStates.positions[i] - glm::vec3{ 0.0f }) > 600.0f)
-				m_cubeStates.states[i] = CubeState::Dead;
+			if (glm::length(m_cubeStates.positions[i] - glm::vec3{ 0.0f }) > 400.0f)
+				m_cubeStates.states[i] = CubeState::FadeOut;
 		}
 	}
 
@@ -130,8 +166,10 @@ namespace cubedemo
 		gl::GenBuffers(1, &m_positionsVBO);
 		gl::GenBuffers(1, &m_normalsVBO);
 		gl::GenBuffers(1, &m_indices);
+        gl::GenBuffers(1, &m_instanceOpacitiesVBO);
 		gl::GenBuffers(1, &m_instancePositionsVBO);
 		gl::GenTextures(1, &m_positionBufferTexture);
+        gl::GenTextures(1, &m_opacityBufferTexture);
 		GL_CHECK_ERRORS;
 
 		// set up shader
@@ -139,7 +177,7 @@ namespace cubedemo
 		m_shader.attachShaderFromSource(gl::FRAGMENT_SHADER, CUBE_SHADER_CUBES_FRAGMENT);
 		m_shader.link();
 		m_shader.addAttributes({ "position", "normal" });
-		m_shader.addUniforms({ "MVP", "InstancePositions" , "ModelViewMatrix", "ProjectionMatrix", "NormalMatrix", "LightPosition", "LightIntensity", "Kd", "Ka", "Ks", "Shininess", "Gamma" });
+		m_shader.addUniforms({ "MVP", "InstancePositions" , "ModelViewMatrix", "ProjectionMatrix", "NormalMatrix", "LightPosition", "LightIntensity", "Kd", "Ka", "Ks", "Shininess", "Gamma", "InstanceOpacities" });
 		GL_CHECK_ERRORS;
 
 		// set up vao
@@ -168,8 +206,10 @@ namespace cubedemo
 
 	FloatingCubesRenderer::~FloatingCubesRenderer()
 	{
+        gl::DeleteTextures(1, &m_opacityBufferTexture);
 		gl::DeleteTextures(1, &m_positionBufferTexture);
 		gl::DeleteBuffers(1, &m_instancePositionsVBO);
+        gl::DeleteBuffers(1, &m_instanceOpacitiesVBO);
 		gl::DeleteBuffers(1, &m_indices);
 		gl::DeleteBuffers(1, &m_normalsVBO);
 		gl::DeleteBuffers(1, &m_positionsVBO);
@@ -187,16 +227,28 @@ namespace cubedemo
 		m_instanceCount = cubes.count();
 		std::vector<glm::vec4> processedPositions;
 
+        // Process vec3's to vec4's
+        // Note: w component is always 0 because this is an offset
+        // which will be added onto another vec4
 		auto source = cubes.cubePositions();
 		std::transform(source, source + cubes.count(), std::back_inserter(processedPositions),
 			[](const glm::vec3& v) { return glm::vec4(v, 0.0f); });
 
+        // Copy position data into buffer
 		gl::BindBuffer(gl::TEXTURE_BUFFER, m_instancePositionsVBO);
 		{
 			gl::BufferData(gl::TEXTURE_BUFFER, sizeof(glm::vec4) * processedPositions.size(), processedPositions.data(), gl::STREAM_DRAW);
 		}
 		gl::BindBuffer(gl::TEXTURE_BUFFER, 0);
 		GL_CHECK_ERRORS;
+        
+        // Copy opacity data into buffer
+        gl::BindBuffer(gl::TEXTURE_BUFFER, m_instanceOpacitiesVBO);
+        {
+            gl::BufferData(gl::TEXTURE_BUFFER, sizeof(float) * cubes.count(), cubes.cubeOpacities(), gl::STREAM_DRAW);
+        }
+        gl::BindBuffer(gl::TEXTURE_BUFFER, 0);
+        GL_CHECK_ERRORS;
 	}
 
 	void FloatingCubesRenderer::render()
@@ -215,11 +267,21 @@ namespace cubedemo
 		gl::BindVertexArray(m_vao);
 		m_shader.use();
 		{
-			gl::ActiveTexture(gl::TEXTURE0);
+            // Position buffer texture
+			gl::ActiveTexture(gl::TEXTURE0 + 0);
 			gl::BindTexture(gl::TEXTURE_BUFFER, m_positionBufferTexture);
 			gl::TexBuffer(gl::TEXTURE_BUFFER, gl::RGBA32F, m_instancePositionsVBO);
+            GL_CHECK_ERRORS;
+            
+            // Opacity buffer texture
+            gl::ActiveTexture(gl::TEXTURE0 + 1);
+            gl::BindTexture(gl::TEXTURE_BUFFER, m_opacityBufferTexture);
+            gl::TexBuffer(gl::TEXTURE_BUFFER, gl::R32F, m_instanceOpacitiesVBO);
+            GL_CHECK_ERRORS;
 
+            // Uniforms
 			gl::Uniform1i(m_shader("InstancePositions"), 0);
+            gl::Uniform1i(m_shader("InstanceOpacities"), 1);
 			gl::UniformMatrix4fv(m_shader("MVP"), 1, gl::FALSE_, glm::value_ptr(mvp));
 			gl::UniformMatrix4fv(m_shader("ModelViewMatrix"), 1, gl::FALSE_, glm::value_ptr(m_modelviewMatrix));
 			gl::UniformMatrix4fv(m_shader("ProjectionMatrix"), 1, gl::FALSE_, glm::value_ptr(m_projectionMatrix));
@@ -231,7 +293,9 @@ namespace cubedemo
 			gl::Uniform3fv(m_shader("Ka"), 1, glm::value_ptr(AMBIENT_COLOR));
 			gl::Uniform3fv(m_shader("Ks"), 1, glm::value_ptr(SPECULAR_COLOR));
 			gl::Uniform1f(m_shader("Gamma"), GAMMA);
+            GL_CHECK_ERRORS;
 
+            // Draw instanced elements
 			gl::DrawElementsInstanced(gl::TRIANGLES, (GLsizei)CUBE_INDICES.size(), gl::UNSIGNED_BYTE, nullptr, (GLsizei)m_instanceCount);
 			GL_CHECK_ERRORS;
 		}

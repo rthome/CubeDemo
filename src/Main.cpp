@@ -95,6 +95,8 @@ int main(int argc, char const *argv[])
 
 	gl::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	gl::Enable(gl::DEPTH_TEST);
+    gl::Enable(gl::BLEND);
+    gl::BlendFunc(gl::SRC_ALPHA, gl::ONE_MINUS_SRC_ALPHA);
 
 	// Check for any errors so far
 	GL_CHECK_ERRORS;

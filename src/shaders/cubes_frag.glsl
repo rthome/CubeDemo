@@ -2,6 +2,7 @@
 
 in vec3 fragPosition;
 in vec3 fragNormal;
+in float fragOpacity;
 
 out vec4 fragment;
 
@@ -35,5 +36,5 @@ vec3 correct_gamma(vec3 color)
 void main()
 {
 	vec3 color = ads_light();
-	fragment = vec4(correct_gamma(color), 1.0);
+	fragment = vec4(correct_gamma(color), fragOpacity);
 }
