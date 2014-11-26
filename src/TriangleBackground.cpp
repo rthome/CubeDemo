@@ -1,6 +1,14 @@
 #include "TriangleBackground.hpp"
 
-namespace cubes
+namespace cubedemo
 {
+    void TriangleBackground::update(const GameTime& time)
+    {
+        
+    }
     
+    void TriangleBackground::render()
+    {
+        
+    }
 }

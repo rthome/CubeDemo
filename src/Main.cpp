@@ -6,6 +6,7 @@
 
 #include "Util.hpp"
 #include "FloatingCubes.hpp"
+#include "TriangleBackground.hpp"
 #include "GameTime.hpp"
 
 // Whether to limit rendering to 60 fps
@@ -103,6 +104,9 @@ int main(int argc, char const *argv[])
 	cubedemo::FloatingCubesRenderer *renderer = new cubedemo::FloatingCubesRenderer();
 	renderer->onWindowSizeChanged(WINDOW_WIDTH, WINDOW_HEIGHT);
 	globalRenderer = renderer;
+    
+    // set up background
+    cubedemo::TriangleBackground *background = new cubedemo::TriangleBackground();
 
 	cubedemo::GameTime time;
     
@@ -115,10 +119,12 @@ int main(int argc, char const *argv[])
 
 		gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
 
-		floatingCubes.update(time);
+        background->update(time); // Update background animations
+        floatingCubes.update(time); // Update cube states
 
-		renderer->update(floatingCubes);
-		renderer->render();
+        background->render(); // Render background first
+        renderer->update(floatingCubes); // Update renderer with new cube states
+        renderer->render(); // Render cubes
 
 		GL_CHECK_ERRORS;
 
