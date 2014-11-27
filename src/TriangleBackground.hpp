@@ -9,17 +9,17 @@ namespace cubedemo
 {
     class TriangleBackground : private NonCopyable
     {
-	public:
-		const float GAMMA = 2.2f;
+    public:
+        const float GAMMA = 2.2f;
 
     private:
         GLuint m_vao;
-		GLuint m_positionsVBO;
-		GLuint m_indices;
-		GLuint m_brightnessVBO;
+        GLuint m_positionsVBO;
+        GLuint m_indices;
+        GLuint m_brightnessVBO;
         GLShader m_shader;
         
-		GLsizei m_elementCount; // Count of indices to draw
+        GLsizei m_elementCount; // Count of indices to draw
         size_t m_hcount, m_vcount; // Amount of triangles in horizontal and vertical directions
         
     public:
