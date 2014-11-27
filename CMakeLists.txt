@@ -41,33 +41,35 @@ set(CD_SOURCES_HEADER_PATH "${PROJECT_BINARY_DIR}/Shaders.hpp")
 configure_file(${CD_SOURCES_TEMPLATE_PATH} ${CD_SOURCES_HEADER_PATH})
 
 set(CD_SOURCES
-	src/gl_core_3_3.cpp
-	src/GLShader.cpp
-	src/FloatingCubes.cpp
+    src/gl_core_3_3.cpp
+    src/GLShader.cpp
+    src/GLTextureBuffer.cpp
+    src/FloatingCubes.cpp
     src/TriangleBackground.cpp
-	src/GameTime.cpp
+    src/GameTime.cpp
     src/Spiral.cpp
-	src/Main.cpp)
+    src/Main.cpp)
 
 set(CD_HEADERS
     src/gl_core_3_3.hpp
-	src/GLShader.hpp
-	src/FloatingCubes.hpp
+    src/GLShader.hpp
+    src/GLTextureBuffer.hpp
+    src/FloatingCubes.hpp
     src/TriangleBackground.hpp
-	src/GameTime.hpp
+    src/GameTime.hpp
     src/Spiral.hpp
-	src/NonCopyable.hpp
-	src/Util.hpp)
+    src/NonCopyable.hpp
+    src/Util.hpp)
 
 set(CD_SHADERFILES
     src/shaders/background_vert.glsl
     src/shaders/background_frag.glsl
-	src/shaders/cubes_vert.glsl
-	src/shaders/cubes_frag.glsl)
+    src/shaders/cubes_vert.glsl
+    src/shaders/cubes_frag.glsl)
 
 set(CD_PROCESSEDFILES
-	${CD_SOURCES_TEMPLATE_PATH}
-	${CD_SOURCES_HEADER_PATH})
+    ${CD_SOURCES_TEMPLATE_PATH}
+    ${CD_SOURCES_HEADER_PATH})
 
 # Add GLM and GLFW
 add_subdirectory(${PROJECT_SOURCE_DIR}/lib/glfw)
