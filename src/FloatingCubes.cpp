@@ -41,12 +41,12 @@ namespace cubedemo
     // // //
     // FloatingCubes implementation
     // // //
-    
+
     inline float deltaOpacity(float seconds, const GameTime& time)
     {
         return (1.0f / seconds) * 0.001f * time.deltaTime.count();
     }
-    
+
     FloatingCubes::FloatingCubes(size_t count)
         : m_cubeCount{ count }, m_cubeStates{ count }
     {
@@ -57,8 +57,8 @@ namespace cubedemo
         // TODO: Change random number generation to be less shitty
         static std::default_random_engine randEngine;
         static std::uniform_real_distribution<float> startRandDistrib{ -300.0f, 300.0f };
-        static std::uniform_real_distribution<float> directionRandDistrib { -1.0f, 1.0f };
-        static std::normal_distribution<float> movementRandDistrib { 1.0f, 2.0f };
+        static std::uniform_real_distribution<float> directionRandDistrib{ -1.0f, 1.0f };
+        static std::normal_distribution<float> movementRandDistrib{ 1.0f, 2.0f };
 
         for (size_t i = 0; i < m_cubeCount; i++)
         {
@@ -70,9 +70,9 @@ namespace cubedemo
                 m_cubeStates.helices[i].h = 0.5f + 2.0f * movementRandDistrib(randEngine);
                 m_cubeStates.helices[i].t0 = movementRandDistrib(randEngine);
                 m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
-                m_cubeStates.helices[i].direction = glm::vec3 { directionRandDistrib(randEngine), directionRandDistrib(randEngine), directionRandDistrib(randEngine) };
+                m_cubeStates.helices[i].direction = glm::vec3{ directionRandDistrib(randEngine), directionRandDistrib(randEngine), directionRandDistrib(randEngine) };
             }
-            
+
             if (m_cubeStates.states[i] == CubeState::FadeIn)
             {
                 // Fade in over 3 seconds
@@ -84,7 +84,7 @@ namespace cubedemo
                     m_cubeStates.states[i] = CubeState::Moving;
                 }
             }
-            
+
             if (m_cubeStates.states[i] == CubeState::FadeOut)
             {
                 // Fade out over 3 seconds
@@ -155,9 +155,9 @@ namespace cubedemo
     };
 
     FloatingCubesRenderer::FloatingCubesRenderer()
-        : m_instanceCount{ 0 }, 
+        : m_instanceCount{ 0 },
         m_modelviewMatrix{ glm::lookAt(glm::vec3(0.0f, 3.0f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f)) },
-        m_positionsBuffer{ gl::RGBA32F }, 
+        m_positionsBuffer{ gl::RGBA32F },
         m_opacitiesBuffer{ gl::R32F }
     {
         // generate buffers and textures
