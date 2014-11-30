@@ -10,6 +10,6 @@ uniform mat4 MVP;
 
 void main()
 {
-	vertColor = vec4(BaseColor.rgb, brightness);
+	vertColor = vec4(BaseColor.rgb, min(1, 1.5 * brightness));
 	gl_Position = MVP * vec4(position, 1.0);
 }
