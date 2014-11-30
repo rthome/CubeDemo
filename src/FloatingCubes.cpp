@@ -25,18 +25,15 @@ namespace cubedemo
     // // //
 
     CubeStates::CubeStates(size_t size)
-        : states{ new CubeState[size] }, helices{ new HelixData[size] }, positions{ new glm::vec3[size] }, rotations{ new glm::quat[size] }, opacities{ new float[size] }, scales { new float[size]}
     {
-        std::fill(states, states + size, CubeState::Dead);
-    }
-
-    CubeStates::~CubeStates()
-    {
-        delete[] states;
-        delete[] helices;
-        delete[] positions;
-        delete[] rotations;
-        delete[] opacities;
+        states.resize(size);
+        helices.resize(size);
+        positions.resize(size);
+        rotations.resize(size);
+        opacities.resize(size);
+        scales.resize(size);
+        startTimes.resize(size);
+        std::fill(std::begin(states), std::end(states), CubeState::Dead);
     }
 
     // // //
@@ -57,21 +54,28 @@ namespace cubedemo
     {
         // TODO: Change random number generation to be less shitty
         static std::default_random_engine randEngine;
-        static std::uniform_real_distribution<float> startRandDistrib{ -300.0f, 300.0f };
+        static std::uniform_real_distribution<float> startRandDistrib{ -1.0f, 1.0f };
         static std::normal_distribution<float> movementRandDistrib{ 10.0f, 2.0f };
         static std::normal_distribution<float> scaleRandDistrib{ 1.0f, 0.20f };
 
+        static const int MAX_SPAWNS_PER_FRAME = 1;
+
+        int spawnedCubes = 0;
         for (size_t i = 0; i < m_cubeCount; i++)
         {
             if (m_cubeStates.states[i] == CubeState::Dead)
             {
-                // When a cube spawns, fill in a bunch of random data
-                m_cubeStates.states[i] = CubeState::FadeIn;
-                m_cubeStates.scales[i] = scaleRandDistrib(randEngine);
-                m_cubeStates.helices[i].t0 = movementRandDistrib(randEngine);
-                m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
-                m_cubeStates.helices[i].r = 2 * movementRandDistrib(randEngine) * (signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
-                m_cubeStates.helices[i].h = -7 * movementRandDistrib(randEngine);
+                if (spawnedCubes++ < MAX_SPAWNS_PER_FRAME)
+                {
+                    // When a cube spawns, fill in a bunch of random data
+                    m_cubeStates.states[i] = CubeState::FadeIn;
+                    m_cubeStates.scales[i] = scaleRandDistrib(randEngine);
+                    m_cubeStates.startTimes[i] = time.totalTime.count();
+                    m_cubeStates.helices[i].t0 = movementRandDistrib(randEngine);
+                    m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine) * 100, 70, 150 + startRandDistrib(randEngine) * 100);
+                    m_cubeStates.helices[i].r = 2 * movementRandDistrib(randEngine) * (signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
+                    m_cubeStates.helices[i].h = -7 * movementRandDistrib(randEngine);
+                }
             }
 
             if (m_cubeStates.states[i] == CubeState::FadeIn)
@@ -98,9 +102,10 @@ namespace cubedemo
                 }
             }
 
-            m_cubeStates.positions[i] = mapOntoHelix(m_cubeStates.helices[i], 0.0001f * (float)time.totalTime.count());
+            if (m_cubeStates.states[i] != CubeState::Dead)
+                m_cubeStates.positions[i] = mapOntoHelix(m_cubeStates.helices[i], 0.0001f * (time.totalTime.count() - m_cubeStates.startTimes[i]));
 
-            if (glm::length(m_cubeStates.positions[i] - glm::vec3{ 0.0f }) > 400.0f)
+            if (m_cubeStates.states[i] == CubeState::Moving && m_cubeStates.positions[i].y < -70.0f)
                 m_cubeStates.states[i] = CubeState::FadeOut;
         }
     }
@@ -111,7 +116,7 @@ namespace cubedemo
 
     FloatingCubesRenderer::FloatingCubesRenderer()
         : m_instanceCount{ 0 },
-        m_modelviewMatrix{ glm::lookAt(glm::vec3(0.0f, 3.0f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f)) },
+        m_modelviewMatrix{ glm::lookAt(glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)) },
         m_positionsBuffer{ gl::RGBA32F },
         m_opacitiesBuffer{ gl::R32F },
         m_scalesBuffer{ gl::R32F }
