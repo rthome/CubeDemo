@@ -35,6 +35,7 @@ namespace cubedemo
         glm::vec3 *positions; // The center of each cube after applying any mapping and movement
         glm::quat *rotations; // The rotation of each cube
         float     *opacities; // The opacity of each cube, used for fade in and fade out
+        float     *scales;
 
         CubeStates(size_t size);
         ~CubeStates();

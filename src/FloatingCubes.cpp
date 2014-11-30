@@ -24,7 +24,7 @@ namespace cubedemo
     // // //
 
     CubeStates::CubeStates(size_t size)
-        : states{ new CubeState[size] }, helices{ new HelixData[size] }, positions{ new glm::vec3[size] }, rotations{ new glm::quat[size] }, opacities{ new float[size] }
+        : states{ new CubeState[size] }, helices{ new HelixData[size] }, positions{ new glm::vec3[size] }, rotations{ new glm::quat[size] }, opacities{ new float[size] }, scales { new float[size]}
     {
         std::fill(states, states + size, CubeState::Dead);
     }
@@ -57,7 +57,8 @@ namespace cubedemo
         // TODO: Change random number generation to be less shitty
         static std::default_random_engine randEngine;
         static std::uniform_real_distribution<float> startRandDistrib{ -300.0f, 300.0f };
-        static std::normal_distribution<float> movementRandDistrib{ 2.0f, 4.0f };
+        static std::normal_distribution<float> movementRandDistrib{ 10.0f, 2.0f };
+        static std::normal_distribution<float> scaleRandDistrib{ 1.0f, 0.25f };
 
         for (size_t i = 0; i < m_cubeCount; i++)
         {
@@ -65,12 +66,11 @@ namespace cubedemo
             {
                 // When a cube spawns, fill in a bunch of random data
                 m_cubeStates.states[i] = CubeState::FadeIn;
+                m_cubeStates.scales[i] = scaleRandDistrib(randEngine);
                 m_cubeStates.helices[i].t0 = movementRandDistrib(randEngine);
                 m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine));
-                m_cubeStates.helices[i].r = 2 + 5.0f * abs(movementRandDistrib(randEngine));
-                do {
-                    m_cubeStates.helices[i].h = 1 + 10.0f * movementRandDistrib(randEngine);
-                } while (m_cubeStates.helices[i].h < 2.0f);
+                m_cubeStates.helices[i].r = 2 * movementRandDistrib(randEngine) * (signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
+                m_cubeStates.helices[i].h = -7 * movementRandDistrib(randEngine);
             }
 
             if (m_cubeStates.states[i] == CubeState::FadeIn)
