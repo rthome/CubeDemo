@@ -48,6 +48,7 @@ set(CD_SOURCES
     src/TriangleBackground.cpp
     src/GameTime.cpp
     src/Spiral.cpp
+	src/CubeController.cpp
     src/Main.cpp)
 
 set(CD_HEADERS
@@ -60,6 +61,7 @@ set(CD_HEADERS
     src/Spiral.hpp
     src/NonCopyable.hpp
 	src/MeshData.hpp
+	src/CubeController.hpp
     src/Util.hpp)
 
 set(CD_SHADERFILES

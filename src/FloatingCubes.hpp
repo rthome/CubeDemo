@@ -11,56 +11,10 @@
 #include "GameTime.hpp"
 #include "Spiral.hpp"
 #include "NonCopyable.hpp"
+#include "CubeController.hpp"
 
 namespace cubedemo
 {
-    // The states a cube can be in:
-    // FadeIn - Just spawned, fading it in
-    // Moving - Moving around
-    // FadeOut - Despawning, but still fading out
-    // Dead - Ready to be destroyed
-    enum class CubeState
-    {
-        Dead,
-        FadeIn,
-        Moving,
-        FadeOut,
-    };
-
-    // Contains per-cube state for a collection of cubes
-    struct CubeStates
-    {
-        std::vector<CubeState> states; // The state each vector is in
-        std::vector<HelixData> helices; // Helix data for each cube
-        std::vector<glm::vec3> positions; // The center of each cube after applying any mapping and movement
-        std::vector<glm::quat> rotations; // The rotation of each cube
-        std::vector<float> opacities; // The opacity of each cube, used for fade in and fade out
-        std::vector<float> scales; // Adjusts the size of each cube
-        std::vector<float> startTimes;
-
-        CubeStates(size_t size);
-    };
-
-    // Collects the state of a bunch of cubes, floating in space
-    class FloatingCubes
-    {
-    private:
-        size_t m_cubeCount; // Amount of managed cubes
-        CubeStates m_cubeStates; // Per-cube state
-
-    public:
-        FloatingCubes(size_t count);
-
-        inline size_t count() const { return m_cubeCount; }
-        inline const CubeState* cubeStates() const { return m_cubeStates.states.data(); }
-        inline const glm::vec3* cubePositions() const { return m_cubeStates.positions.data(); }
-        inline const glm::quat* cubeRotations() const { return m_cubeStates.rotations.data(); }
-        inline const float* cubeOpacities() const { return m_cubeStates.opacities.data(); }
-        inline const float* cubeScales() const { return m_cubeStates.scales.data(); }
-
-        void update(const GameTime& time); // Update the state of each cube
-    };
-
     // Renders cubes from FloatingCubes
     class FloatingCubesRenderer : private NonCopyable
     {
@@ -90,7 +44,7 @@ namespace cubedemo
 
         void onWindowSizeChanged(size_t width, size_t height); // Notify the renderer of a changed window size, to allow it to update the projection matrix
 
-        void update(const FloatingCubes& cubes); // Update renderer state, pulling data from a FloatingCubes instance
+        void update(const CubeController& cubes); // Update renderer state, pulling data from a FloatingCubes instance
         void render(); // Draw latest cube data to the screen
     };
 }

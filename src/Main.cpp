@@ -6,6 +6,7 @@
 
 #include "Util.hpp"
 #include "FloatingCubes.hpp"
+#include "CubeController.hpp"
 #include "TriangleBackground.hpp"
 #include "GameTime.hpp"
 
@@ -102,7 +103,7 @@ int main(int argc, char const *argv[])
     GL_CHECK_ERRORS;
 
     // Set up cubes
-    cubedemo::FloatingCubes floatingCubes{ 5000 };
+    cubedemo::CubeController floatingCubes{ 5000 };
     cubedemo::FloatingCubesRenderer *renderer = new cubedemo::FloatingCubesRenderer();
     renderer->onWindowSizeChanged(WINDOW_WIDTH, WINDOW_HEIGHT);
     globalRenderer = renderer;
