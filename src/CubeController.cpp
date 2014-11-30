@@ -42,7 +42,7 @@ namespace cubedemo
         static std::normal_distribution<float> movementRandDistrib{ 10.0f, 2.0f };
         static std::normal_distribution<float> scaleRandDistrib{ 1.0f, 0.20f };
 
-        static const int MAX_SPAWNS_PER_FRAME = 1;
+        static const int MAX_SPAWNS_PER_FRAME = 3;
 
         int spawnedCubes = 0;
         for (size_t i = 0; i < m_cubeCount; i++)

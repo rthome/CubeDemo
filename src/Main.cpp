@@ -11,7 +11,7 @@
 #include "GameTime.hpp"
 
 // Whether to limit rendering to 60 fps
-// #define ENABLE_FRAMELIMITING
+#define ENABLE_FRAMELIMITING
 
 // Constants for initial window size
 static const size_t WINDOW_WIDTH = 1280;
@@ -103,10 +103,9 @@ int main(int argc, char const *argv[])
     GL_CHECK_ERRORS;
 
     // Set up cubes
-    cubedemo::CubeController floatingCubes{ 5000 };
-    cubedemo::CubeRenderer *renderer = new cubedemo::CubeRenderer();
-    renderer->onWindowSizeChanged(WINDOW_WIDTH, WINDOW_HEIGHT);
-    globalRenderer = renderer;
+    cubedemo::CubeController floatingCubes{ 3000 };
+    globalRenderer = new cubedemo::CubeRenderer();
+    globalRenderer->onWindowSizeChanged(WINDOW_WIDTH, WINDOW_HEIGHT);
     
     // set up background
     cubedemo::TriangleBackground *background = new cubedemo::TriangleBackground(7, 5);
@@ -132,17 +131,16 @@ int main(int argc, char const *argv[])
         background->render(time); // Render background first
         gl::Enable(gl::DEPTH_TEST);
 
-        renderer->update(floatingCubes); // Update renderer with new cube states
-        renderer->render(); // Render cubes
+        globalRenderer->update(floatingCubes); // Update renderer with new cube states
+        globalRenderer->render(); // Render cubes
 
         GL_CHECK_ERRORS;
 
 #ifdef ENABLE_FRAMELIMITING
-        // TODO: Find out why this causes stuttering on Windows.
-        const float TARGET_TIME = 16.667f; // 60 fps
+        const float TARGET_TIME = 15.0f; // somewhat more than 60 fps
         while (time.timeSince().count() < TARGET_TIME)
         {
-            std::this_thread::sleep_for(chrono::microseconds(600));
+            std::this_thread::sleep_for(chrono::microseconds(400));
         }
 #endif
 
@@ -152,9 +150,9 @@ int main(int argc, char const *argv[])
 
     LOG_INFO("Exiting main loop...");
 
-    globalRenderer = nullptr;
-    delete renderer;
     delete background;
+    delete globalRenderer;
+    globalRenderer = nullptr;
 
     glfwDestroyWindow(window);
     glfwTerminate();
