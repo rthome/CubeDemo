@@ -11,7 +11,6 @@ namespace cubedemo
         float h; // Distance the helix "travels" over the course of a revolution
         float t0; // Initial Offset
         glm::vec3 position; // The origin (position at t=0) of the helix curve
-        glm::vec3 direction; // The direction in which the helix travels
     };
     
     // Maps a given position onto a helix

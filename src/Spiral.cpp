@@ -17,9 +17,6 @@ namespace cubedemo
         auto y = helix.h * t;
         auto curvePos = glm::vec3 { x, y, z };
         
-        auto rotationQuat = glm::rotation(glm::normalize(curvePos - helix.position), glm::normalize(helix.direction));
-        auto rotatedCurvePos = glm::rotate(rotationQuat, curvePos);
-        
-        return helix.position + rotatedCurvePos;
+        return helix.position + curvePos;
     }
 }
