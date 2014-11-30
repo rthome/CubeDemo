@@ -59,6 +59,7 @@ set(CD_HEADERS
     src/GameTime.hpp
     src/Spiral.hpp
     src/NonCopyable.hpp
+	src/MeshData.hpp
     src/Util.hpp)
 
 set(CD_SHADERFILES

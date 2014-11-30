@@ -16,6 +16,7 @@
 #include "Util.hpp"
 #include "Shaders.hpp"
 #include "Spiral.hpp"
+#include "MeshData.hpp"
 
 namespace cubedemo
 {
@@ -108,52 +109,6 @@ namespace cubedemo
     // FloatingCubesRenderer implementation
     // // //
 
-    const std::vector<glm::vec3> CUBE_POSITIONS
-    {
-        { -1.0f, -1.0f, -1.0f },
-        {  1.0f, -1.0f, -1.0f },
-        { -1.0f,  1.0f, -1.0f },
-        {  1.0f,  1.0f, -1.0f },
-        { -1.0f, -1.0f,  1.0f },
-        {  1.0f, -1.0f,  1.0f },
-        { -1.0f,  1.0f,  1.0f },
-        {  1.0f,  1.0f,  1.0f },
-    };
-
-    static const std::vector<glm::vec3> CUBE_NORMALS
-    {
-        glm::normalize(glm::vec3{ -1.0f, -1.0f, -1.0f }),
-        glm::normalize(glm::vec3{ 1.0f, -1.0f, -1.0f }),
-        glm::normalize(glm::vec3{ -1.0f,  1.0f, -1.0f }),
-        glm::normalize(glm::vec3{ 1.0f,  1.0f, -1.0f }),
-        glm::normalize(glm::vec3{ -1.0f, -1.0f,  1.0f }),
-        glm::normalize(glm::vec3{ 1.0f, -1.0f,  1.0f }),
-        glm::normalize(glm::vec3{ -1.0f,  1.0f,  1.0f }),
-        glm::normalize(glm::vec3{ 1.0f,  1.0f,  1.0f }),
-    };
-
-    static const std::vector<uint8_t> CUBE_INDICES
-    {
-        // front
-        0, 1, 3,
-        0, 3, 2,
-        // back
-        5, 4, 6,
-        5, 6, 7,
-        // top
-        2, 3, 7,
-        2, 7, 6,
-        // bottom
-        4, 5, 1,
-        4, 1, 0,
-        // left
-        4, 0, 2,
-        4, 2, 6,
-        // right
-        1, 5, 7,
-        1, 7, 3,
-    };
-
     FloatingCubesRenderer::FloatingCubesRenderer()
         : m_instanceCount{ 0 },
         m_modelviewMatrix{ glm::lookAt(glm::vec3(0.0f, 3.0f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f)) },
@@ -181,21 +136,21 @@ namespace cubedemo
         {
             // "base" positions without instance offsets
             gl::BindBuffer(gl::ARRAY_BUFFER, m_positionsVBO);
-            gl::BufferData(gl::ARRAY_BUFFER, sizeof(glm::vec3) * CUBE_POSITIONS.size(), CUBE_POSITIONS.data(), gl::STATIC_DRAW);
+            gl::BufferData(gl::ARRAY_BUFFER, sizeof(float) * 3 * ROUNDED_CUBE_VERTICES.size(), ROUNDED_CUBE_VERTICES.data(), gl::STATIC_DRAW);
             gl::EnableVertexAttribArray(m_shader["position"]);
             gl::VertexAttribPointer(m_shader["position"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
             GL_CHECK_ERRORS;
 
             // normals
             gl::BindBuffer(gl::ARRAY_BUFFER, m_normalsVBO);
-            gl::BufferData(gl::ARRAY_BUFFER, sizeof(glm::vec3) * CUBE_NORMALS.size(), CUBE_NORMALS.data(), gl::STATIC_DRAW);
+            gl::BufferData(gl::ARRAY_BUFFER, sizeof(float) * 3 * ROUNDED_CUBE_NORMALS.size(), ROUNDED_CUBE_NORMALS.data(), gl::STATIC_DRAW);
             gl::EnableVertexAttribArray(m_shader["normal"]);
             gl::VertexAttribPointer(m_shader["normal"], 3, gl::FLOAT, gl::FALSE_, 0, nullptr);
             GL_CHECK_ERRORS;
 
             // indices
             gl::BindBuffer(gl::ELEMENT_ARRAY_BUFFER, m_indices);
-            gl::BufferData(gl::ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * CUBE_INDICES.size(), CUBE_INDICES.data(), gl::STATIC_DRAW);
+            gl::BufferData(gl::ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * ROUNDED_CUBE_INDICES.size(), ROUNDED_CUBE_INDICES.data(), gl::STATIC_DRAW);
         }
         gl::BindVertexArray(0);
     }
@@ -266,7 +221,7 @@ namespace cubedemo
             GL_CHECK_ERRORS;
 
             // Draw instanced elements
-            gl::DrawElementsInstanced(gl::TRIANGLES, (GLsizei)CUBE_INDICES.size(), gl::UNSIGNED_BYTE, nullptr, (GLsizei)m_instanceCount);
+            gl::DrawElementsInstanced(gl::TRIANGLES, (GLsizei)ROUNDED_CUBE_INDICES.size(), gl::UNSIGNED_INT, nullptr, (GLsizei)m_instanceCount);
             GL_CHECK_ERRORS;
         }
         m_shader.unuse();
