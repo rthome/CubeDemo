@@ -16,7 +16,7 @@
 namespace cubedemo
 {
     // Renders cubes from FloatingCubes
-    class FloatingCubesRenderer : private NonCopyable
+    class CubeRenderer : private NonCopyable
     {
     public:
         // This should be set to a system-appropriate value
@@ -39,8 +39,8 @@ namespace cubedemo
         glm::mat4 m_modelviewMatrix;
 
     public:
-        FloatingCubesRenderer();
-        ~FloatingCubesRenderer();
+        CubeRenderer();
+        ~CubeRenderer();
 
         void onWindowSizeChanged(size_t width, size_t height); // Notify the renderer of a changed window size, to allow it to update the projection matrix
 

@@ -44,7 +44,7 @@ set(CD_SOURCES
     src/gl_core_3_3.cpp
     src/GLShader.cpp
     src/GLTextureBuffer.cpp
-    src/FloatingCubes.cpp
+    src/CubeRenderer.cpp
     src/TriangleBackground.cpp
     src/GameTime.cpp
     src/Spiral.cpp
@@ -55,7 +55,7 @@ set(CD_HEADERS
     src/gl_core_3_3.hpp
     src/GLShader.hpp
     src/GLTextureBuffer.hpp
-    src/FloatingCubes.hpp
+    src/CubeRenderer.hpp
     src/TriangleBackground.hpp
     src/GameTime.hpp
     src/Spiral.hpp

@@ -21,7 +21,7 @@ namespace cubedemo
     }
 
     // // //
-    // FloatingCubes implementation
+    // CubeRenderer implementation
     // // //
 
     inline float deltaOpacity(float seconds, const GameTime& time)

@@ -5,8 +5,8 @@
 #include <GLFW/glfw3.h>
 
 #include "Util.hpp"
-#include "FloatingCubes.hpp"
 #include "CubeController.hpp"
+#include "CubeRenderer.hpp"
 #include "TriangleBackground.hpp"
 #include "GameTime.hpp"
 
@@ -17,7 +17,7 @@
 static const size_t WINDOW_WIDTH = 1280;
 static const size_t WINDOW_HEIGHT = 720;
 
-cubedemo::FloatingCubesRenderer *globalRenderer = nullptr;
+cubedemo::CubeRenderer *globalRenderer = nullptr;
 
 void errorCallback(int error, const char *description)
 {
@@ -104,7 +104,7 @@ int main(int argc, char const *argv[])
 
     // Set up cubes
     cubedemo::CubeController floatingCubes{ 5000 };
-    cubedemo::FloatingCubesRenderer *renderer = new cubedemo::FloatingCubesRenderer();
+    cubedemo::CubeRenderer *renderer = new cubedemo::CubeRenderer();
     renderer->onWindowSizeChanged(WINDOW_WIDTH, WINDOW_HEIGHT);
     globalRenderer = renderer;
     

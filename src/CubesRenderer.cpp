@@ -1,4 +1,4 @@
-#include "FloatingCubes.hpp"
+#include "CubesRenderer.hpp"
 
 #include <vector>
 #include <algorithm>
