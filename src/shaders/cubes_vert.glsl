@@ -9,6 +9,7 @@ out float fragOpacity;
 
 uniform samplerBuffer InstancePositions;
 uniform samplerBuffer InstanceOpacities;
+uniform samplerBuffer InstanceScales;
 uniform mat4 ModelViewMatrix;
 uniform mat4 ProjectionMatrix;
 uniform mat4 MVP;
@@ -17,7 +18,8 @@ uniform mat3 NormalMatrix;
 void main()
 {
     vec3 instanceOffset = texelFetch(InstancePositions, gl_InstanceID).xyz;
-    vec3 offsetPosition = position + instanceOffset;
+	float instanceScale = texelFetch(InstanceScales, gl_InstanceID).x;
+    vec3 offsetPosition = (position * instanceScale) + instanceOffset;
 
     fragNormal = normalize(NormalMatrix * normal);
     fragPosition = vec3(ModelViewMatrix * vec4(offsetPosition, 1.0));

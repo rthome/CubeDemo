@@ -58,7 +58,7 @@ namespace cubedemo
         static std::default_random_engine randEngine;
         static std::uniform_real_distribution<float> startRandDistrib{ -300.0f, 300.0f };
         static std::normal_distribution<float> movementRandDistrib{ 10.0f, 2.0f };
-        static std::normal_distribution<float> scaleRandDistrib{ 1.0f, 0.25f };
+        static std::normal_distribution<float> scaleRandDistrib{ 1.0f, 0.20f };
 
         for (size_t i = 0; i < m_cubeCount; i++)
         {
@@ -158,7 +158,8 @@ namespace cubedemo
         : m_instanceCount{ 0 },
         m_modelviewMatrix{ glm::lookAt(glm::vec3(0.0f, 3.0f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f)) },
         m_positionsBuffer{ gl::RGBA32F },
-        m_opacitiesBuffer{ gl::R32F }
+        m_opacitiesBuffer{ gl::R32F },
+        m_scalesBuffer{ gl::R32F }
     {
         // generate buffers and textures
         gl::GenVertexArrays(1, &m_vao);
@@ -172,7 +173,7 @@ namespace cubedemo
         m_shader.attachShaderFromSource(gl::FRAGMENT_SHADER, CUBE_SHADER_CUBES_FRAGMENT);
         m_shader.link();
         m_shader.addAttributes({ "position", "normal" });
-        m_shader.addUniforms({ "MVP", "InstancePositions" , "ModelViewMatrix", "ProjectionMatrix", "NormalMatrix", "LightPosition", "LightIntensity", "Kd", "Ka", "Ks", "Shininess", "Gamma", "InstanceOpacities" });
+        m_shader.addUniforms({ "MVP", "InstancePositions" , "ModelViewMatrix", "ProjectionMatrix", "NormalMatrix", "LightPosition", "LightIntensity", "Kd", "Ka", "Ks", "Shininess", "Gamma", "InstanceOpacities", "InstanceScales" });
         GL_CHECK_ERRORS;
 
         // set up vao
@@ -227,6 +228,7 @@ namespace cubedemo
 
         m_positionsBuffer.updateData(sizeof(glm::vec4) * processedPositions.size(), processedPositions.data(), gl::STREAM_DRAW);
         m_opacitiesBuffer.updateData(sizeof(float) * cubes.count(), cubes.cubeOpacities(), gl::STREAM_DRAW);
+        m_scalesBuffer.updateData(sizeof(float) * cubes.count(), cubes.cubeScales(), gl::STREAM_DRAW);
     }
 
     void FloatingCubesRenderer::render()
@@ -247,6 +249,7 @@ namespace cubedemo
         {
             m_positionsBuffer.bind(0, m_shader("InstancePositions")); // Position buffer texture
             m_opacitiesBuffer.bind(1, m_shader("InstanceOpacities")); // Opacity buffer texture
+            m_scalesBuffer.bind(2, m_shader("InstanceScales")); // Scale buffer texture
 
             // Uniforms
             gl::UniformMatrix4fv(m_shader("MVP"), 1, gl::FALSE_, glm::value_ptr(mvp));
