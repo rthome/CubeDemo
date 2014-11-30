@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <initializer_list>
 
-#include "gl_core_3_3.hpp"
+#include "gl_core_4_1.hpp"
 
 namespace cubedemo
 {

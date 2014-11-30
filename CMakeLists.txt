@@ -41,7 +41,7 @@ set(CD_SOURCES_HEADER_PATH "${PROJECT_BINARY_DIR}/Shaders.hpp")
 configure_file(${CD_SOURCES_TEMPLATE_PATH} ${CD_SOURCES_HEADER_PATH})
 
 set(CD_SOURCES
-    src/gl_core_3_3.cpp
+    src/gl_core_4_1.cpp
     src/GLShader.cpp
     src/GLTextureBuffer.cpp
     src/CubeRenderer.cpp
@@ -49,10 +49,11 @@ set(CD_SOURCES
     src/GameTime.cpp
     src/Spiral.cpp
 	src/CubeController.cpp
+	src/BloomEffect.cpp
     src/Main.cpp)
 
 set(CD_HEADERS
-    src/gl_core_3_3.hpp
+    src/gl_core_4_1.hpp
     src/GLShader.hpp
     src/GLTextureBuffer.hpp
     src/CubeRenderer.hpp
@@ -62,6 +63,7 @@ set(CD_HEADERS
     src/NonCopyable.hpp
 	src/MeshData.hpp
 	src/CubeController.hpp
+	src/BloomEffect.hpp
     src/Util.hpp)
 
 set(CD_SHADERFILES

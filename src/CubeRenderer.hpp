@@ -5,7 +5,7 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc/quaternion.hpp>
 
-#include "gl_core_3_3.hpp"
+#include "gl_core_4_1.hpp"
 #include "GLShader.hpp"
 #include "GLTextureBuffer.hpp"
 #include "GameTime.hpp"

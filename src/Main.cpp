@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <thread>
 
-#include "gl_core_3_3.hpp"
+#include "gl_core_4_1.hpp"
 #include <GLFW/glfw3.h>
 
 #include "Util.hpp"
@@ -65,8 +65,8 @@ int main(int argc, char const *argv[])
     // Request OpenGL 3.3 context
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 
     // Create window
     LOG_INFO("Creating window...")

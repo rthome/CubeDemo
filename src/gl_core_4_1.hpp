@@ -63,7 +63,7 @@
 #endif
 
 
-#define GL_LOAD_GEN_GL_VERSION 330
+#define GL_LOAD_GEN_GL_VERSION 410
 
 #ifndef GL_LOAD_GEN_BASIC_OPENGL_TYPEDEFS
 #define GL_LOAD_GEN_BASIC_OPENGL_TYPEDEFS
@@ -180,35 +180,6 @@ namespace gl
 		extern LoadTest var_EXT_texture_compression_s3tc;
 		extern LoadTest var_EXT_texture_sRGB;
 		extern LoadTest var_EXT_texture_filter_anisotropic;
-		extern LoadTest var_ARB_compressed_texture_pixel_storage;
-		extern LoadTest var_ARB_conservative_depth;
-		extern LoadTest var_ARB_ES2_compatibility;
-		extern LoadTest var_ARB_get_program_binary;
-		extern LoadTest var_ARB_explicit_uniform_location;
-		extern LoadTest var_ARB_internalformat_query;
-		extern LoadTest var_ARB_internalformat_query2;
-		extern LoadTest var_ARB_map_buffer_alignment;
-		extern LoadTest var_ARB_program_interface_query;
-		extern LoadTest var_ARB_separate_shader_objects;
-		extern LoadTest var_ARB_shading_language_420pack;
-		extern LoadTest var_ARB_shading_language_packing;
-		extern LoadTest var_ARB_texture_buffer_range;
-		extern LoadTest var_ARB_texture_storage;
-		extern LoadTest var_ARB_texture_view;
-		extern LoadTest var_ARB_vertex_attrib_binding;
-		extern LoadTest var_ARB_viewport_array;
-		extern LoadTest var_ARB_arrays_of_arrays;
-		extern LoadTest var_ARB_clear_buffer_object;
-		extern LoadTest var_ARB_copy_image;
-		extern LoadTest var_ARB_ES3_compatibility;
-		extern LoadTest var_ARB_fragment_layer_viewport;
-		extern LoadTest var_ARB_framebuffer_no_attachments;
-		extern LoadTest var_ARB_invalidate_subdata;
-		extern LoadTest var_ARB_robust_buffer_access_behavior;
-		extern LoadTest var_ARB_stencil_texturing;
-		extern LoadTest var_ARB_texture_query_levels;
-		extern LoadTest var_ARB_texture_storage_multisample;
-		extern LoadTest var_KHR_debug;
 		
 	} //namespace exts
 	enum
@@ -237,321 +208,6 @@ namespace gl
 		
 		MAX_TEXTURE_MAX_ANISOTROPY_EXT   = 0x84FF,
 		TEXTURE_MAX_ANISOTROPY_EXT       = 0x84FE,
-		
-		PACK_COMPRESSED_BLOCK_DEPTH      = 0x912D,
-		PACK_COMPRESSED_BLOCK_HEIGHT     = 0x912C,
-		PACK_COMPRESSED_BLOCK_SIZE       = 0x912E,
-		PACK_COMPRESSED_BLOCK_WIDTH      = 0x912B,
-		UNPACK_COMPRESSED_BLOCK_DEPTH    = 0x9129,
-		UNPACK_COMPRESSED_BLOCK_HEIGHT   = 0x9128,
-		UNPACK_COMPRESSED_BLOCK_SIZE     = 0x912A,
-		UNPACK_COMPRESSED_BLOCK_WIDTH    = 0x9127,
-		
-		FIXED                            = 0x140C,
-		HIGH_FLOAT                       = 0x8DF2,
-		HIGH_INT                         = 0x8DF5,
-		IMPLEMENTATION_COLOR_READ_FORMAT = 0x8B9B,
-		IMPLEMENTATION_COLOR_READ_TYPE   = 0x8B9A,
-		LOW_FLOAT                        = 0x8DF0,
-		LOW_INT                          = 0x8DF3,
-		MAX_FRAGMENT_UNIFORM_VECTORS     = 0x8DFD,
-		MAX_VARYING_VECTORS              = 0x8DFC,
-		MAX_VERTEX_UNIFORM_VECTORS       = 0x8DFB,
-		MEDIUM_FLOAT                     = 0x8DF1,
-		MEDIUM_INT                       = 0x8DF4,
-		NUM_SHADER_BINARY_FORMATS        = 0x8DF9,
-		RGB565                           = 0x8D62,
-		SHADER_BINARY_FORMATS            = 0x8DF8,
-		SHADER_COMPILER                  = 0x8DFA,
-		
-		NUM_PROGRAM_BINARY_FORMATS       = 0x87FE,
-		PROGRAM_BINARY_FORMATS           = 0x87FF,
-		PROGRAM_BINARY_LENGTH            = 0x8741,
-		PROGRAM_BINARY_RETRIEVABLE_HINT  = 0x8257,
-		
-		MAX_UNIFORM_LOCATIONS            = 0x826E,
-		
-		NUM_SAMPLE_COUNTS                = 0x9380,
-		
-		AUTO_GENERATE_MIPMAP             = 0x8295,
-		CAVEAT_SUPPORT                   = 0x82B8,
-		CLEAR_BUFFER                     = 0x82B4,
-		COLOR_COMPONENTS                 = 0x8283,
-		COLOR_ENCODING                   = 0x8296,
-		COLOR_RENDERABLE                 = 0x8286,
-		COMPUTE_TEXTURE                  = 0x82A0,
-		DEPTH_COMPONENTS                 = 0x8284,
-		DEPTH_RENDERABLE                 = 0x8287,
-		FILTER                           = 0x829A,
-		FRAGMENT_TEXTURE                 = 0x829F,
-		FRAMEBUFFER_BLEND                = 0x828B,
-		FRAMEBUFFER_RENDERABLE           = 0x8289,
-		FRAMEBUFFER_RENDERABLE_LAYERED   = 0x828A,
-		FULL_SUPPORT                     = 0x82B7,
-		GEOMETRY_TEXTURE                 = 0x829E,
-		GET_TEXTURE_IMAGE_FORMAT         = 0x8291,
-		GET_TEXTURE_IMAGE_TYPE           = 0x8292,
-		IMAGE_CLASS_10_10_10_2           = 0x82C3,
-		IMAGE_CLASS_11_11_10             = 0x82C2,
-		IMAGE_CLASS_1_X_16               = 0x82BE,
-		IMAGE_CLASS_1_X_32               = 0x82BB,
-		IMAGE_CLASS_1_X_8                = 0x82C1,
-		IMAGE_CLASS_2_X_16               = 0x82BD,
-		IMAGE_CLASS_2_X_32               = 0x82BA,
-		IMAGE_CLASS_2_X_8                = 0x82C0,
-		IMAGE_CLASS_4_X_16               = 0x82BC,
-		IMAGE_CLASS_4_X_32               = 0x82B9,
-		IMAGE_CLASS_4_X_8                = 0x82BF,
-		IMAGE_COMPATIBILITY_CLASS        = 0x82A8,
-		IMAGE_FORMAT_COMPATIBILITY_TYPE  = 0x90C7,
-		IMAGE_PIXEL_FORMAT               = 0x82A9,
-		IMAGE_PIXEL_TYPE                 = 0x82AA,
-		IMAGE_TEXEL_SIZE                 = 0x82A7,
-		INTERNALFORMAT_ALPHA_SIZE        = 0x8274,
-		INTERNALFORMAT_ALPHA_TYPE        = 0x827B,
-		INTERNALFORMAT_BLUE_SIZE         = 0x8273,
-		INTERNALFORMAT_BLUE_TYPE         = 0x827A,
-		INTERNALFORMAT_DEPTH_SIZE        = 0x8275,
-		INTERNALFORMAT_DEPTH_TYPE        = 0x827C,
-		INTERNALFORMAT_GREEN_SIZE        = 0x8272,
-		INTERNALFORMAT_GREEN_TYPE        = 0x8279,
-		INTERNALFORMAT_PREFERRED         = 0x8270,
-		INTERNALFORMAT_RED_SIZE          = 0x8271,
-		INTERNALFORMAT_RED_TYPE          = 0x8278,
-		INTERNALFORMAT_SHARED_SIZE       = 0x8277,
-		INTERNALFORMAT_STENCIL_SIZE      = 0x8276,
-		INTERNALFORMAT_STENCIL_TYPE      = 0x827D,
-		INTERNALFORMAT_SUPPORTED         = 0x826F,
-		MANUAL_GENERATE_MIPMAP           = 0x8294,
-		MAX_COMBINED_DIMENSIONS          = 0x8282,
-		MAX_DEPTH                        = 0x8280,
-		MAX_HEIGHT                       = 0x827F,
-		MAX_LAYERS                       = 0x8281,
-		MAX_WIDTH                        = 0x827E,
-		MIPMAP                           = 0x8293,
-		//NUM_SAMPLE_COUNTS taken from ext: ARB_internalformat_query
-		READ_PIXELS                      = 0x828C,
-		READ_PIXELS_FORMAT               = 0x828D,
-		READ_PIXELS_TYPE                 = 0x828E,
-		RENDERBUFFER                     = 0x8D41,
-		SAMPLES                          = 0x80A9,
-		SHADER_IMAGE_ATOMIC              = 0x82A6,
-		SHADER_IMAGE_LOAD                = 0x82A4,
-		SHADER_IMAGE_STORE               = 0x82A5,
-		SIMULTANEOUS_TEXTURE_AND_DEPTH_TEST = 0x82AC,
-		SIMULTANEOUS_TEXTURE_AND_DEPTH_WRITE = 0x82AE,
-		SIMULTANEOUS_TEXTURE_AND_STENCIL_TEST = 0x82AD,
-		SIMULTANEOUS_TEXTURE_AND_STENCIL_WRITE = 0x82AF,
-		SRGB_DECODE_ARB                  = 0x8299,
-		SRGB_READ                        = 0x8297,
-		SRGB_WRITE                       = 0x8298,
-		STENCIL_COMPONENTS               = 0x8285,
-		STENCIL_RENDERABLE               = 0x8288,
-		TESS_CONTROL_TEXTURE             = 0x829C,
-		TESS_EVALUATION_TEXTURE          = 0x829D,
-		TEXTURE_1D                       = 0x0DE0,
-		TEXTURE_1D_ARRAY                 = 0x8C18,
-		TEXTURE_2D                       = 0x0DE1,
-		TEXTURE_2D_ARRAY                 = 0x8C1A,
-		TEXTURE_2D_MULTISAMPLE           = 0x9100,
-		TEXTURE_2D_MULTISAMPLE_ARRAY     = 0x9102,
-		TEXTURE_3D                       = 0x806F,
-		TEXTURE_BUFFER                   = 0x8C2A,
-		TEXTURE_COMPRESSED               = 0x86A1,
-		TEXTURE_COMPRESSED_BLOCK_HEIGHT  = 0x82B2,
-		TEXTURE_COMPRESSED_BLOCK_SIZE    = 0x82B3,
-		TEXTURE_COMPRESSED_BLOCK_WIDTH   = 0x82B1,
-		TEXTURE_CUBE_MAP                 = 0x8513,
-		TEXTURE_CUBE_MAP_ARRAY           = 0x9009,
-		TEXTURE_GATHER                   = 0x82A2,
-		TEXTURE_GATHER_SHADOW            = 0x82A3,
-		TEXTURE_IMAGE_FORMAT             = 0x828F,
-		TEXTURE_IMAGE_TYPE               = 0x8290,
-		TEXTURE_RECTANGLE                = 0x84F5,
-		TEXTURE_SHADOW                   = 0x82A1,
-		TEXTURE_VIEW                     = 0x82B5,
-		VERTEX_TEXTURE                   = 0x829B,
-		VIEW_CLASS_128_BITS              = 0x82C4,
-		VIEW_CLASS_16_BITS               = 0x82CA,
-		VIEW_CLASS_24_BITS               = 0x82C9,
-		VIEW_CLASS_32_BITS               = 0x82C8,
-		VIEW_CLASS_48_BITS               = 0x82C7,
-		VIEW_CLASS_64_BITS               = 0x82C6,
-		VIEW_CLASS_8_BITS                = 0x82CB,
-		VIEW_CLASS_96_BITS               = 0x82C5,
-		VIEW_CLASS_BPTC_FLOAT            = 0x82D3,
-		VIEW_CLASS_BPTC_UNORM            = 0x82D2,
-		VIEW_CLASS_RGTC1_RED             = 0x82D0,
-		VIEW_CLASS_RGTC2_RG              = 0x82D1,
-		VIEW_CLASS_S3TC_DXT1_RGB         = 0x82CC,
-		VIEW_CLASS_S3TC_DXT1_RGBA        = 0x82CD,
-		VIEW_CLASS_S3TC_DXT3_RGBA        = 0x82CE,
-		VIEW_CLASS_S3TC_DXT5_RGBA        = 0x82CF,
-		VIEW_COMPATIBILITY_CLASS         = 0x82B6,
-		
-		MIN_MAP_BUFFER_ALIGNMENT         = 0x90BC,
-		
-		ACTIVE_RESOURCES                 = 0x92F5,
-		ACTIVE_VARIABLES                 = 0x9305,
-		ARRAY_SIZE                       = 0x92FB,
-		ARRAY_STRIDE                     = 0x92FE,
-		ATOMIC_COUNTER_BUFFER            = 0x92C0,
-		ATOMIC_COUNTER_BUFFER_INDEX      = 0x9301,
-		BLOCK_INDEX                      = 0x92FD,
-		BUFFER_BINDING                   = 0x9302,
-		BUFFER_DATA_SIZE                 = 0x9303,
-		BUFFER_VARIABLE                  = 0x92E5,
-		COMPATIBLE_SUBROUTINES           = 0x8E4B,
-		COMPUTE_SUBROUTINE               = 0x92ED,
-		COMPUTE_SUBROUTINE_UNIFORM       = 0x92F3,
-		FRAGMENT_SUBROUTINE              = 0x92EC,
-		FRAGMENT_SUBROUTINE_UNIFORM      = 0x92F2,
-		GEOMETRY_SUBROUTINE              = 0x92EB,
-		GEOMETRY_SUBROUTINE_UNIFORM      = 0x92F1,
-		IS_PER_PATCH                     = 0x92E7,
-		IS_ROW_MAJOR                     = 0x9300,
-		LOCATION                         = 0x930E,
-		LOCATION_INDEX                   = 0x930F,
-		MATRIX_STRIDE                    = 0x92FF,
-		MAX_NAME_LENGTH                  = 0x92F6,
-		MAX_NUM_ACTIVE_VARIABLES         = 0x92F7,
-		MAX_NUM_COMPATIBLE_SUBROUTINES   = 0x92F8,
-		NAME_LENGTH                      = 0x92F9,
-		NUM_ACTIVE_VARIABLES             = 0x9304,
-		NUM_COMPATIBLE_SUBROUTINES       = 0x8E4A,
-		OFFSET                           = 0x92FC,
-		PROGRAM_INPUT                    = 0x92E3,
-		PROGRAM_OUTPUT                   = 0x92E4,
-		REFERENCED_BY_COMPUTE_SHADER     = 0x930B,
-		REFERENCED_BY_FRAGMENT_SHADER    = 0x930A,
-		REFERENCED_BY_GEOMETRY_SHADER    = 0x9309,
-		REFERENCED_BY_TESS_CONTROL_SHADER = 0x9307,
-		REFERENCED_BY_TESS_EVALUATION_SHADER = 0x9308,
-		REFERENCED_BY_VERTEX_SHADER      = 0x9306,
-		SHADER_STORAGE_BLOCK             = 0x92E6,
-		TESS_CONTROL_SUBROUTINE          = 0x92E9,
-		TESS_CONTROL_SUBROUTINE_UNIFORM  = 0x92EF,
-		TESS_EVALUATION_SUBROUTINE       = 0x92EA,
-		TESS_EVALUATION_SUBROUTINE_UNIFORM = 0x92F0,
-		TOP_LEVEL_ARRAY_SIZE             = 0x930C,
-		TOP_LEVEL_ARRAY_STRIDE           = 0x930D,
-		TRANSFORM_FEEDBACK_VARYING       = 0x92F4,
-		TYPE                             = 0x92FA,
-		UNIFORM                          = 0x92E1,
-		UNIFORM_BLOCK                    = 0x92E2,
-		VERTEX_SUBROUTINE                = 0x92E8,
-		VERTEX_SUBROUTINE_UNIFORM        = 0x92EE,
-		
-		ACTIVE_PROGRAM                   = 0x8259,
-		ALL_SHADER_BITS                  = 0xFFFFFFFF,
-		FRAGMENT_SHADER_BIT              = 0x00000002,
-		GEOMETRY_SHADER_BIT              = 0x00000004,
-		PROGRAM_PIPELINE_BINDING         = 0x825A,
-		PROGRAM_SEPARABLE                = 0x8258,
-		TESS_CONTROL_SHADER_BIT          = 0x00000008,
-		TESS_EVALUATION_SHADER_BIT       = 0x00000010,
-		VERTEX_SHADER_BIT                = 0x00000001,
-		
-		TEXTURE_BUFFER_OFFSET            = 0x919D,
-		TEXTURE_BUFFER_OFFSET_ALIGNMENT  = 0x919F,
-		TEXTURE_BUFFER_SIZE              = 0x919E,
-		
-		TEXTURE_IMMUTABLE_FORMAT         = 0x912F,
-		
-		TEXTURE_IMMUTABLE_LEVELS         = 0x82DF,
-		TEXTURE_VIEW_MIN_LAYER           = 0x82DD,
-		TEXTURE_VIEW_MIN_LEVEL           = 0x82DB,
-		TEXTURE_VIEW_NUM_LAYERS          = 0x82DE,
-		TEXTURE_VIEW_NUM_LEVELS          = 0x82DC,
-		
-		MAX_VERTEX_ATTRIB_BINDINGS       = 0x82DA,
-		MAX_VERTEX_ATTRIB_RELATIVE_OFFSET = 0x82D9,
-		VERTEX_ATTRIB_BINDING            = 0x82D4,
-		VERTEX_ATTRIB_RELATIVE_OFFSET    = 0x82D5,
-		VERTEX_BINDING_DIVISOR           = 0x82D6,
-		VERTEX_BINDING_OFFSET            = 0x82D7,
-		VERTEX_BINDING_STRIDE            = 0x82D8,
-		
-		DEPTH_RANGE                      = 0x0B70,
-		FIRST_VERTEX_CONVENTION          = 0x8E4D,
-		LAST_VERTEX_CONVENTION           = 0x8E4E,
-		LAYER_PROVOKING_VERTEX           = 0x825E,
-		MAX_VIEWPORTS                    = 0x825B,
-		PROVOKING_VERTEX                 = 0x8E4F,
-		SCISSOR_BOX                      = 0x0C10,
-		SCISSOR_TEST                     = 0x0C11,
-		UNDEFINED_VERTEX                 = 0x8260,
-		VIEWPORT                         = 0x0BA2,
-		VIEWPORT_BOUNDS_RANGE            = 0x825D,
-		VIEWPORT_INDEX_PROVOKING_VERTEX  = 0x825F,
-		VIEWPORT_SUBPIXEL_BITS           = 0x825C,
-		
-		ANY_SAMPLES_PASSED_CONSERVATIVE  = 0x8D6A,
-		COMPRESSED_R11_EAC               = 0x9270,
-		COMPRESSED_RG11_EAC              = 0x9272,
-		COMPRESSED_RGB8_ETC2             = 0x9274,
-		COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2 = 0x9276,
-		COMPRESSED_RGBA8_ETC2_EAC        = 0x9278,
-		COMPRESSED_SIGNED_R11_EAC        = 0x9271,
-		COMPRESSED_SIGNED_RG11_EAC       = 0x9273,
-		COMPRESSED_SRGB8_ALPHA8_ETC2_EAC = 0x9279,
-		COMPRESSED_SRGB8_ETC2            = 0x9275,
-		COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2 = 0x9277,
-		MAX_ELEMENT_INDEX                = 0x8D6B,
-		PRIMITIVE_RESTART_FIXED_INDEX    = 0x8D69,
-		
-		FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS = 0x9314,
-		FRAMEBUFFER_DEFAULT_HEIGHT       = 0x9311,
-		FRAMEBUFFER_DEFAULT_LAYERS       = 0x9312,
-		FRAMEBUFFER_DEFAULT_SAMPLES      = 0x9313,
-		FRAMEBUFFER_DEFAULT_WIDTH        = 0x9310,
-		MAX_FRAMEBUFFER_HEIGHT           = 0x9316,
-		MAX_FRAMEBUFFER_LAYERS           = 0x9317,
-		MAX_FRAMEBUFFER_SAMPLES          = 0x9318,
-		MAX_FRAMEBUFFER_WIDTH            = 0x9315,
-		
-		DEPTH_STENCIL_TEXTURE_MODE       = 0x90EA,
-		
-		BUFFER                           = 0x82E0,
-		CONTEXT_FLAG_DEBUG_BIT           = 0x00000002,
-		DEBUG_CALLBACK_FUNCTION          = 0x8244,
-		DEBUG_CALLBACK_USER_PARAM        = 0x8245,
-		DEBUG_GROUP_STACK_DEPTH          = 0x826D,
-		DEBUG_LOGGED_MESSAGES            = 0x9145,
-		DEBUG_NEXT_LOGGED_MESSAGE_LENGTH = 0x8243,
-		DEBUG_OUTPUT                     = 0x92E0,
-		DEBUG_OUTPUT_SYNCHRONOUS         = 0x8242,
-		DEBUG_SEVERITY_HIGH              = 0x9146,
-		DEBUG_SEVERITY_LOW               = 0x9148,
-		DEBUG_SEVERITY_MEDIUM            = 0x9147,
-		DEBUG_SEVERITY_NOTIFICATION      = 0x826B,
-		DEBUG_SOURCE_API                 = 0x8246,
-		DEBUG_SOURCE_APPLICATION         = 0x824A,
-		DEBUG_SOURCE_OTHER               = 0x824B,
-		DEBUG_SOURCE_SHADER_COMPILER     = 0x8248,
-		DEBUG_SOURCE_THIRD_PARTY         = 0x8249,
-		DEBUG_SOURCE_WINDOW_SYSTEM       = 0x8247,
-		DEBUG_TYPE_DEPRECATED_BEHAVIOR   = 0x824D,
-		DEBUG_TYPE_ERROR                 = 0x824C,
-		DEBUG_TYPE_MARKER                = 0x8268,
-		DEBUG_TYPE_OTHER                 = 0x8251,
-		DEBUG_TYPE_PERFORMANCE           = 0x8250,
-		DEBUG_TYPE_POP_GROUP             = 0x826A,
-		DEBUG_TYPE_PORTABILITY           = 0x824F,
-		DEBUG_TYPE_PUSH_GROUP            = 0x8269,
-		DEBUG_TYPE_UNDEFINED_BEHAVIOR    = 0x824E,
-		DISPLAY_LIST                     = 0x82E7,
-		MAX_DEBUG_GROUP_STACK_DEPTH      = 0x826C,
-		MAX_DEBUG_LOGGED_MESSAGES        = 0x9144,
-		MAX_DEBUG_MESSAGE_LENGTH         = 0x9143,
-		MAX_LABEL_LENGTH                 = 0x82E8,
-		PROGRAM                          = 0x82E2,
-		PROGRAM_PIPELINE                 = 0x82E4,
-		QUERY                            = 0x82E3,
-		SAMPLER                          = 0x82E6,
-		SHADER                           = 0x82E1,
-		STACK_OVERFLOW                   = 0x0503,
-		STACK_UNDERFLOW                  = 0x0504,
 		
 		ALPHA                            = 0x1906,
 		ALWAYS                           = 0x0207,
@@ -584,7 +240,7 @@ namespace gl
 		DEPTH_CLEAR_VALUE                = 0x0B73,
 		DEPTH_COMPONENT                  = 0x1902,
 		DEPTH_FUNC                       = 0x0B74,
-		//DEPTH_RANGE taken from ext: ARB_viewport_array
+		DEPTH_RANGE                      = 0x0B70,
 		DEPTH_TEST                       = 0x0B71,
 		DEPTH_WRITEMASK                  = 0x0B72,
 		DITHER                           = 0x0BD0,
@@ -698,8 +354,8 @@ namespace gl
 		RGBA4                            = 0x8056,
 		RGBA8                            = 0x8058,
 		RIGHT                            = 0x0407,
-		//SCISSOR_BOX taken from ext: ARB_viewport_array
-		//SCISSOR_TEST taken from ext: ARB_viewport_array
+		SCISSOR_BOX                      = 0x0C10,
+		SCISSOR_TEST                     = 0x0C11,
 		SET                              = 0x150F,
 		SHORT                            = 0x1402,
 		SRC_ALPHA                        = 0x0302,
@@ -720,8 +376,8 @@ namespace gl
 		STEREO                           = 0x0C33,
 		SUBPIXEL_BITS                    = 0x0D50,
 		TEXTURE                          = 0x1702,
-		//TEXTURE_1D taken from ext: ARB_internalformat_query2
-		//TEXTURE_2D taken from ext: ARB_internalformat_query2
+		TEXTURE_1D                       = 0x0DE0,
+		TEXTURE_2D                       = 0x0DE1,
 		TEXTURE_ALPHA_SIZE               = 0x805F,
 		TEXTURE_BINDING_1D               = 0x8068,
 		TEXTURE_BINDING_2D               = 0x8069,
@@ -751,7 +407,7 @@ namespace gl
 		UNSIGNED_SHORT                   = 0x1403,
 		VENDOR                           = 0x1F00,
 		VERSION                          = 0x1F02,
-		//VIEWPORT taken from ext: ARB_viewport_array
+		VIEWPORT                         = 0x0BA2,
 		XOR                              = 0x1506,
 		ZERO                             = 0,
 		
@@ -769,7 +425,7 @@ namespace gl
 		SMOOTH_LINE_WIDTH_RANGE          = 0x0B22,
 		SMOOTH_POINT_SIZE_GRANULARITY    = 0x0B13,
 		SMOOTH_POINT_SIZE_RANGE          = 0x0B12,
-		//TEXTURE_3D taken from ext: ARB_internalformat_query2
+		TEXTURE_3D                       = 0x806F,
 		TEXTURE_BASE_LEVEL               = 0x813C,
 		TEXTURE_BINDING_3D               = 0x806A,
 		TEXTURE_DEPTH                    = 0x8071,
@@ -801,7 +457,7 @@ namespace gl
 		MULTISAMPLE                      = 0x809D,
 		NUM_COMPRESSED_TEXTURE_FORMATS   = 0x86A2,
 		PROXY_TEXTURE_CUBE_MAP           = 0x851B,
-		//SAMPLES taken from ext: ARB_internalformat_query2
+		SAMPLES                          = 0x80A9,
 		SAMPLE_ALPHA_TO_COVERAGE         = 0x809E,
 		SAMPLE_ALPHA_TO_ONE              = 0x809F,
 		SAMPLE_BUFFERS                   = 0x80A8,
@@ -841,10 +497,10 @@ namespace gl
 		TEXTURE8                         = 0x84C8,
 		TEXTURE9                         = 0x84C9,
 		TEXTURE_BINDING_CUBE_MAP         = 0x8514,
-		//TEXTURE_COMPRESSED taken from ext: ARB_internalformat_query2
+		TEXTURE_COMPRESSED               = 0x86A1,
 		TEXTURE_COMPRESSED_IMAGE_SIZE    = 0x86A0,
 		TEXTURE_COMPRESSION_HINT         = 0x84EF,
-		//TEXTURE_CUBE_MAP taken from ext: ARB_internalformat_query2
+		TEXTURE_CUBE_MAP                 = 0x8513,
 		TEXTURE_CUBE_MAP_NEGATIVE_X      = 0x8516,
 		TEXTURE_CUBE_MAP_NEGATIVE_Y      = 0x8518,
 		TEXTURE_CUBE_MAP_NEGATIVE_Z      = 0x851A,
@@ -1124,7 +780,7 @@ namespace gl
 		READ_FRAMEBUFFER                 = 0x8CA8,
 		READ_FRAMEBUFFER_BINDING         = 0x8CAA,
 		RED_INTEGER                      = 0x8D94,
-		//RENDERBUFFER taken from ext: ARB_internalformat_query2
+		RENDERBUFFER                     = 0x8D41,
 		RENDERBUFFER_ALPHA_SIZE          = 0x8D53,
 		RENDERBUFFER_BINDING             = 0x8CA7,
 		RENDERBUFFER_BLUE_SIZE           = 0x8D52,
@@ -1178,8 +834,8 @@ namespace gl
 		STENCIL_INDEX16                  = 0x8D49,
 		STENCIL_INDEX4                   = 0x8D47,
 		STENCIL_INDEX8                   = 0x8D48,
-		//TEXTURE_1D_ARRAY taken from ext: ARB_internalformat_query2
-		//TEXTURE_2D_ARRAY taken from ext: ARB_internalformat_query2
+		TEXTURE_1D_ARRAY                 = 0x8C18,
+		TEXTURE_2D_ARRAY                 = 0x8C1A,
 		TEXTURE_ALPHA_TYPE               = 0x8C13,
 		TEXTURE_BINDING_1D_ARRAY         = 0x8C1C,
 		TEXTURE_BINDING_2D_ARRAY         = 0x8C1D,
@@ -1246,9 +902,9 @@ namespace gl
 		SIGNED_NORMALIZED                = 0x8F9C,
 		TEXTURE_BINDING_BUFFER           = 0x8C2C,
 		TEXTURE_BINDING_RECTANGLE        = 0x84F6,
-		//TEXTURE_BUFFER taken from ext: ARB_internalformat_query2
+		TEXTURE_BUFFER                   = 0x8C2A,
 		TEXTURE_BUFFER_DATA_STORE_BINDING = 0x8C2D,
-		//TEXTURE_RECTANGLE taken from ext: ARB_internalformat_query2
+		TEXTURE_RECTANGLE                = 0x84F5,
 		UNIFORM_ARRAY_STRIDE             = 0x8A3C,
 		UNIFORM_BLOCK_ACTIVE_UNIFORMS    = 0x8A42,
 		UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES = 0x8A43,
@@ -1278,7 +934,7 @@ namespace gl
 		CONTEXT_CORE_PROFILE_BIT         = 0x00000001,
 		CONTEXT_PROFILE_MASK             = 0x9126,
 		DEPTH_CLAMP                      = 0x864F,
-		//FIRST_VERTEX_CONVENTION taken from ext: ARB_viewport_array
+		FIRST_VERTEX_CONVENTION          = 0x8E4D,
 		FRAMEBUFFER_ATTACHMENT_LAYERED   = 0x8DA7,
 		FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS = 0x8DA8,
 		GEOMETRY_INPUT_TYPE              = 0x8917,
@@ -1287,7 +943,7 @@ namespace gl
 		GEOMETRY_VERTICES_OUT            = 0x8916,
 		INT_SAMPLER_2D_MULTISAMPLE       = 0x9109,
 		INT_SAMPLER_2D_MULTISAMPLE_ARRAY = 0x910C,
-		//LAST_VERTEX_CONVENTION taken from ext: ARB_viewport_array
+		LAST_VERTEX_CONVENTION           = 0x8E4E,
 		LINES_ADJACENCY                  = 0x000A,
 		LINE_STRIP_ADJACENCY             = 0x000B,
 		MAX_COLOR_TEXTURE_SAMPLES        = 0x910E,
@@ -1305,7 +961,7 @@ namespace gl
 		MAX_VERTEX_OUTPUT_COMPONENTS     = 0x9122,
 		OBJECT_TYPE                      = 0x9112,
 		PROGRAM_POINT_SIZE               = 0x8642,
-		//PROVOKING_VERTEX taken from ext: ARB_viewport_array
+		PROVOKING_VERTEX                 = 0x8E4F,
 		PROXY_TEXTURE_2D_MULTISAMPLE     = 0x9101,
 		PROXY_TEXTURE_2D_MULTISAMPLE_ARRAY = 0x9103,
 		QUADS_FOLLOW_PROVOKING_VERTEX_CONVENTION = 0x8E4C,
@@ -1321,8 +977,8 @@ namespace gl
 		SYNC_FLUSH_COMMANDS_BIT          = 0x00000001,
 		SYNC_GPU_COMMANDS_COMPLETE       = 0x9117,
 		SYNC_STATUS                      = 0x9114,
-		//TEXTURE_2D_MULTISAMPLE taken from ext: ARB_internalformat_query2
-		//TEXTURE_2D_MULTISAMPLE_ARRAY taken from ext: ARB_internalformat_query2
+		TEXTURE_2D_MULTISAMPLE           = 0x9100,
+		TEXTURE_2D_MULTISAMPLE_ARRAY     = 0x9102,
 		TEXTURE_BINDING_2D_MULTISAMPLE   = 0x9104,
 		TEXTURE_BINDING_2D_MULTISAMPLE_ARRAY = 0x9105,
 		TEXTURE_CUBE_MAP_SEAMLESS        = 0x884F,
@@ -1354,162 +1010,126 @@ namespace gl
 		TIME_ELAPSED                     = 0x88BF,
 		VERTEX_ATTRIB_ARRAY_DIVISOR      = 0x88FE,
 		
+		ACTIVE_SUBROUTINES               = 0x8DE5,
+		ACTIVE_SUBROUTINE_MAX_LENGTH     = 0x8E48,
+		ACTIVE_SUBROUTINE_UNIFORMS       = 0x8DE6,
+		ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS = 0x8E47,
+		ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH = 0x8E49,
+		COMPATIBLE_SUBROUTINES           = 0x8E4B,
+		DOUBLE_MAT2                      = 0x8F46,
+		DOUBLE_MAT2x3                    = 0x8F49,
+		DOUBLE_MAT2x4                    = 0x8F4A,
+		DOUBLE_MAT3                      = 0x8F47,
+		DOUBLE_MAT3x2                    = 0x8F4B,
+		DOUBLE_MAT3x4                    = 0x8F4C,
+		DOUBLE_MAT4                      = 0x8F48,
+		DOUBLE_MAT4x2                    = 0x8F4D,
+		DOUBLE_MAT4x3                    = 0x8F4E,
+		DOUBLE_VEC2                      = 0x8FFC,
+		DOUBLE_VEC3                      = 0x8FFD,
+		DOUBLE_VEC4                      = 0x8FFE,
+		DRAW_INDIRECT_BUFFER             = 0x8F3F,
+		DRAW_INDIRECT_BUFFER_BINDING     = 0x8F43,
+		FRACTIONAL_EVEN                  = 0x8E7C,
+		FRACTIONAL_ODD                   = 0x8E7B,
+		FRAGMENT_INTERPOLATION_OFFSET_BITS = 0x8E5D,
+		GEOMETRY_SHADER_INVOCATIONS      = 0x887F,
+		INT_SAMPLER_CUBE_MAP_ARRAY       = 0x900E,
+		ISOLINES                         = 0x8E7A,
+		MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS = 0x8E1E,
+		MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS = 0x8E1F,
+		MAX_FRAGMENT_INTERPOLATION_OFFSET = 0x8E5C,
+		MAX_GEOMETRY_SHADER_INVOCATIONS  = 0x8E5A,
+		MAX_PATCH_VERTICES               = 0x8E7D,
+		MAX_PROGRAM_TEXTURE_GATHER_OFFSET = 0x8E5F,
+		MAX_SUBROUTINES                  = 0x8DE7,
+		MAX_SUBROUTINE_UNIFORM_LOCATIONS = 0x8DE8,
+		MAX_TESS_CONTROL_INPUT_COMPONENTS = 0x886C,
+		MAX_TESS_CONTROL_OUTPUT_COMPONENTS = 0x8E83,
+		MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS = 0x8E81,
+		MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS = 0x8E85,
+		MAX_TESS_CONTROL_UNIFORM_BLOCKS  = 0x8E89,
+		MAX_TESS_CONTROL_UNIFORM_COMPONENTS = 0x8E7F,
+		MAX_TESS_EVALUATION_INPUT_COMPONENTS = 0x886D,
+		MAX_TESS_EVALUATION_OUTPUT_COMPONENTS = 0x8E86,
+		MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS = 0x8E82,
+		MAX_TESS_EVALUATION_UNIFORM_BLOCKS = 0x8E8A,
+		MAX_TESS_EVALUATION_UNIFORM_COMPONENTS = 0x8E80,
+		MAX_TESS_GEN_LEVEL               = 0x8E7E,
+		MAX_TESS_PATCH_COMPONENTS        = 0x8E84,
+		MAX_TRANSFORM_FEEDBACK_BUFFERS   = 0x8E70,
+		MAX_VERTEX_STREAMS               = 0x8E71,
+		MIN_FRAGMENT_INTERPOLATION_OFFSET = 0x8E5B,
+		MIN_PROGRAM_TEXTURE_GATHER_OFFSET = 0x8E5E,
+		MIN_SAMPLE_SHADING_VALUE         = 0x8C37,
+		NUM_COMPATIBLE_SUBROUTINES       = 0x8E4A,
+		PATCHES                          = 0x000E,
+		PATCH_DEFAULT_INNER_LEVEL        = 0x8E73,
+		PATCH_DEFAULT_OUTER_LEVEL        = 0x8E74,
+		PATCH_VERTICES                   = 0x8E72,
+		PROXY_TEXTURE_CUBE_MAP_ARRAY     = 0x900B,
+		SAMPLER_CUBE_MAP_ARRAY           = 0x900C,
+		SAMPLER_CUBE_MAP_ARRAY_SHADOW    = 0x900D,
+		SAMPLE_SHADING                   = 0x8C36,
+		TESS_CONTROL_OUTPUT_VERTICES     = 0x8E75,
+		TESS_CONTROL_SHADER              = 0x8E88,
+		TESS_EVALUATION_SHADER           = 0x8E87,
+		TESS_GEN_MODE                    = 0x8E76,
+		TESS_GEN_POINT_MODE              = 0x8E79,
+		TESS_GEN_SPACING                 = 0x8E77,
+		TESS_GEN_VERTEX_ORDER            = 0x8E78,
+		TEXTURE_BINDING_CUBE_MAP_ARRAY   = 0x900A,
+		TEXTURE_CUBE_MAP_ARRAY           = 0x9009,
+		TRANSFORM_FEEDBACK               = 0x8E22,
+		TRANSFORM_FEEDBACK_BINDING       = 0x8E25,
+		TRANSFORM_FEEDBACK_BUFFER_ACTIVE = 0x8E24,
+		TRANSFORM_FEEDBACK_BUFFER_PAUSED = 0x8E23,
+		UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER = 0x84F0,
+		UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER = 0x84F1,
+		UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY = 0x900F,
+		
+		ACTIVE_PROGRAM                   = 0x8259,
+		ALL_SHADER_BITS                  = 0xFFFFFFFF,
+		FIXED                            = 0x140C,
+		FRAGMENT_SHADER_BIT              = 0x00000002,
+		GEOMETRY_SHADER_BIT              = 0x00000004,
+		HIGH_FLOAT                       = 0x8DF2,
+		HIGH_INT                         = 0x8DF5,
+		IMPLEMENTATION_COLOR_READ_FORMAT = 0x8B9B,
+		IMPLEMENTATION_COLOR_READ_TYPE   = 0x8B9A,
+		LAYER_PROVOKING_VERTEX           = 0x825E,
+		LOW_FLOAT                        = 0x8DF0,
+		LOW_INT                          = 0x8DF3,
+		MAX_FRAGMENT_UNIFORM_VECTORS     = 0x8DFD,
+		MAX_VARYING_VECTORS              = 0x8DFC,
+		MAX_VERTEX_UNIFORM_VECTORS       = 0x8DFB,
+		MAX_VIEWPORTS                    = 0x825B,
+		MEDIUM_FLOAT                     = 0x8DF1,
+		MEDIUM_INT                       = 0x8DF4,
+		NUM_PROGRAM_BINARY_FORMATS       = 0x87FE,
+		NUM_SHADER_BINARY_FORMATS        = 0x8DF9,
+		PROGRAM_BINARY_FORMATS           = 0x87FF,
+		PROGRAM_BINARY_LENGTH            = 0x8741,
+		PROGRAM_BINARY_RETRIEVABLE_HINT  = 0x8257,
+		PROGRAM_PIPELINE_BINDING         = 0x825A,
+		PROGRAM_SEPARABLE                = 0x8258,
+		RGB565                           = 0x8D62,
+		SHADER_BINARY_FORMATS            = 0x8DF8,
+		SHADER_COMPILER                  = 0x8DFA,
+		TESS_CONTROL_SHADER_BIT          = 0x00000008,
+		TESS_EVALUATION_SHADER_BIT       = 0x00000010,
+		UNDEFINED_VERTEX                 = 0x8260,
+		VERTEX_SHADER_BIT                = 0x00000001,
+		VIEWPORT_BOUNDS_RANGE            = 0x825D,
+		VIEWPORT_INDEX_PROVOKING_VERTEX  = 0x825F,
+		VIEWPORT_SUBPIXEL_BITS           = 0x825C,
+		
 	};
 	
 	namespace _detail
 	{
 		
 		
-		
-		
-		
-		extern void (CODEGEN_FUNCPTR *ClearDepthf)(GLfloat d);
-		extern void (CODEGEN_FUNCPTR *DepthRangef)(GLfloat n, GLfloat f);
-		extern void (CODEGEN_FUNCPTR *GetShaderPrecisionFormat)(GLenum shadertype, GLenum precisiontype, GLint * range, GLint * precision);
-		extern void (CODEGEN_FUNCPTR *ReleaseShaderCompiler)(void);
-		extern void (CODEGEN_FUNCPTR *ShaderBinary)(GLsizei count, const GLuint * shaders, GLenum binaryformat, const GLvoid * binary, GLsizei length);
-		
-		extern void (CODEGEN_FUNCPTR *GetProgramBinary)(GLuint program, GLsizei bufSize, GLsizei * length, GLenum * binaryFormat, GLvoid * binary);
-		extern void (CODEGEN_FUNCPTR *ProgramBinary)(GLuint program, GLenum binaryFormat, const GLvoid * binary, GLsizei length);
-		extern void (CODEGEN_FUNCPTR *ProgramParameteri)(GLuint program, GLenum pname, GLint value);
-		
-		
-		extern void (CODEGEN_FUNCPTR *GetInternalformativ)(GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint * params);
-		
-		extern void (CODEGEN_FUNCPTR *GetInternalformati64v)(GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint64 * params);
-		
-		
-		extern void (CODEGEN_FUNCPTR *GetProgramInterfaceiv)(GLuint program, GLenum programInterface, GLenum pname, GLint * params);
-		extern GLuint (CODEGEN_FUNCPTR *GetProgramResourceIndex)(GLuint program, GLenum programInterface, const GLchar * name);
-		extern GLint (CODEGEN_FUNCPTR *GetProgramResourceLocation)(GLuint program, GLenum programInterface, const GLchar * name);
-		extern GLint (CODEGEN_FUNCPTR *GetProgramResourceLocationIndex)(GLuint program, GLenum programInterface, const GLchar * name);
-		extern void (CODEGEN_FUNCPTR *GetProgramResourceName)(GLuint program, GLenum programInterface, GLuint index, GLsizei bufSize, GLsizei * length, GLchar * name);
-		extern void (CODEGEN_FUNCPTR *GetProgramResourceiv)(GLuint program, GLenum programInterface, GLuint index, GLsizei propCount, const GLenum * props, GLsizei bufSize, GLsizei * length, GLint * params);
-		
-		extern void (CODEGEN_FUNCPTR *ActiveShaderProgram)(GLuint pipeline, GLuint program);
-		extern void (CODEGEN_FUNCPTR *BindProgramPipeline)(GLuint pipeline);
-		extern GLuint (CODEGEN_FUNCPTR *CreateShaderProgramv)(GLenum type, GLsizei count, const GLchar *const* strings);
-		extern void (CODEGEN_FUNCPTR *DeleteProgramPipelines)(GLsizei n, const GLuint * pipelines);
-		extern void (CODEGEN_FUNCPTR *GenProgramPipelines)(GLsizei n, GLuint * pipelines);
-		extern void (CODEGEN_FUNCPTR *GetProgramPipelineInfoLog)(GLuint pipeline, GLsizei bufSize, GLsizei * length, GLchar * infoLog);
-		extern void (CODEGEN_FUNCPTR *GetProgramPipelineiv)(GLuint pipeline, GLenum pname, GLint * params);
-		extern GLboolean (CODEGEN_FUNCPTR *IsProgramPipeline)(GLuint pipeline);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform1d)(GLuint program, GLint location, GLdouble v0);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform1dv)(GLuint program, GLint location, GLsizei count, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform1f)(GLuint program, GLint location, GLfloat v0);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform1fv)(GLuint program, GLint location, GLsizei count, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform1i)(GLuint program, GLint location, GLint v0);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform1iv)(GLuint program, GLint location, GLsizei count, const GLint * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform1ui)(GLuint program, GLint location, GLuint v0);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform1uiv)(GLuint program, GLint location, GLsizei count, const GLuint * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform2d)(GLuint program, GLint location, GLdouble v0, GLdouble v1);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform2dv)(GLuint program, GLint location, GLsizei count, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform2f)(GLuint program, GLint location, GLfloat v0, GLfloat v1);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform2fv)(GLuint program, GLint location, GLsizei count, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform2i)(GLuint program, GLint location, GLint v0, GLint v1);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform2iv)(GLuint program, GLint location, GLsizei count, const GLint * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform2ui)(GLuint program, GLint location, GLuint v0, GLuint v1);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform2uiv)(GLuint program, GLint location, GLsizei count, const GLuint * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform3d)(GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform3dv)(GLuint program, GLint location, GLsizei count, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform3f)(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform3fv)(GLuint program, GLint location, GLsizei count, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform3i)(GLuint program, GLint location, GLint v0, GLint v1, GLint v2);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform3iv)(GLuint program, GLint location, GLsizei count, const GLint * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform3ui)(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform3uiv)(GLuint program, GLint location, GLsizei count, const GLuint * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform4d)(GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2, GLdouble v3);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform4dv)(GLuint program, GLint location, GLsizei count, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform4f)(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform4fv)(GLuint program, GLint location, GLsizei count, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform4i)(GLuint program, GLint location, GLint v0, GLint v1, GLint v2, GLint v3);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform4iv)(GLuint program, GLint location, GLsizei count, const GLint * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform4ui)(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
-		extern void (CODEGEN_FUNCPTR *ProgramUniform4uiv)(GLuint program, GLint location, GLsizei count, const GLuint * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix2dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix2fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix2x3dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix2x3fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix2x4dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix2x4fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix3dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix3fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix3x2dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix3x2fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix3x4dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix3x4fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix4dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix4fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix4x2dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix4x2fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix4x3dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix4x3fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-		extern void (CODEGEN_FUNCPTR *UseProgramStages)(GLuint pipeline, GLbitfield stages, GLuint program);
-		extern void (CODEGEN_FUNCPTR *ValidateProgramPipeline)(GLuint pipeline);
-		
-		
-		
-		extern void (CODEGEN_FUNCPTR *TexBufferRange)(GLenum target, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size);
-		
-		extern void (CODEGEN_FUNCPTR *TexStorage1D)(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width);
-		extern void (CODEGEN_FUNCPTR *TexStorage2D)(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height);
-		extern void (CODEGEN_FUNCPTR *TexStorage3D)(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth);
-		
-		extern void (CODEGEN_FUNCPTR *TextureView)(GLuint texture, GLenum target, GLuint origtexture, GLenum internalformat, GLuint minlevel, GLuint numlevels, GLuint minlayer, GLuint numlayers);
-		
-		extern void (CODEGEN_FUNCPTR *BindVertexBuffer)(GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride);
-		extern void (CODEGEN_FUNCPTR *VertexAttribBinding)(GLuint attribindex, GLuint bindingindex);
-		extern void (CODEGEN_FUNCPTR *VertexAttribFormat)(GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset);
-		extern void (CODEGEN_FUNCPTR *VertexAttribIFormat)(GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
-		extern void (CODEGEN_FUNCPTR *VertexAttribLFormat)(GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
-		extern void (CODEGEN_FUNCPTR *VertexBindingDivisor)(GLuint bindingindex, GLuint divisor);
-		
-		extern void (CODEGEN_FUNCPTR *DepthRangeArrayv)(GLuint first, GLsizei count, const GLdouble * v);
-		extern void (CODEGEN_FUNCPTR *DepthRangeIndexed)(GLuint index, GLdouble n, GLdouble f);
-		extern void (CODEGEN_FUNCPTR *GetDoublei_v)(GLenum target, GLuint index, GLdouble * data);
-		extern void (CODEGEN_FUNCPTR *GetFloati_v)(GLenum target, GLuint index, GLfloat * data);
-		extern void (CODEGEN_FUNCPTR *ScissorArrayv)(GLuint first, GLsizei count, const GLint * v);
-		extern void (CODEGEN_FUNCPTR *ScissorIndexed)(GLuint index, GLint left, GLint bottom, GLsizei width, GLsizei height);
-		extern void (CODEGEN_FUNCPTR *ScissorIndexedv)(GLuint index, const GLint * v);
-		extern void (CODEGEN_FUNCPTR *ViewportArrayv)(GLuint first, GLsizei count, const GLfloat * v);
-		extern void (CODEGEN_FUNCPTR *ViewportIndexedf)(GLuint index, GLfloat x, GLfloat y, GLfloat w, GLfloat h);
-		extern void (CODEGEN_FUNCPTR *ViewportIndexedfv)(GLuint index, const GLfloat * v);
-		
-		
-		extern void (CODEGEN_FUNCPTR *ClearBufferData)(GLenum target, GLenum internalformat, GLenum format, GLenum type, const void * data);
-		extern void (CODEGEN_FUNCPTR *ClearBufferSubData)(GLenum target, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type, const void * data);
-		
-		extern void (CODEGEN_FUNCPTR *CopyImageSubData)(GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei srcWidth, GLsizei srcHeight, GLsizei srcDepth);
-		
-		
-		
-		extern void (CODEGEN_FUNCPTR *FramebufferParameteri)(GLenum target, GLenum pname, GLint param);
-		extern void (CODEGEN_FUNCPTR *GetFramebufferParameteriv)(GLenum target, GLenum pname, GLint * params);
-		
-		extern void (CODEGEN_FUNCPTR *InvalidateBufferData)(GLuint buffer);
-		extern void (CODEGEN_FUNCPTR *InvalidateBufferSubData)(GLuint buffer, GLintptr offset, GLsizeiptr length);
-		extern void (CODEGEN_FUNCPTR *InvalidateFramebuffer)(GLenum target, GLsizei numAttachments, const GLenum * attachments);
-		extern void (CODEGEN_FUNCPTR *InvalidateSubFramebuffer)(GLenum target, GLsizei numAttachments, const GLenum * attachments, GLint x, GLint y, GLsizei width, GLsizei height);
-		extern void (CODEGEN_FUNCPTR *InvalidateTexImage)(GLuint texture, GLint level);
-		extern void (CODEGEN_FUNCPTR *InvalidateTexSubImage)(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth);
-		
-		
-		
-		
-		extern void (CODEGEN_FUNCPTR *TexStorage2DMultisample)(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations);
-		extern void (CODEGEN_FUNCPTR *TexStorage3DMultisample)(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
-		
-		extern void (CODEGEN_FUNCPTR *DebugMessageCallback)(GLDEBUGPROC callback, const void * userParam);
-		extern void (CODEGEN_FUNCPTR *DebugMessageControl)(GLenum source, GLenum type, GLenum severity, GLsizei count, const GLuint * ids, GLboolean enabled);
-		extern void (CODEGEN_FUNCPTR *DebugMessageInsert)(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * buf);
-		extern GLuint (CODEGEN_FUNCPTR *GetDebugMessageLog)(GLuint count, GLsizei bufsize, GLenum * sources, GLenum * types, GLuint * ids, GLenum * severities, GLsizei * lengths, GLchar * messageLog);
-		extern void (CODEGEN_FUNCPTR *GetObjectLabel)(GLenum identifier, GLuint name, GLsizei bufSize, GLsizei * length, GLchar * label);
-		extern void (CODEGEN_FUNCPTR *GetObjectPtrLabel)(const void * ptr, GLsizei bufSize, GLsizei * length, GLchar * label);
-		extern void (CODEGEN_FUNCPTR *GetPointerv)(GLenum pname, GLvoid ** params);
-		extern void (CODEGEN_FUNCPTR *ObjectLabel)(GLenum identifier, GLuint name, GLsizei length, const GLchar * label);
-		extern void (CODEGEN_FUNCPTR *ObjectPtrLabel)(const void * ptr, GLsizei length, const GLchar * label);
-		extern void (CODEGEN_FUNCPTR *PopDebugGroup)(void);
-		extern void (CODEGEN_FUNCPTR *PushDebugGroup)(GLenum source, GLuint id, GLsizei length, const GLchar * message);
 		
 		extern void (CODEGEN_FUNCPTR *BlendFunc)(GLenum sfactor, GLenum dfactor);
 		extern void (CODEGEN_FUNCPTR *Clear)(GLbitfield mask);
@@ -1897,160 +1517,146 @@ namespace gl
 		extern void (CODEGEN_FUNCPTR *VertexP4ui)(GLenum type, GLuint value);
 		extern void (CODEGEN_FUNCPTR *VertexP4uiv)(GLenum type, const GLuint * value);
 		
+		extern void (CODEGEN_FUNCPTR *BeginQueryIndexed)(GLenum target, GLuint index, GLuint id);
+		extern void (CODEGEN_FUNCPTR *BindTransformFeedback)(GLenum target, GLuint id);
+		extern void (CODEGEN_FUNCPTR *BlendEquationSeparatei)(GLuint buf, GLenum modeRGB, GLenum modeAlpha);
+		extern void (CODEGEN_FUNCPTR *BlendEquationi)(GLuint buf, GLenum mode);
+		extern void (CODEGEN_FUNCPTR *BlendFuncSeparatei)(GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
+		extern void (CODEGEN_FUNCPTR *BlendFunci)(GLuint buf, GLenum src, GLenum dst);
+		extern void (CODEGEN_FUNCPTR *DeleteTransformFeedbacks)(GLsizei n, const GLuint * ids);
+		extern void (CODEGEN_FUNCPTR *DrawArraysIndirect)(GLenum mode, const GLvoid * indirect);
+		extern void (CODEGEN_FUNCPTR *DrawElementsIndirect)(GLenum mode, GLenum type, const GLvoid * indirect);
+		extern void (CODEGEN_FUNCPTR *DrawTransformFeedback)(GLenum mode, GLuint id);
+		extern void (CODEGEN_FUNCPTR *DrawTransformFeedbackStream)(GLenum mode, GLuint id, GLuint stream);
+		extern void (CODEGEN_FUNCPTR *EndQueryIndexed)(GLenum target, GLuint index);
+		extern void (CODEGEN_FUNCPTR *GenTransformFeedbacks)(GLsizei n, GLuint * ids);
+		extern void (CODEGEN_FUNCPTR *GetActiveSubroutineName)(GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize, GLsizei * length, GLchar * name);
+		extern void (CODEGEN_FUNCPTR *GetActiveSubroutineUniformName)(GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize, GLsizei * length, GLchar * name);
+		extern void (CODEGEN_FUNCPTR *GetActiveSubroutineUniformiv)(GLuint program, GLenum shadertype, GLuint index, GLenum pname, GLint * values);
+		extern void (CODEGEN_FUNCPTR *GetProgramStageiv)(GLuint program, GLenum shadertype, GLenum pname, GLint * values);
+		extern void (CODEGEN_FUNCPTR *GetQueryIndexediv)(GLenum target, GLuint index, GLenum pname, GLint * params);
+		extern GLuint (CODEGEN_FUNCPTR *GetSubroutineIndex)(GLuint program, GLenum shadertype, const GLchar * name);
+		extern GLint (CODEGEN_FUNCPTR *GetSubroutineUniformLocation)(GLuint program, GLenum shadertype, const GLchar * name);
+		extern void (CODEGEN_FUNCPTR *GetUniformSubroutineuiv)(GLenum shadertype, GLint location, GLuint * params);
+		extern void (CODEGEN_FUNCPTR *GetUniformdv)(GLuint program, GLint location, GLdouble * params);
+		extern GLboolean (CODEGEN_FUNCPTR *IsTransformFeedback)(GLuint id);
+		extern void (CODEGEN_FUNCPTR *MinSampleShading)(GLfloat value);
+		extern void (CODEGEN_FUNCPTR *PatchParameterfv)(GLenum pname, const GLfloat * values);
+		extern void (CODEGEN_FUNCPTR *PatchParameteri)(GLenum pname, GLint value);
+		extern void (CODEGEN_FUNCPTR *PauseTransformFeedback)(void);
+		extern void (CODEGEN_FUNCPTR *ResumeTransformFeedback)(void);
+		extern void (CODEGEN_FUNCPTR *Uniform1d)(GLint location, GLdouble x);
+		extern void (CODEGEN_FUNCPTR *Uniform1dv)(GLint location, GLsizei count, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *Uniform2d)(GLint location, GLdouble x, GLdouble y);
+		extern void (CODEGEN_FUNCPTR *Uniform2dv)(GLint location, GLsizei count, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *Uniform3d)(GLint location, GLdouble x, GLdouble y, GLdouble z);
+		extern void (CODEGEN_FUNCPTR *Uniform3dv)(GLint location, GLsizei count, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *Uniform4d)(GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
+		extern void (CODEGEN_FUNCPTR *Uniform4dv)(GLint location, GLsizei count, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *UniformMatrix2dv)(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *UniformMatrix2x3dv)(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *UniformMatrix2x4dv)(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *UniformMatrix3dv)(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *UniformMatrix3x2dv)(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *UniformMatrix3x4dv)(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *UniformMatrix4dv)(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *UniformMatrix4x2dv)(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *UniformMatrix4x3dv)(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *UniformSubroutinesuiv)(GLenum shadertype, GLsizei count, const GLuint * indices);
+		
+		extern void (CODEGEN_FUNCPTR *ActiveShaderProgram)(GLuint pipeline, GLuint program);
+		extern void (CODEGEN_FUNCPTR *BindProgramPipeline)(GLuint pipeline);
+		extern void (CODEGEN_FUNCPTR *ClearDepthf)(GLfloat d);
+		extern GLuint (CODEGEN_FUNCPTR *CreateShaderProgramv)(GLenum type, GLsizei count, const GLchar *const* strings);
+		extern void (CODEGEN_FUNCPTR *DeleteProgramPipelines)(GLsizei n, const GLuint * pipelines);
+		extern void (CODEGEN_FUNCPTR *DepthRangeArrayv)(GLuint first, GLsizei count, const GLdouble * v);
+		extern void (CODEGEN_FUNCPTR *DepthRangeIndexed)(GLuint index, GLdouble n, GLdouble f);
+		extern void (CODEGEN_FUNCPTR *DepthRangef)(GLfloat n, GLfloat f);
+		extern void (CODEGEN_FUNCPTR *GenProgramPipelines)(GLsizei n, GLuint * pipelines);
+		extern void (CODEGEN_FUNCPTR *GetDoublei_v)(GLenum target, GLuint index, GLdouble * data);
+		extern void (CODEGEN_FUNCPTR *GetFloati_v)(GLenum target, GLuint index, GLfloat * data);
+		extern void (CODEGEN_FUNCPTR *GetProgramBinary)(GLuint program, GLsizei bufSize, GLsizei * length, GLenum * binaryFormat, GLvoid * binary);
+		extern void (CODEGEN_FUNCPTR *GetProgramPipelineInfoLog)(GLuint pipeline, GLsizei bufSize, GLsizei * length, GLchar * infoLog);
+		extern void (CODEGEN_FUNCPTR *GetProgramPipelineiv)(GLuint pipeline, GLenum pname, GLint * params);
+		extern void (CODEGEN_FUNCPTR *GetShaderPrecisionFormat)(GLenum shadertype, GLenum precisiontype, GLint * range, GLint * precision);
+		extern void (CODEGEN_FUNCPTR *GetVertexAttribLdv)(GLuint index, GLenum pname, GLdouble * params);
+		extern GLboolean (CODEGEN_FUNCPTR *IsProgramPipeline)(GLuint pipeline);
+		extern void (CODEGEN_FUNCPTR *ProgramBinary)(GLuint program, GLenum binaryFormat, const GLvoid * binary, GLsizei length);
+		extern void (CODEGEN_FUNCPTR *ProgramParameteri)(GLuint program, GLenum pname, GLint value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform1d)(GLuint program, GLint location, GLdouble v0);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform1dv)(GLuint program, GLint location, GLsizei count, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform1f)(GLuint program, GLint location, GLfloat v0);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform1fv)(GLuint program, GLint location, GLsizei count, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform1i)(GLuint program, GLint location, GLint v0);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform1iv)(GLuint program, GLint location, GLsizei count, const GLint * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform1ui)(GLuint program, GLint location, GLuint v0);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform1uiv)(GLuint program, GLint location, GLsizei count, const GLuint * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform2d)(GLuint program, GLint location, GLdouble v0, GLdouble v1);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform2dv)(GLuint program, GLint location, GLsizei count, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform2f)(GLuint program, GLint location, GLfloat v0, GLfloat v1);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform2fv)(GLuint program, GLint location, GLsizei count, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform2i)(GLuint program, GLint location, GLint v0, GLint v1);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform2iv)(GLuint program, GLint location, GLsizei count, const GLint * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform2ui)(GLuint program, GLint location, GLuint v0, GLuint v1);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform2uiv)(GLuint program, GLint location, GLsizei count, const GLuint * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform3d)(GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform3dv)(GLuint program, GLint location, GLsizei count, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform3f)(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform3fv)(GLuint program, GLint location, GLsizei count, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform3i)(GLuint program, GLint location, GLint v0, GLint v1, GLint v2);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform3iv)(GLuint program, GLint location, GLsizei count, const GLint * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform3ui)(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform3uiv)(GLuint program, GLint location, GLsizei count, const GLuint * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform4d)(GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2, GLdouble v3);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform4dv)(GLuint program, GLint location, GLsizei count, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform4f)(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform4fv)(GLuint program, GLint location, GLsizei count, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform4i)(GLuint program, GLint location, GLint v0, GLint v1, GLint v2, GLint v3);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform4iv)(GLuint program, GLint location, GLsizei count, const GLint * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform4ui)(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
+		extern void (CODEGEN_FUNCPTR *ProgramUniform4uiv)(GLuint program, GLint location, GLsizei count, const GLuint * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix2dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix2fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix2x3dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix2x3fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix2x4dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix2x4fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix3dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix3fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix3x2dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix3x2fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix3x4dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix3x4fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix4dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix4fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix4x2dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix4x2fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix4x3dv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+		extern void (CODEGEN_FUNCPTR *ProgramUniformMatrix4x3fv)(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+		extern void (CODEGEN_FUNCPTR *ReleaseShaderCompiler)(void);
+		extern void (CODEGEN_FUNCPTR *ScissorArrayv)(GLuint first, GLsizei count, const GLint * v);
+		extern void (CODEGEN_FUNCPTR *ScissorIndexed)(GLuint index, GLint left, GLint bottom, GLsizei width, GLsizei height);
+		extern void (CODEGEN_FUNCPTR *ScissorIndexedv)(GLuint index, const GLint * v);
+		extern void (CODEGEN_FUNCPTR *ShaderBinary)(GLsizei count, const GLuint * shaders, GLenum binaryformat, const GLvoid * binary, GLsizei length);
+		extern void (CODEGEN_FUNCPTR *UseProgramStages)(GLuint pipeline, GLbitfield stages, GLuint program);
+		extern void (CODEGEN_FUNCPTR *ValidateProgramPipeline)(GLuint pipeline);
+		extern void (CODEGEN_FUNCPTR *VertexAttribL1d)(GLuint index, GLdouble x);
+		extern void (CODEGEN_FUNCPTR *VertexAttribL1dv)(GLuint index, const GLdouble * v);
+		extern void (CODEGEN_FUNCPTR *VertexAttribL2d)(GLuint index, GLdouble x, GLdouble y);
+		extern void (CODEGEN_FUNCPTR *VertexAttribL2dv)(GLuint index, const GLdouble * v);
+		extern void (CODEGEN_FUNCPTR *VertexAttribL3d)(GLuint index, GLdouble x, GLdouble y, GLdouble z);
+		extern void (CODEGEN_FUNCPTR *VertexAttribL3dv)(GLuint index, const GLdouble * v);
+		extern void (CODEGEN_FUNCPTR *VertexAttribL4d)(GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
+		extern void (CODEGEN_FUNCPTR *VertexAttribL4dv)(GLuint index, const GLdouble * v);
+		extern void (CODEGEN_FUNCPTR *VertexAttribLPointer)(GLuint index, GLint size, GLenum type, GLsizei stride, const GLvoid * pointer);
+		extern void (CODEGEN_FUNCPTR *ViewportArrayv)(GLuint first, GLsizei count, const GLfloat * v);
+		extern void (CODEGEN_FUNCPTR *ViewportIndexedf)(GLuint index, GLfloat x, GLfloat y, GLfloat w, GLfloat h);
+		extern void (CODEGEN_FUNCPTR *ViewportIndexedfv)(GLuint index, const GLfloat * v);
+		
 	} //namespace _detail
 	
 	
 	
-	
-	
-	
-	inline void ClearDepthf(GLfloat d){_detail::ClearDepthf(d);}
-	inline void DepthRangef(GLfloat n, GLfloat f){_detail::DepthRangef(n, f);}
-	inline void GetShaderPrecisionFormat(GLenum shadertype, GLenum precisiontype, GLint * range, GLint * precision){_detail::GetShaderPrecisionFormat(shadertype, precisiontype, range, precision);}
-	inline void ReleaseShaderCompiler(void){_detail::ReleaseShaderCompiler();}
-	inline void ShaderBinary(GLsizei count, const GLuint * shaders, GLenum binaryformat, const GLvoid * binary, GLsizei length){_detail::ShaderBinary(count, shaders, binaryformat, binary, length);}
-	
-	inline void GetProgramBinary(GLuint program, GLsizei bufSize, GLsizei * length, GLenum * binaryFormat, GLvoid * binary){_detail::GetProgramBinary(program, bufSize, length, binaryFormat, binary);}
-	inline void ProgramBinary(GLuint program, GLenum binaryFormat, const GLvoid * binary, GLsizei length){_detail::ProgramBinary(program, binaryFormat, binary, length);}
-	inline void ProgramParameteri(GLuint program, GLenum pname, GLint value){_detail::ProgramParameteri(program, pname, value);}
-	
-	
-	inline void GetInternalformativ(GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint * params){_detail::GetInternalformativ(target, internalformat, pname, bufSize, params);}
-	
-	inline void GetInternalformati64v(GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint64 * params){_detail::GetInternalformati64v(target, internalformat, pname, bufSize, params);}
-	
-	
-	inline void GetProgramInterfaceiv(GLuint program, GLenum programInterface, GLenum pname, GLint * params){_detail::GetProgramInterfaceiv(program, programInterface, pname, params);}
-	inline GLuint GetProgramResourceIndex(GLuint program, GLenum programInterface, const GLchar * name){return _detail::GetProgramResourceIndex(program, programInterface, name);}
-	inline GLint GetProgramResourceLocation(GLuint program, GLenum programInterface, const GLchar * name){return _detail::GetProgramResourceLocation(program, programInterface, name);}
-	inline GLint GetProgramResourceLocationIndex(GLuint program, GLenum programInterface, const GLchar * name){return _detail::GetProgramResourceLocationIndex(program, programInterface, name);}
-	inline void GetProgramResourceName(GLuint program, GLenum programInterface, GLuint index, GLsizei bufSize, GLsizei * length, GLchar * name){_detail::GetProgramResourceName(program, programInterface, index, bufSize, length, name);}
-	inline void GetProgramResourceiv(GLuint program, GLenum programInterface, GLuint index, GLsizei propCount, const GLenum * props, GLsizei bufSize, GLsizei * length, GLint * params){_detail::GetProgramResourceiv(program, programInterface, index, propCount, props, bufSize, length, params);}
-	
-	inline void ActiveShaderProgram(GLuint pipeline, GLuint program){_detail::ActiveShaderProgram(pipeline, program);}
-	inline void BindProgramPipeline(GLuint pipeline){_detail::BindProgramPipeline(pipeline);}
-	inline GLuint CreateShaderProgramv(GLenum type, GLsizei count, const GLchar *const* strings){return _detail::CreateShaderProgramv(type, count, strings);}
-	inline void DeleteProgramPipelines(GLsizei n, const GLuint * pipelines){_detail::DeleteProgramPipelines(n, pipelines);}
-	inline void GenProgramPipelines(GLsizei n, GLuint * pipelines){_detail::GenProgramPipelines(n, pipelines);}
-	inline void GetProgramPipelineInfoLog(GLuint pipeline, GLsizei bufSize, GLsizei * length, GLchar * infoLog){_detail::GetProgramPipelineInfoLog(pipeline, bufSize, length, infoLog);}
-	inline void GetProgramPipelineiv(GLuint pipeline, GLenum pname, GLint * params){_detail::GetProgramPipelineiv(pipeline, pname, params);}
-	inline GLboolean IsProgramPipeline(GLuint pipeline){return _detail::IsProgramPipeline(pipeline);}
-	inline void ProgramUniform1d(GLuint program, GLint location, GLdouble v0){_detail::ProgramUniform1d(program, location, v0);}
-	inline void ProgramUniform1dv(GLuint program, GLint location, GLsizei count, const GLdouble * value){_detail::ProgramUniform1dv(program, location, count, value);}
-	inline void ProgramUniform1f(GLuint program, GLint location, GLfloat v0){_detail::ProgramUniform1f(program, location, v0);}
-	inline void ProgramUniform1fv(GLuint program, GLint location, GLsizei count, const GLfloat * value){_detail::ProgramUniform1fv(program, location, count, value);}
-	inline void ProgramUniform1i(GLuint program, GLint location, GLint v0){_detail::ProgramUniform1i(program, location, v0);}
-	inline void ProgramUniform1iv(GLuint program, GLint location, GLsizei count, const GLint * value){_detail::ProgramUniform1iv(program, location, count, value);}
-	inline void ProgramUniform1ui(GLuint program, GLint location, GLuint v0){_detail::ProgramUniform1ui(program, location, v0);}
-	inline void ProgramUniform1uiv(GLuint program, GLint location, GLsizei count, const GLuint * value){_detail::ProgramUniform1uiv(program, location, count, value);}
-	inline void ProgramUniform2d(GLuint program, GLint location, GLdouble v0, GLdouble v1){_detail::ProgramUniform2d(program, location, v0, v1);}
-	inline void ProgramUniform2dv(GLuint program, GLint location, GLsizei count, const GLdouble * value){_detail::ProgramUniform2dv(program, location, count, value);}
-	inline void ProgramUniform2f(GLuint program, GLint location, GLfloat v0, GLfloat v1){_detail::ProgramUniform2f(program, location, v0, v1);}
-	inline void ProgramUniform2fv(GLuint program, GLint location, GLsizei count, const GLfloat * value){_detail::ProgramUniform2fv(program, location, count, value);}
-	inline void ProgramUniform2i(GLuint program, GLint location, GLint v0, GLint v1){_detail::ProgramUniform2i(program, location, v0, v1);}
-	inline void ProgramUniform2iv(GLuint program, GLint location, GLsizei count, const GLint * value){_detail::ProgramUniform2iv(program, location, count, value);}
-	inline void ProgramUniform2ui(GLuint program, GLint location, GLuint v0, GLuint v1){_detail::ProgramUniform2ui(program, location, v0, v1);}
-	inline void ProgramUniform2uiv(GLuint program, GLint location, GLsizei count, const GLuint * value){_detail::ProgramUniform2uiv(program, location, count, value);}
-	inline void ProgramUniform3d(GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2){_detail::ProgramUniform3d(program, location, v0, v1, v2);}
-	inline void ProgramUniform3dv(GLuint program, GLint location, GLsizei count, const GLdouble * value){_detail::ProgramUniform3dv(program, location, count, value);}
-	inline void ProgramUniform3f(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2){_detail::ProgramUniform3f(program, location, v0, v1, v2);}
-	inline void ProgramUniform3fv(GLuint program, GLint location, GLsizei count, const GLfloat * value){_detail::ProgramUniform3fv(program, location, count, value);}
-	inline void ProgramUniform3i(GLuint program, GLint location, GLint v0, GLint v1, GLint v2){_detail::ProgramUniform3i(program, location, v0, v1, v2);}
-	inline void ProgramUniform3iv(GLuint program, GLint location, GLsizei count, const GLint * value){_detail::ProgramUniform3iv(program, location, count, value);}
-	inline void ProgramUniform3ui(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2){_detail::ProgramUniform3ui(program, location, v0, v1, v2);}
-	inline void ProgramUniform3uiv(GLuint program, GLint location, GLsizei count, const GLuint * value){_detail::ProgramUniform3uiv(program, location, count, value);}
-	inline void ProgramUniform4d(GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2, GLdouble v3){_detail::ProgramUniform4d(program, location, v0, v1, v2, v3);}
-	inline void ProgramUniform4dv(GLuint program, GLint location, GLsizei count, const GLdouble * value){_detail::ProgramUniform4dv(program, location, count, value);}
-	inline void ProgramUniform4f(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3){_detail::ProgramUniform4f(program, location, v0, v1, v2, v3);}
-	inline void ProgramUniform4fv(GLuint program, GLint location, GLsizei count, const GLfloat * value){_detail::ProgramUniform4fv(program, location, count, value);}
-	inline void ProgramUniform4i(GLuint program, GLint location, GLint v0, GLint v1, GLint v2, GLint v3){_detail::ProgramUniform4i(program, location, v0, v1, v2, v3);}
-	inline void ProgramUniform4iv(GLuint program, GLint location, GLsizei count, const GLint * value){_detail::ProgramUniform4iv(program, location, count, value);}
-	inline void ProgramUniform4ui(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3){_detail::ProgramUniform4ui(program, location, v0, v1, v2, v3);}
-	inline void ProgramUniform4uiv(GLuint program, GLint location, GLsizei count, const GLuint * value){_detail::ProgramUniform4uiv(program, location, count, value);}
-	inline void ProgramUniformMatrix2dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix2dv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix2fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix2fv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix2x3dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix2x3dv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix2x3fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix2x3fv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix2x4dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix2x4dv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix2x4fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix2x4fv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix3dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix3dv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix3fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix3fv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix3x2dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix3x2dv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix3x2fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix3x2fv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix3x4dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix3x4dv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix3x4fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix3x4fv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix4dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix4dv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix4fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix4fv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix4x2dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix4x2dv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix4x2fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix4x2fv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix4x3dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix4x3dv(program, location, count, transpose, value);}
-	inline void ProgramUniformMatrix4x3fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix4x3fv(program, location, count, transpose, value);}
-	inline void UseProgramStages(GLuint pipeline, GLbitfield stages, GLuint program){_detail::UseProgramStages(pipeline, stages, program);}
-	inline void ValidateProgramPipeline(GLuint pipeline){_detail::ValidateProgramPipeline(pipeline);}
-	
-	
-	
-	inline void TexBufferRange(GLenum target, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size){_detail::TexBufferRange(target, internalformat, buffer, offset, size);}
-	
-	inline void TexStorage1D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width){_detail::TexStorage1D(target, levels, internalformat, width);}
-	inline void TexStorage2D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height){_detail::TexStorage2D(target, levels, internalformat, width, height);}
-	inline void TexStorage3D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth){_detail::TexStorage3D(target, levels, internalformat, width, height, depth);}
-	
-	inline void TextureView(GLuint texture, GLenum target, GLuint origtexture, GLenum internalformat, GLuint minlevel, GLuint numlevels, GLuint minlayer, GLuint numlayers){_detail::TextureView(texture, target, origtexture, internalformat, minlevel, numlevels, minlayer, numlayers);}
-	
-	inline void BindVertexBuffer(GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride){_detail::BindVertexBuffer(bindingindex, buffer, offset, stride);}
-	inline void VertexAttribBinding(GLuint attribindex, GLuint bindingindex){_detail::VertexAttribBinding(attribindex, bindingindex);}
-	inline void VertexAttribFormat(GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset){_detail::VertexAttribFormat(attribindex, size, type, normalized, relativeoffset);}
-	inline void VertexAttribIFormat(GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset){_detail::VertexAttribIFormat(attribindex, size, type, relativeoffset);}
-	inline void VertexAttribLFormat(GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset){_detail::VertexAttribLFormat(attribindex, size, type, relativeoffset);}
-	inline void VertexBindingDivisor(GLuint bindingindex, GLuint divisor){_detail::VertexBindingDivisor(bindingindex, divisor);}
-	
-	inline void DepthRangeArrayv(GLuint first, GLsizei count, const GLdouble * v){_detail::DepthRangeArrayv(first, count, v);}
-	inline void DepthRangeIndexed(GLuint index, GLdouble n, GLdouble f){_detail::DepthRangeIndexed(index, n, f);}
-	inline void GetDoublei_v(GLenum target, GLuint index, GLdouble * data){_detail::GetDoublei_v(target, index, data);}
-	inline void GetFloati_v(GLenum target, GLuint index, GLfloat * data){_detail::GetFloati_v(target, index, data);}
-	inline void ScissorArrayv(GLuint first, GLsizei count, const GLint * v){_detail::ScissorArrayv(first, count, v);}
-	inline void ScissorIndexed(GLuint index, GLint left, GLint bottom, GLsizei width, GLsizei height){_detail::ScissorIndexed(index, left, bottom, width, height);}
-	inline void ScissorIndexedv(GLuint index, const GLint * v){_detail::ScissorIndexedv(index, v);}
-	inline void ViewportArrayv(GLuint first, GLsizei count, const GLfloat * v){_detail::ViewportArrayv(first, count, v);}
-	inline void ViewportIndexedf(GLuint index, GLfloat x, GLfloat y, GLfloat w, GLfloat h){_detail::ViewportIndexedf(index, x, y, w, h);}
-	inline void ViewportIndexedfv(GLuint index, const GLfloat * v){_detail::ViewportIndexedfv(index, v);}
-	
-	
-	inline void ClearBufferData(GLenum target, GLenum internalformat, GLenum format, GLenum type, const void * data){_detail::ClearBufferData(target, internalformat, format, type, data);}
-	inline void ClearBufferSubData(GLenum target, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type, const void * data){_detail::ClearBufferSubData(target, internalformat, offset, size, format, type, data);}
-	
-	inline void CopyImageSubData(GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei srcWidth, GLsizei srcHeight, GLsizei srcDepth){_detail::CopyImageSubData(srcName, srcTarget, srcLevel, srcX, srcY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, srcWidth, srcHeight, srcDepth);}
-	
-	
-	
-	inline void FramebufferParameteri(GLenum target, GLenum pname, GLint param){_detail::FramebufferParameteri(target, pname, param);}
-	inline void GetFramebufferParameteriv(GLenum target, GLenum pname, GLint * params){_detail::GetFramebufferParameteriv(target, pname, params);}
-	
-	inline void InvalidateBufferData(GLuint buffer){_detail::InvalidateBufferData(buffer);}
-	inline void InvalidateBufferSubData(GLuint buffer, GLintptr offset, GLsizeiptr length){_detail::InvalidateBufferSubData(buffer, offset, length);}
-	inline void InvalidateFramebuffer(GLenum target, GLsizei numAttachments, const GLenum * attachments){_detail::InvalidateFramebuffer(target, numAttachments, attachments);}
-	inline void InvalidateSubFramebuffer(GLenum target, GLsizei numAttachments, const GLenum * attachments, GLint x, GLint y, GLsizei width, GLsizei height){_detail::InvalidateSubFramebuffer(target, numAttachments, attachments, x, y, width, height);}
-	inline void InvalidateTexImage(GLuint texture, GLint level){_detail::InvalidateTexImage(texture, level);}
-	inline void InvalidateTexSubImage(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth){_detail::InvalidateTexSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth);}
-	
-	
-	
-	
-	inline void TexStorage2DMultisample(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations){_detail::TexStorage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);}
-	inline void TexStorage3DMultisample(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations){_detail::TexStorage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);}
-	
-	inline void DebugMessageCallback(GLDEBUGPROC callback, const void * userParam){_detail::DebugMessageCallback(callback, userParam);}
-	inline void DebugMessageControl(GLenum source, GLenum type, GLenum severity, GLsizei count, const GLuint * ids, GLboolean enabled){_detail::DebugMessageControl(source, type, severity, count, ids, enabled);}
-	inline void DebugMessageInsert(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * buf){_detail::DebugMessageInsert(source, type, id, severity, length, buf);}
-	inline GLuint GetDebugMessageLog(GLuint count, GLsizei bufsize, GLenum * sources, GLenum * types, GLuint * ids, GLenum * severities, GLsizei * lengths, GLchar * messageLog){return _detail::GetDebugMessageLog(count, bufsize, sources, types, ids, severities, lengths, messageLog);}
-	inline void GetObjectLabel(GLenum identifier, GLuint name, GLsizei bufSize, GLsizei * length, GLchar * label){_detail::GetObjectLabel(identifier, name, bufSize, length, label);}
-	inline void GetObjectPtrLabel(const void * ptr, GLsizei bufSize, GLsizei * length, GLchar * label){_detail::GetObjectPtrLabel(ptr, bufSize, length, label);}
-	inline void GetPointerv(GLenum pname, GLvoid ** params){_detail::GetPointerv(pname, params);}
-	inline void ObjectLabel(GLenum identifier, GLuint name, GLsizei length, const GLchar * label){_detail::ObjectLabel(identifier, name, length, label);}
-	inline void ObjectPtrLabel(const void * ptr, GLsizei length, const GLchar * label){_detail::ObjectPtrLabel(ptr, length, label);}
-	inline void PopDebugGroup(void){_detail::PopDebugGroup();}
-	inline void PushDebugGroup(GLenum source, GLuint id, GLsizei length, const GLchar * message){_detail::PushDebugGroup(source, id, length, message);}
 	
 	inline void BlendFunc(GLenum sfactor, GLenum dfactor){_detail::BlendFunc(sfactor, dfactor);}
 	inline void Clear(GLbitfield mask){_detail::Clear(mask);}
@@ -2437,6 +2043,142 @@ namespace gl
 	inline void VertexP3uiv(GLenum type, const GLuint * value){_detail::VertexP3uiv(type, value);}
 	inline void VertexP4ui(GLenum type, GLuint value){_detail::VertexP4ui(type, value);}
 	inline void VertexP4uiv(GLenum type, const GLuint * value){_detail::VertexP4uiv(type, value);}
+	
+	inline void BeginQueryIndexed(GLenum target, GLuint index, GLuint id){_detail::BeginQueryIndexed(target, index, id);}
+	inline void BindTransformFeedback(GLenum target, GLuint id){_detail::BindTransformFeedback(target, id);}
+	inline void BlendEquationSeparatei(GLuint buf, GLenum modeRGB, GLenum modeAlpha){_detail::BlendEquationSeparatei(buf, modeRGB, modeAlpha);}
+	inline void BlendEquationi(GLuint buf, GLenum mode){_detail::BlendEquationi(buf, mode);}
+	inline void BlendFuncSeparatei(GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha){_detail::BlendFuncSeparatei(buf, srcRGB, dstRGB, srcAlpha, dstAlpha);}
+	inline void BlendFunci(GLuint buf, GLenum src, GLenum dst){_detail::BlendFunci(buf, src, dst);}
+	inline void DeleteTransformFeedbacks(GLsizei n, const GLuint * ids){_detail::DeleteTransformFeedbacks(n, ids);}
+	inline void DrawArraysIndirect(GLenum mode, const GLvoid * indirect){_detail::DrawArraysIndirect(mode, indirect);}
+	inline void DrawElementsIndirect(GLenum mode, GLenum type, const GLvoid * indirect){_detail::DrawElementsIndirect(mode, type, indirect);}
+	inline void DrawTransformFeedback(GLenum mode, GLuint id){_detail::DrawTransformFeedback(mode, id);}
+	inline void DrawTransformFeedbackStream(GLenum mode, GLuint id, GLuint stream){_detail::DrawTransformFeedbackStream(mode, id, stream);}
+	inline void EndQueryIndexed(GLenum target, GLuint index){_detail::EndQueryIndexed(target, index);}
+	inline void GenTransformFeedbacks(GLsizei n, GLuint * ids){_detail::GenTransformFeedbacks(n, ids);}
+	inline void GetActiveSubroutineName(GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize, GLsizei * length, GLchar * name){_detail::GetActiveSubroutineName(program, shadertype, index, bufsize, length, name);}
+	inline void GetActiveSubroutineUniformName(GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize, GLsizei * length, GLchar * name){_detail::GetActiveSubroutineUniformName(program, shadertype, index, bufsize, length, name);}
+	inline void GetActiveSubroutineUniformiv(GLuint program, GLenum shadertype, GLuint index, GLenum pname, GLint * values){_detail::GetActiveSubroutineUniformiv(program, shadertype, index, pname, values);}
+	inline void GetProgramStageiv(GLuint program, GLenum shadertype, GLenum pname, GLint * values){_detail::GetProgramStageiv(program, shadertype, pname, values);}
+	inline void GetQueryIndexediv(GLenum target, GLuint index, GLenum pname, GLint * params){_detail::GetQueryIndexediv(target, index, pname, params);}
+	inline GLuint GetSubroutineIndex(GLuint program, GLenum shadertype, const GLchar * name){return _detail::GetSubroutineIndex(program, shadertype, name);}
+	inline GLint GetSubroutineUniformLocation(GLuint program, GLenum shadertype, const GLchar * name){return _detail::GetSubroutineUniformLocation(program, shadertype, name);}
+	inline void GetUniformSubroutineuiv(GLenum shadertype, GLint location, GLuint * params){_detail::GetUniformSubroutineuiv(shadertype, location, params);}
+	inline void GetUniformdv(GLuint program, GLint location, GLdouble * params){_detail::GetUniformdv(program, location, params);}
+	inline GLboolean IsTransformFeedback(GLuint id){return _detail::IsTransformFeedback(id);}
+	inline void MinSampleShading(GLfloat value){_detail::MinSampleShading(value);}
+	inline void PatchParameterfv(GLenum pname, const GLfloat * values){_detail::PatchParameterfv(pname, values);}
+	inline void PatchParameteri(GLenum pname, GLint value){_detail::PatchParameteri(pname, value);}
+	inline void PauseTransformFeedback(void){_detail::PauseTransformFeedback();}
+	inline void ResumeTransformFeedback(void){_detail::ResumeTransformFeedback();}
+	inline void Uniform1d(GLint location, GLdouble x){_detail::Uniform1d(location, x);}
+	inline void Uniform1dv(GLint location, GLsizei count, const GLdouble * value){_detail::Uniform1dv(location, count, value);}
+	inline void Uniform2d(GLint location, GLdouble x, GLdouble y){_detail::Uniform2d(location, x, y);}
+	inline void Uniform2dv(GLint location, GLsizei count, const GLdouble * value){_detail::Uniform2dv(location, count, value);}
+	inline void Uniform3d(GLint location, GLdouble x, GLdouble y, GLdouble z){_detail::Uniform3d(location, x, y, z);}
+	inline void Uniform3dv(GLint location, GLsizei count, const GLdouble * value){_detail::Uniform3dv(location, count, value);}
+	inline void Uniform4d(GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w){_detail::Uniform4d(location, x, y, z, w);}
+	inline void Uniform4dv(GLint location, GLsizei count, const GLdouble * value){_detail::Uniform4dv(location, count, value);}
+	inline void UniformMatrix2dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::UniformMatrix2dv(location, count, transpose, value);}
+	inline void UniformMatrix2x3dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::UniformMatrix2x3dv(location, count, transpose, value);}
+	inline void UniformMatrix2x4dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::UniformMatrix2x4dv(location, count, transpose, value);}
+	inline void UniformMatrix3dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::UniformMatrix3dv(location, count, transpose, value);}
+	inline void UniformMatrix3x2dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::UniformMatrix3x2dv(location, count, transpose, value);}
+	inline void UniformMatrix3x4dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::UniformMatrix3x4dv(location, count, transpose, value);}
+	inline void UniformMatrix4dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::UniformMatrix4dv(location, count, transpose, value);}
+	inline void UniformMatrix4x2dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::UniformMatrix4x2dv(location, count, transpose, value);}
+	inline void UniformMatrix4x3dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::UniformMatrix4x3dv(location, count, transpose, value);}
+	inline void UniformSubroutinesuiv(GLenum shadertype, GLsizei count, const GLuint * indices){_detail::UniformSubroutinesuiv(shadertype, count, indices);}
+	
+	inline void ActiveShaderProgram(GLuint pipeline, GLuint program){_detail::ActiveShaderProgram(pipeline, program);}
+	inline void BindProgramPipeline(GLuint pipeline){_detail::BindProgramPipeline(pipeline);}
+	inline void ClearDepthf(GLfloat d){_detail::ClearDepthf(d);}
+	inline GLuint CreateShaderProgramv(GLenum type, GLsizei count, const GLchar *const* strings){return _detail::CreateShaderProgramv(type, count, strings);}
+	inline void DeleteProgramPipelines(GLsizei n, const GLuint * pipelines){_detail::DeleteProgramPipelines(n, pipelines);}
+	inline void DepthRangeArrayv(GLuint first, GLsizei count, const GLdouble * v){_detail::DepthRangeArrayv(first, count, v);}
+	inline void DepthRangeIndexed(GLuint index, GLdouble n, GLdouble f){_detail::DepthRangeIndexed(index, n, f);}
+	inline void DepthRangef(GLfloat n, GLfloat f){_detail::DepthRangef(n, f);}
+	inline void GenProgramPipelines(GLsizei n, GLuint * pipelines){_detail::GenProgramPipelines(n, pipelines);}
+	inline void GetDoublei_v(GLenum target, GLuint index, GLdouble * data){_detail::GetDoublei_v(target, index, data);}
+	inline void GetFloati_v(GLenum target, GLuint index, GLfloat * data){_detail::GetFloati_v(target, index, data);}
+	inline void GetProgramBinary(GLuint program, GLsizei bufSize, GLsizei * length, GLenum * binaryFormat, GLvoid * binary){_detail::GetProgramBinary(program, bufSize, length, binaryFormat, binary);}
+	inline void GetProgramPipelineInfoLog(GLuint pipeline, GLsizei bufSize, GLsizei * length, GLchar * infoLog){_detail::GetProgramPipelineInfoLog(pipeline, bufSize, length, infoLog);}
+	inline void GetProgramPipelineiv(GLuint pipeline, GLenum pname, GLint * params){_detail::GetProgramPipelineiv(pipeline, pname, params);}
+	inline void GetShaderPrecisionFormat(GLenum shadertype, GLenum precisiontype, GLint * range, GLint * precision){_detail::GetShaderPrecisionFormat(shadertype, precisiontype, range, precision);}
+	inline void GetVertexAttribLdv(GLuint index, GLenum pname, GLdouble * params){_detail::GetVertexAttribLdv(index, pname, params);}
+	inline GLboolean IsProgramPipeline(GLuint pipeline){return _detail::IsProgramPipeline(pipeline);}
+	inline void ProgramBinary(GLuint program, GLenum binaryFormat, const GLvoid * binary, GLsizei length){_detail::ProgramBinary(program, binaryFormat, binary, length);}
+	inline void ProgramParameteri(GLuint program, GLenum pname, GLint value){_detail::ProgramParameteri(program, pname, value);}
+	inline void ProgramUniform1d(GLuint program, GLint location, GLdouble v0){_detail::ProgramUniform1d(program, location, v0);}
+	inline void ProgramUniform1dv(GLuint program, GLint location, GLsizei count, const GLdouble * value){_detail::ProgramUniform1dv(program, location, count, value);}
+	inline void ProgramUniform1f(GLuint program, GLint location, GLfloat v0){_detail::ProgramUniform1f(program, location, v0);}
+	inline void ProgramUniform1fv(GLuint program, GLint location, GLsizei count, const GLfloat * value){_detail::ProgramUniform1fv(program, location, count, value);}
+	inline void ProgramUniform1i(GLuint program, GLint location, GLint v0){_detail::ProgramUniform1i(program, location, v0);}
+	inline void ProgramUniform1iv(GLuint program, GLint location, GLsizei count, const GLint * value){_detail::ProgramUniform1iv(program, location, count, value);}
+	inline void ProgramUniform1ui(GLuint program, GLint location, GLuint v0){_detail::ProgramUniform1ui(program, location, v0);}
+	inline void ProgramUniform1uiv(GLuint program, GLint location, GLsizei count, const GLuint * value){_detail::ProgramUniform1uiv(program, location, count, value);}
+	inline void ProgramUniform2d(GLuint program, GLint location, GLdouble v0, GLdouble v1){_detail::ProgramUniform2d(program, location, v0, v1);}
+	inline void ProgramUniform2dv(GLuint program, GLint location, GLsizei count, const GLdouble * value){_detail::ProgramUniform2dv(program, location, count, value);}
+	inline void ProgramUniform2f(GLuint program, GLint location, GLfloat v0, GLfloat v1){_detail::ProgramUniform2f(program, location, v0, v1);}
+	inline void ProgramUniform2fv(GLuint program, GLint location, GLsizei count, const GLfloat * value){_detail::ProgramUniform2fv(program, location, count, value);}
+	inline void ProgramUniform2i(GLuint program, GLint location, GLint v0, GLint v1){_detail::ProgramUniform2i(program, location, v0, v1);}
+	inline void ProgramUniform2iv(GLuint program, GLint location, GLsizei count, const GLint * value){_detail::ProgramUniform2iv(program, location, count, value);}
+	inline void ProgramUniform2ui(GLuint program, GLint location, GLuint v0, GLuint v1){_detail::ProgramUniform2ui(program, location, v0, v1);}
+	inline void ProgramUniform2uiv(GLuint program, GLint location, GLsizei count, const GLuint * value){_detail::ProgramUniform2uiv(program, location, count, value);}
+	inline void ProgramUniform3d(GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2){_detail::ProgramUniform3d(program, location, v0, v1, v2);}
+	inline void ProgramUniform3dv(GLuint program, GLint location, GLsizei count, const GLdouble * value){_detail::ProgramUniform3dv(program, location, count, value);}
+	inline void ProgramUniform3f(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2){_detail::ProgramUniform3f(program, location, v0, v1, v2);}
+	inline void ProgramUniform3fv(GLuint program, GLint location, GLsizei count, const GLfloat * value){_detail::ProgramUniform3fv(program, location, count, value);}
+	inline void ProgramUniform3i(GLuint program, GLint location, GLint v0, GLint v1, GLint v2){_detail::ProgramUniform3i(program, location, v0, v1, v2);}
+	inline void ProgramUniform3iv(GLuint program, GLint location, GLsizei count, const GLint * value){_detail::ProgramUniform3iv(program, location, count, value);}
+	inline void ProgramUniform3ui(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2){_detail::ProgramUniform3ui(program, location, v0, v1, v2);}
+	inline void ProgramUniform3uiv(GLuint program, GLint location, GLsizei count, const GLuint * value){_detail::ProgramUniform3uiv(program, location, count, value);}
+	inline void ProgramUniform4d(GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2, GLdouble v3){_detail::ProgramUniform4d(program, location, v0, v1, v2, v3);}
+	inline void ProgramUniform4dv(GLuint program, GLint location, GLsizei count, const GLdouble * value){_detail::ProgramUniform4dv(program, location, count, value);}
+	inline void ProgramUniform4f(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3){_detail::ProgramUniform4f(program, location, v0, v1, v2, v3);}
+	inline void ProgramUniform4fv(GLuint program, GLint location, GLsizei count, const GLfloat * value){_detail::ProgramUniform4fv(program, location, count, value);}
+	inline void ProgramUniform4i(GLuint program, GLint location, GLint v0, GLint v1, GLint v2, GLint v3){_detail::ProgramUniform4i(program, location, v0, v1, v2, v3);}
+	inline void ProgramUniform4iv(GLuint program, GLint location, GLsizei count, const GLint * value){_detail::ProgramUniform4iv(program, location, count, value);}
+	inline void ProgramUniform4ui(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3){_detail::ProgramUniform4ui(program, location, v0, v1, v2, v3);}
+	inline void ProgramUniform4uiv(GLuint program, GLint location, GLsizei count, const GLuint * value){_detail::ProgramUniform4uiv(program, location, count, value);}
+	inline void ProgramUniformMatrix2dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix2dv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix2fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix2fv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix2x3dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix2x3dv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix2x3fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix2x3fv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix2x4dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix2x4dv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix2x4fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix2x4fv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix3dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix3dv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix3fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix3fv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix3x2dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix3x2dv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix3x2fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix3x2fv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix3x4dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix3x4dv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix3x4fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix3x4fv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix4dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix4dv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix4fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix4fv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix4x2dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix4x2dv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix4x2fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix4x2fv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix4x3dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value){_detail::ProgramUniformMatrix4x3dv(program, location, count, transpose, value);}
+	inline void ProgramUniformMatrix4x3fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value){_detail::ProgramUniformMatrix4x3fv(program, location, count, transpose, value);}
+	inline void ReleaseShaderCompiler(void){_detail::ReleaseShaderCompiler();}
+	inline void ScissorArrayv(GLuint first, GLsizei count, const GLint * v){_detail::ScissorArrayv(first, count, v);}
+	inline void ScissorIndexed(GLuint index, GLint left, GLint bottom, GLsizei width, GLsizei height){_detail::ScissorIndexed(index, left, bottom, width, height);}
+	inline void ScissorIndexedv(GLuint index, const GLint * v){_detail::ScissorIndexedv(index, v);}
+	inline void ShaderBinary(GLsizei count, const GLuint * shaders, GLenum binaryformat, const GLvoid * binary, GLsizei length){_detail::ShaderBinary(count, shaders, binaryformat, binary, length);}
+	inline void UseProgramStages(GLuint pipeline, GLbitfield stages, GLuint program){_detail::UseProgramStages(pipeline, stages, program);}
+	inline void ValidateProgramPipeline(GLuint pipeline){_detail::ValidateProgramPipeline(pipeline);}
+	inline void VertexAttribL1d(GLuint index, GLdouble x){_detail::VertexAttribL1d(index, x);}
+	inline void VertexAttribL1dv(GLuint index, const GLdouble * v){_detail::VertexAttribL1dv(index, v);}
+	inline void VertexAttribL2d(GLuint index, GLdouble x, GLdouble y){_detail::VertexAttribL2d(index, x, y);}
+	inline void VertexAttribL2dv(GLuint index, const GLdouble * v){_detail::VertexAttribL2dv(index, v);}
+	inline void VertexAttribL3d(GLuint index, GLdouble x, GLdouble y, GLdouble z){_detail::VertexAttribL3d(index, x, y, z);}
+	inline void VertexAttribL3dv(GLuint index, const GLdouble * v){_detail::VertexAttribL3dv(index, v);}
+	inline void VertexAttribL4d(GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w){_detail::VertexAttribL4d(index, x, y, z, w);}
+	inline void VertexAttribL4dv(GLuint index, const GLdouble * v){_detail::VertexAttribL4dv(index, v);}
+	inline void VertexAttribLPointer(GLuint index, GLint size, GLenum type, GLsizei stride, const GLvoid * pointer){_detail::VertexAttribLPointer(index, size, type, stride, pointer);}
+	inline void ViewportArrayv(GLuint first, GLsizei count, const GLfloat * v){_detail::ViewportArrayv(first, count, v);}
+	inline void ViewportIndexedf(GLuint index, GLfloat x, GLfloat y, GLfloat w, GLfloat h){_detail::ViewportIndexedf(index, x, y, w, h);}
+	inline void ViewportIndexedfv(GLuint index, const GLfloat * v){_detail::ViewportIndexedfv(index, v);}
 	
 	
 	namespace sys
