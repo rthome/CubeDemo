@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(CubeDemo)
+project(CubeDemo CXX)
 
 # Warnings for MSVC
 if(MSVC)
@@ -30,16 +30,6 @@ endif()
 # Tell GLM to always use radians
 add_definitions(-DGLM_FORCE_RADIANS)
 
-file(READ "${PROJECT_SOURCE_DIR}/src/shaders/cubes_vert.glsl" CD_SHADERSRC_CUBES_VERTEX)
-file(READ "${PROJECT_SOURCE_DIR}/src/shaders/cubes_frag.glsl" CD_SHADERSRC_CUBES_FRAGMENT)
-file(READ "${PROJECT_SOURCE_DIR}/src/shaders/background_vert.glsl" CD_SHADERSRC_BACKGROUND_VERTEX)
-file(READ "${PROJECT_SOURCE_DIR}/src/shaders/background_frag.glsl" CD_SHADERSRC_BACKGROUND_FRAGMENT)
-
-# Create shader header file
-set(CD_SOURCES_TEMPLATE_PATH "${PROJECT_SOURCE_DIR}/src/Shaders.hpp.in")
-set(CD_SOURCES_HEADER_PATH "${PROJECT_BINARY_DIR}/Shaders.hpp")
-configure_file(${CD_SOURCES_TEMPLATE_PATH} ${CD_SOURCES_HEADER_PATH})
-
 set(CD_SOURCES
     src/gl_core_4_1.cpp
     src/GLShader.cpp
@@ -50,6 +40,7 @@ set(CD_SOURCES
     src/Spiral.cpp
 	src/CubeController.cpp
 	src/BloomEffect.cpp
+	src/ShaderSources.cpp
     src/Main.cpp)
 
 set(CD_HEADERS
@@ -64,29 +55,16 @@ set(CD_HEADERS
 	src/MeshData.hpp
 	src/CubeController.hpp
 	src/BloomEffect.hpp
+	src/ShaderSources.hpp
     src/Util.hpp)
-
-set(CD_SHADERFILES
-    src/shaders/background_vert.glsl
-    src/shaders/background_frag.glsl
-    src/shaders/cubes_vert.glsl
-    src/shaders/cubes_frag.glsl)
-
-set(CD_PROCESSEDFILES
-    ${CD_SOURCES_TEMPLATE_PATH}
-    ${CD_SOURCES_HEADER_PATH})
 
 # Add GLM and GLFW
 add_subdirectory(${PROJECT_SOURCE_DIR}/lib/glfw)
 add_subdirectory(${PROJECT_SOURCE_DIR}/lib/glm)
 
 # Fix up additional include directories
-include_directories("${PROJECT_BINARY_DIR}") # For the generated shader source header file
 include_directories(${PROJECT_SOURCE_DIR}/lib/glfw/include)
 include_directories(${PROJECT_SOURCE_DIR}/lib/glm)
 
 add_executable(CubeDemo ${CD_HEADERS} ${CD_SOURCES} ${CD_SHADERFILES} ${CD_PROCESSEDFILES})
 target_link_libraries(CubeDemo glfw ${GLFW_LIBRARIES})
-
-source_group("GLSL Files" FILES ${CD_SHADERFILES})
-source_group("Generated Files" FILES ${CD_PROCESSEDFILES})

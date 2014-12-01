@@ -13,7 +13,7 @@
 #include <glm/gtc/noise.hpp>
 
 #include "Util.hpp"
-#include "Shaders.hpp"
+#include "ShaderSources.hpp"
 #include "MeshData.hpp"
 
 namespace cubedemo
@@ -33,8 +33,8 @@ namespace cubedemo
         GL_CHECK_ERRORS;
 
         // set up shader
-        m_shader.attachShaderFromSource(gl::VERTEX_SHADER, CUBE_SHADER_CUBES_VERTEX);
-        m_shader.attachShaderFromSource(gl::FRAGMENT_SHADER, CUBE_SHADER_CUBES_FRAGMENT);
+        m_shader.attachShaderFromSource(gl::VERTEX_SHADER, shaderSourceCubesVert());
+        m_shader.attachShaderFromSource(gl::FRAGMENT_SHADER, shaderSourceCubesFrag());
         m_shader.link();
         m_shader.addAttributes({ "position", "normal" });
         m_shader.addUniforms({ "MVP", "InstancePositions" , "ModelViewMatrix", "ProjectionMatrix", "NormalMatrix", "LightPosition", "LightIntensity", "Kd", "Ka", "Ks", "Shininess", "Gamma", "InstanceOpacities", "InstanceScales" });

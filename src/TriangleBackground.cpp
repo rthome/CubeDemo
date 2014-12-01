@@ -10,12 +10,12 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/noise.hpp>
 
-#include "Shaders.hpp"
+#include "ShaderSources.hpp"
 #include "Util.hpp"
 
 namespace cubedemo
 {
-	std::vector<glm::vec3> generateTriangleMeshPositions(size_t width, size_t height)
+    std::vector<glm::vec3> generateTriangleMeshPositions(size_t width, size_t height)
 	{
 		static const float Z = 1.0f;
 
@@ -66,8 +66,8 @@ namespace cubedemo
 		GL_CHECK_ERRORS;
 
 		// Set up shader
-		m_shader.attachShaderFromSource(gl::VERTEX_SHADER, CUBE_SHADER_BACKGROUND_VERTEX);
-		m_shader.attachShaderFromSource(gl::FRAGMENT_SHADER, CUBE_SHADER_BACKGROUND_FRAGMENT);
+		m_shader.attachShaderFromSource(gl::VERTEX_SHADER, shaderSourceBackgroundVert());
+		m_shader.attachShaderFromSource(gl::FRAGMENT_SHADER, shaderSourceBackgroundFrag());
 		m_shader.link();
 		m_shader.addAttributes({ "position", "brightness" });
 		m_shader.addUniforms({ "BaseColor", "MVP", "Gamma" });
