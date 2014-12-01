@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include <cmath>
 
 #include <glm/gtc/constants.hpp>
 #include <glm/vec4.hpp>
@@ -18,12 +19,24 @@
 
 namespace cubedemo
 {
+    static glm::vec3 calculateLightPosition(const glm::vec3& center, const GameTime& time, float radius, float speed)
+    {
+        static const float TWO_PI = glm::pi<float>() * 2.0f;
+
+        float t = speed * TWO_PI * (time.totalTime.count() / 1000.0f);
+        float x = center.x + (cosf(t) * radius);
+        float z = center.z + (sinf(t) * radius);
+
+        return glm::vec3{ x, center.y, z };
+    }
+
     CubeRenderer::CubeRenderer()
         : m_instanceCount{ 0 },
         m_modelviewMatrix{ glm::lookAt(glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)) },
         m_positionsBuffer{ gl::RGBA32F },
         m_opacitiesBuffer{ gl::R32F },
-        m_scalesBuffer{ gl::R32F }
+        m_scalesBuffer{ gl::R32F },
+        m_lightPosition{ 0.0f }
     {
         // generate buffers and textures
         gl::GenVertexArrays(1, &m_vao);
@@ -78,8 +91,13 @@ namespace cubedemo
         m_projectionMatrix = glm::perspective(glm::quarter_pi<float>(), (float)width / height, 0.1f, 1000.0f);
     }
 
-    void CubeRenderer::update(const CubeController& cubes)
+    void CubeRenderer::update(const GameTime& time, const CubeController& cubes)
     {
+        m_lightPosition = calculateLightPosition(glm::vec3(0.0f, 0.0f, 150.0f), time, 225.0f, 0.20f);
+
+        if (time.totalTime.count() > 10000)
+            return;
+
         m_instanceCount = cubes.count();
         std::vector<glm::vec4> processedPositions;
 
@@ -93,6 +111,7 @@ namespace cubedemo
         m_positionsBuffer.updateData(sizeof(glm::vec4) * processedPositions.size(), processedPositions.data(), gl::STREAM_DRAW);
         m_opacitiesBuffer.updateData(sizeof(float) * cubes.count(), cubes.cubeOpacities(), gl::STREAM_DRAW);
         m_scalesBuffer.updateData(sizeof(float) * cubes.count(), cubes.cubeScales(), gl::STREAM_DRAW);
+
     }
 
     void CubeRenderer::render()
@@ -105,7 +124,6 @@ namespace cubedemo
         auto mvp = m_projectionMatrix * m_modelviewMatrix;
         auto normalMat = glm::inverseTranspose(glm::mat3(m_modelviewMatrix));
 
-        glm::vec3 lightPos{ 0.0f };
         glm::vec3 lightIntensity{ 1.0f };
 
         gl::BindVertexArray(m_vao);
@@ -121,7 +139,7 @@ namespace cubedemo
             gl::UniformMatrix4fv(m_shader("ProjectionMatrix"), 1, gl::FALSE_, glm::value_ptr(m_projectionMatrix));
             gl::UniformMatrix3fv(m_shader("NormalMatrix"), 1, gl::FALSE_, glm::value_ptr(normalMat));
             gl::Uniform1f(m_shader("Shininess"), SHININESS);
-            gl::Uniform3fv(m_shader("LightPosition"), 1, glm::value_ptr(lightPos));
+            gl::Uniform3fv(m_shader("LightPosition"), 1, glm::value_ptr(m_lightPosition));
             gl::Uniform3fv(m_shader("LightIntensity"), 1, glm::value_ptr(lightIntensity));
             gl::Uniform3fv(m_shader("Kd"), 1, glm::value_ptr(DIFFUSE_COLOR));
             gl::Uniform3fv(m_shader("Ka"), 1, glm::value_ptr(AMBIENT_COLOR));

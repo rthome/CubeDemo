@@ -138,7 +138,7 @@ int main(int argc, char const *argv[])
         background->render(time); // Render background first
 
         gl::Enable(gl::DEPTH_TEST);
-        globalRenderer->update(floatingCubes); // Update renderer with new cube states
+        globalRenderer->update(time, floatingCubes); // Update renderer with new cube states
         globalRenderer->render(); // Render cubes
 
         GL_CHECK_ERRORS;

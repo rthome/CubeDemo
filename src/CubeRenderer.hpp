@@ -9,7 +9,6 @@
 #include "GLShader.hpp"
 #include "GLTextureBuffer.hpp"
 #include "GameTime.hpp"
-#include "Spiral.hpp"
 #include "NonCopyable.hpp"
 #include "CubeController.hpp"
 
@@ -38,13 +37,15 @@ namespace cubedemo
         glm::mat4 m_projectionMatrix;
         glm::mat4 m_modelviewMatrix;
 
+        glm::vec3 m_lightPosition;
+
     public:
         CubeRenderer();
         ~CubeRenderer();
 
         void onWindowSizeChanged(size_t width, size_t height); // Notify the renderer of a changed window size, to allow it to update the projection matrix
 
-        void update(const CubeController& cubes); // Update renderer state, pulling data from a FloatingCubes instance
+        void update(const GameTime& time, const CubeController& cubes); // Update renderer state, pulling data from a FloatingCubes instance
         void render(); // Draw latest cube data to the screen
     };
 }
