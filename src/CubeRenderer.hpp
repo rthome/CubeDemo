@@ -32,6 +32,7 @@ namespace cubedemo
         GLTextureBuffer m_positionsBuffer; // Instance Positions
         GLTextureBuffer m_opacitiesBuffer; // Instance Opacities
         GLTextureBuffer m_scalesBuffer; // Instance size adjustment
+        GLTextureBuffer m_rotationsBuffer; // Instance rotations
 
         // Matrices
         glm::mat4 m_projectionMatrix;
