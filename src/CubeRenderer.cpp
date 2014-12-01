@@ -95,9 +95,6 @@ namespace cubedemo
     {
         m_lightPosition = calculateLightPosition(glm::vec3(0.0f, 0.0f, 150.0f), time, 225.0f, 0.20f);
 
-        if (time.totalTime.count() > 10000)
-            return;
-
         m_instanceCount = cubes.count();
         std::vector<glm::vec4> processedPositions;
 
