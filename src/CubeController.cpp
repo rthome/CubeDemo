@@ -17,7 +17,6 @@ namespace cubedemo
         opacities.resize(size);
         scales.resize(size);
         startTimes.resize(size);
-        std::fill(std::begin(states), std::end(states), CubeState::Dead);
     }
 
     // // //
@@ -54,7 +53,7 @@ namespace cubedemo
                     // When a cube spawns, fill in a bunch of random data
                     m_cubeStates.states[i] = CubeState::FadeIn;
                     m_cubeStates.scales[i] = scaleRandDistrib(randEngine);
-                    m_cubeStates.startTimes[i] = time.totalTime.count();
+                    m_cubeStates.startTimes[i] = time.totalTime.count() / 1000.0f; // save in seconds
                     m_cubeStates.helices[i].t0 = movementRandDistrib(randEngine);
                     m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine) * 100, 70, 150 + startRandDistrib(randEngine) * 100);
                     m_cubeStates.helices[i].r = 2 * movementRandDistrib(randEngine) * (signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
@@ -87,7 +86,7 @@ namespace cubedemo
             }
 
             if (m_cubeStates.states[i] != CubeState::Dead)
-                m_cubeStates.positions[i] = mapOntoHelix(m_cubeStates.helices[i], 0.0001f * (time.totalTime.count() - m_cubeStates.startTimes[i]));
+                m_cubeStates.positions[i] = mapOntoHelix(m_cubeStates.helices[i], 0.1f * ((time.totalTime.count() / 1000.0f) - m_cubeStates.startTimes[i]));
 
             if (m_cubeStates.states[i] == CubeState::Moving && m_cubeStates.positions[i].y < -70.0f)
                 m_cubeStates.states[i] = CubeState::FadeOut;

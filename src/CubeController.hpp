@@ -24,6 +24,8 @@ namespace cubedemo
     };
 
     // Contains per-cube state for a collection of cubes
+    // This is saved as a structure-of-arrays instead of the usual array-of-structs
+    // to ease bulk data copying into GL buffers and for a slight (?) speed boost
     struct CubeStates
     {
         std::vector<CubeState> states; // The state each vector is in
@@ -32,7 +34,7 @@ namespace cubedemo
         std::vector<glm::quat> rotations; // The rotation of each cube
         std::vector<float> opacities; // The opacity of each cube, used for fade in and fade out
         std::vector<float> scales; // Adjusts the size of each cube
-        std::vector<float> startTimes;
+        std::vector<float> startTimes; // Start time for helix curve mapping (in seconds)
 
         CubeStates(size_t size);
     };
