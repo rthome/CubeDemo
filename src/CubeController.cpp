@@ -56,7 +56,7 @@ namespace cubedemo
                     m_cubeStates.scales[i] = scaleRandDistrib(randEngine);
                     m_cubeStates.startTimes[i] = time.totalTime.count();
                     m_cubeStates.helices[i].t0 = movementRandDistrib(randEngine);
-                    m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine) * 100, 70, 150 + startRandDistrib(randEngine) * 100);
+                    m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine) * 125, 70, 150 + startRandDistrib(randEngine) * 100);
                     m_cubeStates.helices[i].r = 2 * movementRandDistrib(randEngine) * (signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
                     m_cubeStates.helices[i].h = -7 * movementRandDistrib(randEngine);
                 }

@@ -107,7 +107,7 @@ int main(int argc, char const *argv[])
     GL_CHECK_ERRORS;
 
     // Set up cubes
-    cubedemo::CubeController floatingCubes{ 3000 };
+    cubedemo::CubeController floatingCubes{ 3500 };
 
     // Set up renderers
     globalRenderer = new cubedemo::CubeRenderer();
