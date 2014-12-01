@@ -3,7 +3,6 @@
 #include <vector>
 
 #include <glm/vec3.hpp>
-#include <glm/gtc/quaternion.hpp>
 
 #include "Spiral.hpp"
 #include "GameTime.hpp"
@@ -31,7 +30,8 @@ namespace cubedemo
         std::vector<CubeState> states; // The state each vector is in
         std::vector<HelixData> helices; // Helix data for each cube
         std::vector<glm::vec3> positions; // The center of each cube after applying any mapping and movement
-        std::vector<glm::quat> rotations; // The rotation of each cube
+        std::vector<glm::vec3> rotationAxes; // Per-cube rotation axis
+        std::vector<float> rotationSpeeds; // Per-cube rotation speed
         std::vector<float> opacities; // The opacity of each cube, used for fade in and fade out
         std::vector<float> scales; // Adjusts the size of each cube
         std::vector<float> startTimes; // Start time for helix curve mapping (in seconds)
@@ -52,7 +52,8 @@ namespace cubedemo
         inline size_t count() const { return m_cubeCount; }
         inline const CubeState* cubeStates() const { return m_cubeStates.states.data(); }
         inline const glm::vec3* cubePositions() const { return m_cubeStates.positions.data(); }
-        inline const glm::quat* cubeRotations() const { return m_cubeStates.rotations.data(); }
+        inline const glm::vec3* cubeRotationAxes() const { return m_cubeStates.rotationAxes.data(); }
+        inline const float* cubeRotationSpeeds() const { return m_cubeStates.rotationSpeeds.data(); }
         inline const float* cubeOpacities() const { return m_cubeStates.opacities.data(); }
         inline const float* cubeScales() const { return m_cubeStates.scales.data(); }
 

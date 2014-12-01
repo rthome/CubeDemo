@@ -2,6 +2,8 @@
 
 #include <random>
 
+#include <glm/geometric.hpp>
+
 namespace cubedemo
 {
     // // //
@@ -13,7 +15,8 @@ namespace cubedemo
         states.resize(size);
         helices.resize(size);
         positions.resize(size);
-        rotations.resize(size);
+        rotationAxes.resize(size);
+        rotationSpeeds.resize(size);
         opacities.resize(size);
         scales.resize(size);
         startTimes.resize(size);
@@ -53,6 +56,8 @@ namespace cubedemo
                     // When a cube spawns, fill in a bunch of random data
                     m_cubeStates.states[i] = CubeState::FadeIn;
                     m_cubeStates.scales[i] = scaleRandDistrib(randEngine);
+                    m_cubeStates.rotationAxes[i] = glm::normalize(glm::vec3{ startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine) });
+                    m_cubeStates.rotationSpeeds[i] = 0.8f * scaleRandDistrib(randEngine) * (signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
                     m_cubeStates.startTimes[i] = time.totalTime.count() / 1000.0f; // save in seconds
                     m_cubeStates.helices[i].t0 = movementRandDistrib(randEngine);
                     m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine) * 100, 70, 150 + startRandDistrib(randEngine) * 100);
