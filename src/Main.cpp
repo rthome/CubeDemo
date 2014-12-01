@@ -9,6 +9,7 @@
 #include "CubeRenderer.hpp"
 #include "TriangleBackground.hpp"
 #include "GameTime.hpp"
+#include "BloomEffect.hpp"
 
 // Whether to limit rendering to 60 fps
 #define ENABLE_FRAMELIMITING
@@ -17,7 +18,8 @@
 static const size_t WINDOW_WIDTH = 1280;
 static const size_t WINDOW_HEIGHT = 720;
 
-cubedemo::CubeRenderer *globalRenderer = nullptr;
+static cubedemo::CubeRenderer *globalRenderer;
+static cubedemo::BloomEffect *globalBloomEffect;
 
 void errorCallback(int error, const char *description)
 {
@@ -31,6 +33,8 @@ void windowResizeCallback(GLFWwindow *window, int width, int height)
     gl::Viewport(0, 0, fbw, fbh);
     if (globalRenderer != nullptr)
         globalRenderer->onWindowSizeChanged(width, height);
+    if (globalBloomEffect != nullptr)
+        globalBloomEffect->onWindowSizeChanged(fbw, fbh);
     LOG_INFO("Window resized. FB is now " << fbw << "x" << fbh);
 }
 
@@ -104,11 +108,14 @@ int main(int argc, char const *argv[])
 
     // Set up cubes
     cubedemo::CubeController floatingCubes{ 3000 };
+
+    // Set up renderers
     globalRenderer = new cubedemo::CubeRenderer();
-    globalRenderer->onWindowSizeChanged(WINDOW_WIDTH, WINDOW_HEIGHT);
-    
-    // set up background
-    cubedemo::TriangleBackground *background = new cubedemo::TriangleBackground(7, 5);
+    globalBloomEffect = new cubedemo::BloomEffect();
+    auto *background = new cubedemo::TriangleBackground(7, 5);
+
+    // Before starting main loop, make sure all window size callbacks are called
+    windowResizeCallback(window, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     cubedemo::GameTime time;
     
@@ -129,8 +136,8 @@ int main(int argc, char const *argv[])
         // b) we want to overdraw later with cubes
         gl::Disable(gl::DEPTH_TEST);
         background->render(time); // Render background first
-        gl::Enable(gl::DEPTH_TEST);
 
+        gl::Enable(gl::DEPTH_TEST);
         globalRenderer->update(floatingCubes); // Update renderer with new cube states
         globalRenderer->render(); // Render cubes
 
