@@ -128,8 +128,8 @@ namespace cubedemo
     void CubeRenderer::render()
     {
         const float SHININESS = 16.0f;
-        const glm::vec3 AMBIENT_COLOR{ 0.3f, 0.16f, 0.1f };
-        const glm::vec3 DIFFUSE_COLOR{ 0.4f, 0.26f, 0.2f };
+        const glm::vec3 AMBIENT_COLOR{ 0.4f, 0.21f, 0.14f };
+        const glm::vec3 DIFFUSE_COLOR{ 0.5f, 0.35f, 0.25f };
         const glm::vec3 SPECULAR_COLOR{ 0.65f, 0.65f, 0.3f };
 
         auto mvp = m_projectionMatrix * m_modelviewMatrix;
