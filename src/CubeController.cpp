@@ -1,8 +1,10 @@
 #include "CubeController.hpp"
 
+#include <cmath>
 #include <random>
 
 #include <glm/geometric.hpp>
+#include "Util.hpp"
 
 namespace cubedemo
 {
@@ -10,7 +12,7 @@ namespace cubedemo
     // CubeStates implementation
     // // //
 
-    CubeStates::CubeStates(size_t size)
+    CubeStates::CubeStates(int size)
     {
         states.resize(size);
         helices.resize(size);
@@ -31,9 +33,10 @@ namespace cubedemo
         return (1.0f / seconds) * 0.001f * time.deltaTime.count();
     }
 
-    CubeController::CubeController(size_t count)
+    CubeController::CubeController(int count)
         : m_cubeCount{ count }, m_cubeStates{ count }
     {
+        CC_ASSERT(count > 0)
     }
 
     void CubeController::update(const GameTime& time)
@@ -57,11 +60,11 @@ namespace cubedemo
                     m_cubeStates.states[i] = CubeState::FadeIn;
                     m_cubeStates.scales[i] = scaleRandDistrib(randEngine);
                     m_cubeStates.rotationAxes[i] = glm::normalize(glm::vec3{ startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine) });
-                    m_cubeStates.rotationSpeeds[i] = 0.8f * scaleRandDistrib(randEngine) * (signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
+                    m_cubeStates.rotationSpeeds[i] = 0.8f * scaleRandDistrib(randEngine) * (std::signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
                     m_cubeStates.startTimes[i] = time.totalTime.count() / 1000.0f; // save in seconds
                     m_cubeStates.helices[i].t0 = movementRandDistrib(randEngine);
                     m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine) * 125, 70, 150 + startRandDistrib(randEngine) * 100);
-                    m_cubeStates.helices[i].r = 2 * movementRandDistrib(randEngine) * (signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
+                    m_cubeStates.helices[i].r = 2 * movementRandDistrib(randEngine) * (std::signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
                     m_cubeStates.helices[i].h = -7 * movementRandDistrib(randEngine);
                 }
             }

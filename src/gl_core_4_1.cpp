@@ -46,6 +46,8 @@ static PROC WinGetProcAddress(const char *name)
 
 /* Linux, FreeBSD, other */
 #ifndef IntGetProcAddress
+        #include <GL/glx.h>
+
 	extern void ( * glXGetProcAddressARB (const GLubyte *procName)) (void);
 
 	#define IntGetProcAddress(name) (*glXGetProcAddressARB)((const GLubyte*)name)

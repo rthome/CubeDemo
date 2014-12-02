@@ -16,7 +16,7 @@ namespace cubedemo
         BloomEffect();
         ~BloomEffect();
 
-        void onWindowSizeChanged(size_t width, size_t height);
+        void onWindowSizeChanged(int width, int height);
 
         void renderPass1();
     };

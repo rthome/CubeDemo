@@ -28,7 +28,7 @@ namespace cubedemo
         GLuint m_indices; // EBO for cube indices
         GLShader m_shader; // GLSL shader program
 
-        size_t m_instanceCount; // Count of instances to render
+        int m_instanceCount; // Count of instances to render
         GLTextureBuffer m_positionsBuffer; // Instance Positions
         GLTextureBuffer m_opacitiesBuffer; // Instance Opacities
         GLTextureBuffer m_scalesBuffer; // Instance size adjustment

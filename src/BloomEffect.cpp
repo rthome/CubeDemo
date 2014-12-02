@@ -12,7 +12,7 @@ BloomEffect::~BloomEffect()
 
 }
 
-void BloomEffect::onWindowSizeChanged(size_t width, size_t height)
+void BloomEffect::onWindowSizeChanged(int width, int height)
 {
 
 }

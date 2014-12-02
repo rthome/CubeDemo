@@ -36,18 +36,18 @@ namespace cubedemo
         std::vector<float> scales; // Adjusts the size of each cube
         std::vector<float> startTimes; // Start time for helix curve mapping (in seconds)
 
-        CubeStates(size_t size);
+        CubeStates(int size);
     };
 
     // Collects the state of a bunch of cubes, floating in space
     class CubeController
     {
     private:
-        size_t m_cubeCount; // Amount of managed cubes
+        int m_cubeCount; // Amount of managed cubes
         CubeStates m_cubeStates; // Per-cube state
 
     public:
-        CubeController(size_t count);
+        CubeController(int count);
 
         inline size_t count() const { return m_cubeCount; }
         inline const CubeState* cubeStates() const { return m_cubeStates.states.data(); }
