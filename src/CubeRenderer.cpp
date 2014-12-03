@@ -22,7 +22,7 @@ namespace cubedemo
     static glm::vec3 calculateLightPosition(const glm::vec3& center, const GameTimePoint& time, float radius, float speed)
     {
         static const float TWO_PI = glm::pi<float>() * 2.0f;
-
+        
         float t = speed * TWO_PI * time.total();
         float x = center.x + (cosf(t) * radius);
         float z = center.z + (sinf(t) * radius);
@@ -127,11 +127,12 @@ namespace cubedemo
 
     void CubeRenderer::render()
     {
+        const float n = 0.1f;
         const float SHININESS = 16.0f;
-        const glm::vec3 AMBIENT_COLOR{ 0.4f, 0.21f, 0.14f };
-        const glm::vec3 DIFFUSE_COLOR{ 0.5f, 0.35f, 0.25f };
-        const glm::vec3 SPECULAR_COLOR{ 0.65f, 0.65f, 0.3f };
-
+        const glm::vec3 AMBIENT_COLOR{ 0.46f*n, 0.24f*n, 0.16f*n };
+        const glm::vec3 DIFFUSE_COLOR{ 0.45f*n, 0.26f*n, 0.12f*n };
+        const glm::vec3 SPECULAR_COLOR{ 0.56f, 0.25f, 0.16f };
+        
         auto mvp = m_projectionMatrix * m_modelviewMatrix;
         auto normalMat = glm::inverseTranspose(glm::mat3(m_modelviewMatrix));
 
