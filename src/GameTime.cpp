@@ -1,21 +1,51 @@
 #include "GameTime.hpp"
 
+using namespace std::chrono;
+
 namespace cubedemo
 {
-	GameTime::GameTime()
-		: totalTime{}, deltaTime{}, point{ GameTimeClock::now() }
+	// // //
+	// GameTimePoint implementation
+	// // //
+
+	GameTimePoint::GameTimePoint()
+		: m_deltaTime{ 0.0f }, m_totalTime{ 0.0f }
 	{
+
 	}
 
-	GameTime::GameTime(const GameTimePoint& now, const GTAccumDuration& total, const GTDeltaDuration& delta)
-		: totalTime{ total }, deltaTime{ delta }, point{ now }
+	GameTimePoint::GameTimePoint(float deltaTime, float totalTime)
+		: m_deltaTime{ deltaTime }, m_totalTime{ totalTime }
 	{
+
 	}
 
-	GameTime GameTime::next(const GameTime& time)
+	// // //
+	// GameTimer implementation
+	// // //
+
+	GameTimer::GameTimer()
+		: m_startTime{ steady_clock::now() },
+		m_lastUpdateTime{ steady_clock::now() }
 	{
-		auto now = GameTimeClock::now();
-		auto newDelta = now - time.point;
-		return GameTime{ now, chrono::duration_cast<GTAccumDuration>(time.totalTime + newDelta), chrono::duration_cast<GTDeltaDuration>(newDelta) };
+
+	}
+
+	GameTimePoint GameTimer::currentTime() const
+	{
+		auto now = steady_clock::now();
+		auto delta = duration_cast<milliseconds>(now - m_lastUpdateTime).count();
+		auto total = duration_cast<seconds>(now - m_startTime).count();
+		return GameTimePoint(delta, total);
+	}
+
+	GameTimePoint GameTimer::nextTime()
+	{
+		auto now = steady_clock::now();
+		auto delta = duration_cast<milliseconds>(now - m_lastUpdateTime).count();
+		auto total = duration_cast<seconds>(now - m_startTime).count();
+		m_lastUpdateTime = now;
+		return GameTimePoint(delta, total);
+
 	}
 }

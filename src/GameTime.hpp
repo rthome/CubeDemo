@@ -1,31 +1,43 @@
 #pragma once
 
 #include <chrono>
-namespace chrono = std::chrono;
 
 namespace cubedemo
 {
-    typedef chrono::steady_clock GameTimeClock;
-    typedef chrono::duration<float, std::milli> GTDeltaDuration; // Updates are measured in fractions of milliseconds
-    typedef chrono::duration<long long, std::milli> GTAccumDuration;// Accumulated time is measured in full milliseconds to avoid increasing rounding error over time
-    typedef GameTimeClock::time_point GameTimePoint;
-
-    struct GameTime final
+    class GameTimePoint final
     {
-        GTAccumDuration totalTime; // Total runtime in full milliseconds
-        GTDeltaDuration deltaTime; // Time since last update in milliseconds
-        GameTimePoint point; // Time of creation
+    private:
+        float m_deltaTime; // Time since the previous update, in milliseconds
+        float m_totalTime; // Total elapsed time, in seconds
 
-        // TODO: Provide elapsed time in full seconds and a fraction of the ongoing millisecond
-        // This would provide maximum accuracy when required without sacrificing it when t becomes large
-        
-        GameTime();
-        GameTime(const GameTime&) = default;
-        GameTime(const GameTimePoint& point, const GTAccumDuration& total, const GTDeltaDuration& delta);
+    public:
+        GameTimePoint();
+        GameTimePoint(const GameTimePoint&) = default;
+        GameTimePoint(float deltaTime, float totalTime);
 
-        inline GTDeltaDuration timeSince() const { return chrono::duration_cast<GTDeltaDuration>(GameTimeClock::now() - point); }
-        inline GTDeltaDuration timeSince(const GameTime& time) const { return chrono::duration_cast<GTDeltaDuration>(point - time.point); }
+        // Return the time since the last update, in milliseconds
+        inline float delta() const { return m_deltaTime; }
 
-        static GameTime next(const GameTime& time);
+        // Return the total elapsed time, in seconds
+        inline float total() const { return m_totalTime; }
+
+        // Return the time since the given GTP, in milliseconds
+        inline float timeSince(const GameTimePoint& time) const { return (m_totalTime - time.m_totalTime) * 1000.0f; }
+    };
+    
+    class GameTimer
+    {
+    private:
+        std::chrono::steady_clock::time_point m_startTime;
+        std::chrono::steady_clock::time_point m_lastUpdateTime;
+
+    public:
+        GameTimer();
+
+        // Return the current time point, but touching the last update time
+        GameTimePoint currentTime() const;
+
+        // Return the current time point, and set this as the new "last update time"
+        GameTimePoint nextTime();
     };
 }

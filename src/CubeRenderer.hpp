@@ -46,7 +46,7 @@ namespace cubedemo
 
         void onWindowSizeChanged(size_t width, size_t height); // Notify the renderer of a changed window size, to allow it to update the projection matrix
 
-        void update(const GameTime& time, const CubeController& cubes); // Update renderer state, pulling data from a FloatingCubes instance
+        void update(const GameTimePoint& time, const CubeController& cubes); // Update renderer state, pulling data from a FloatingCubes instance
         void render(); // Draw latest cube data to the screen
     };
 }

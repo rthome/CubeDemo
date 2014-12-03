@@ -57,6 +57,6 @@ namespace cubedemo
         inline const float* cubeOpacities() const { return m_cubeStates.opacities.data(); }
         inline const float* cubeScales() const { return m_cubeStates.scales.data(); }
 
-        void update(const GameTime& time); // Update the state of each cube
+        void update(const GameTimePoint& time); // Update the state of each cube
     };
 }

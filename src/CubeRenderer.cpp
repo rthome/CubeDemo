@@ -19,11 +19,11 @@
 
 namespace cubedemo
 {
-    static glm::vec3 calculateLightPosition(const glm::vec3& center, const GameTime& time, float radius, float speed)
+    static glm::vec3 calculateLightPosition(const glm::vec3& center, const GameTimePoint& time, float radius, float speed)
     {
         static const float TWO_PI = glm::pi<float>() * 2.0f;
 
-        float t = speed * TWO_PI * (time.totalTime.count() / 1000.0f);
+        float t = speed * TWO_PI * time.total();
         float x = center.x + (cosf(t) * radius);
         float z = center.z + (sinf(t) * radius);
 
@@ -92,7 +92,7 @@ namespace cubedemo
         m_projectionMatrix = glm::perspective(glm::quarter_pi<float>(), (float)width / height, 0.1f, 1000.0f);
     }
 
-    void CubeRenderer::update(const GameTime& time, const CubeController& cubes)
+    void CubeRenderer::update(const GameTimePoint& time, const CubeController& cubes)
     {
         m_lightPosition = calculateLightPosition(glm::vec3(0.0f, 0.0f, 150.0f), time, 225.0f, 0.20f);
 
@@ -114,7 +114,7 @@ namespace cubedemo
         auto rotationSpeedSource = cubes.cubeRotationSpeeds();
         for (size_t i = 0; i < m_instanceCount; i++)
         {
-            float angle = (time.totalTime.count() / 1000.0f) * rotationSpeedSource[i];
+            float angle = time.total() * rotationSpeedSource[i];
             glm::quat rotation = glm::angleAxis(angle, rotationAxisSource[i]);
             processedRotations.push_back(rotation);
         }

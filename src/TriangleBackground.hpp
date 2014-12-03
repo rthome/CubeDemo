@@ -26,7 +26,7 @@ namespace cubedemo
         TriangleBackground(size_t hcount, size_t vcount);
         ~TriangleBackground();
         
-        void update(const GameTime& time);
-        void render(const GameTime& time);
+        void update(const GameTimePoint& time);
+        void render(const GameTimePoint& time);
     };
 }

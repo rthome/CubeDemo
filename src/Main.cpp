@@ -117,12 +117,12 @@ int main(int argc, char const *argv[])
     // Before starting main loop, make sure all window size callbacks are called
     windowResizeCallback(window, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    cubedemo::GameTime time;
+    cubedemo::GameTimer timer;
     
     LOG_INFO("Entering main loop...");
     while (!glfwWindowShouldClose(window))
     {
-        time = cubedemo::GameTime::next(time);
+        auto time = timer.nextTime();
 
         GL_CHECK_ERRORS;
 
@@ -145,9 +145,9 @@ int main(int argc, char const *argv[])
 
 #ifdef ENABLE_FRAMELIMITING
         const float TARGET_TIME = 15.0f; // somewhat more than 60 fps
-        while (time.timeSince().count() < TARGET_TIME)
+        while (timer.currentTime().timeSince(time) < TARGET_TIME)
         {
-            std::this_thread::sleep_for(chrono::microseconds(400));
+            std::this_thread::sleep_for(std::chrono::microseconds(400));
         }
 #endif
 
@@ -159,7 +159,9 @@ int main(int argc, char const *argv[])
 
     delete background;
     delete globalRenderer;
+    delete globalBloomEffect;
     globalRenderer = nullptr;
+    globalBloomEffect = nullptr;
 
     glfwDestroyWindow(window);
     glfwTerminate();

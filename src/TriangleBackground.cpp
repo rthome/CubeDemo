@@ -116,14 +116,14 @@ namespace cubedemo
 		GL_CHECK_ERRORS;
 	}
 
-	void TriangleBackground::update(const GameTime& time)
+	void TriangleBackground::update(const GameTimePoint& time)
 	{
 		std::vector<float> brightnessData;
 		for (size_t y = 0; y < m_vcount; y++)
 		{
 			for (size_t x = 0; x < m_hcount; x++)
 			{
-				auto noise = 0.5f * (1 + glm::simplex(glm::vec3{ (float)x, (float)y, time.totalTime.count() * 0.00025f }));
+				auto noise = 0.5f * (1 + glm::simplex(glm::vec3{ (float)x, (float)y, time.total() * 0.30f }));
 				brightnessData.push_back(noise);
 			}
 		}
@@ -137,7 +137,7 @@ namespace cubedemo
 		GL_CHECK_ERRORS;
 	}
 
-	void TriangleBackground::render(const GameTime& time)
+	void TriangleBackground::render(const GameTimePoint& time)
 	{
 		glm::vec4 baseColor{ 1.0f, 0.761f, 0.0f, 1.0f };
 		glm::mat4 mvp = glm::ortho(0.0f, (float)m_hcount - 1, 0.0f, (float)m_vcount - 1);

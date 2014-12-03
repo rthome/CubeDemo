@@ -28,9 +28,9 @@ namespace cubedemo
     // CubeRenderer implementation
     // // //
 
-    inline float deltaOpacity(float seconds, const GameTime& time)
+    inline float deltaOpacity(float seconds, const GameTimePoint& time)
     {
-        return (1.0f / seconds) * 0.001f * time.deltaTime.count();
+        return (1.0f / seconds) * 0.001f * time.delta();
     }
 
     CubeController::CubeController(int count)
@@ -39,7 +39,7 @@ namespace cubedemo
         CC_ASSERT(count > 0)
     }
 
-    void CubeController::update(const GameTime& time)
+    void CubeController::update(const GameTimePoint& time)
     {
         // TODO: Change random number generation to be less shitty
         static std::default_random_engine randEngine;
@@ -61,7 +61,7 @@ namespace cubedemo
                     m_cubeStates.scales[i] = scaleRandDistrib(randEngine);
                     m_cubeStates.rotationAxes[i] = glm::normalize(glm::vec3{ startRandDistrib(randEngine), startRandDistrib(randEngine), startRandDistrib(randEngine) });
                     m_cubeStates.rotationSpeeds[i] = 0.8f * scaleRandDistrib(randEngine) * (std::signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
-                    m_cubeStates.startTimes[i] = time.totalTime.count() / 1000.0f; // save in seconds
+                    m_cubeStates.startTimes[i] = time.total(); // save in seconds
                     m_cubeStates.helices[i].t0 = movementRandDistrib(randEngine);
                     m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine) * 125, 70, 150 + startRandDistrib(randEngine) * 100);
                     m_cubeStates.helices[i].r = 2 * movementRandDistrib(randEngine) * (std::signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
@@ -94,7 +94,7 @@ namespace cubedemo
             }
 
             if (m_cubeStates.states[i] != CubeState::Dead)
-                m_cubeStates.positions[i] = mapOntoHelix(m_cubeStates.helices[i], 0.1f * ((time.totalTime.count() / 1000.0f) - m_cubeStates.startTimes[i]));
+                m_cubeStates.positions[i] = mapOntoHelix(m_cubeStates.helices[i], 0.1f * (time.total() - m_cubeStates.startTimes[i]));
 
             if (m_cubeStates.states[i] == CubeState::Moving && m_cubeStates.positions[i].y < -70.0f)
                 m_cubeStates.states[i] = CubeState::FadeOut;
