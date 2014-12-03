@@ -24,6 +24,10 @@ namespace cubedemo
 	// GameTimer implementation
 	// // //
 
+    // Use floats to capture fractions of seconds and milliseconds too
+    typedef std::chrono::duration<float, std::milli> UpdateDuration;
+    typedef std::chrono::duration<float, std::ratio<1>> TotalDuration;
+    
 	GameTimer::GameTimer()
 		: m_startTime{ steady_clock::now() },
 		m_lastUpdateTime{ steady_clock::now() }
@@ -34,18 +38,17 @@ namespace cubedemo
 	GameTimePoint GameTimer::currentTime() const
 	{
 		auto now = steady_clock::now();
-		auto delta = duration_cast<milliseconds>(now - m_lastUpdateTime).count();
-		auto total = duration_cast<seconds>(now - m_startTime).count();
+		auto delta = duration_cast<UpdateDuration>(now - m_lastUpdateTime).count();
+		auto total = duration_cast<TotalDuration>(now - m_startTime).count();
 		return GameTimePoint(delta, total);
 	}
 
 	GameTimePoint GameTimer::nextTime()
 	{
 		auto now = steady_clock::now();
-		auto delta = duration_cast<milliseconds>(now - m_lastUpdateTime).count();
-		auto total = duration_cast<seconds>(now - m_startTime).count();
+        auto delta = duration_cast<UpdateDuration>(now - m_lastUpdateTime).count();
+        auto total = duration_cast<TotalDuration>(now - m_startTime).count();
 		m_lastUpdateTime = now;
 		return GameTimePoint(delta, total);
-
 	}
 }
