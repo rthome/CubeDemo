@@ -9,7 +9,6 @@
 #include "CubeRenderer.hpp"
 #include "TriangleBackground.hpp"
 #include "GameTime.hpp"
-#include "BloomEffect.hpp"
 
 // Whether to limit rendering to 60 fps
 #define ENABLE_FRAMELIMITING
@@ -19,7 +18,6 @@ static const size_t WINDOW_WIDTH = 1280;
 static const size_t WINDOW_HEIGHT = 720;
 
 static cubedemo::CubeRenderer *globalRenderer;
-static cubedemo::BloomEffect *globalBloomEffect;
 
 void errorCallback(int error, const char *description)
 {
@@ -33,8 +31,6 @@ void windowResizeCallback(GLFWwindow *window, int width, int height)
     gl::Viewport(0, 0, fbw, fbh);
     if (globalRenderer != nullptr)
         globalRenderer->onWindowSizeChanged(width, height);
-    if (globalBloomEffect != nullptr)
-        globalBloomEffect->onWindowSizeChanged(fbw, fbh);
     LOG_INFO("Window resized. FB is now " << fbw << "x" << fbh);
 }
 
@@ -111,7 +107,6 @@ int main(int argc, char const *argv[])
 
     // Set up renderers
     globalRenderer = new cubedemo::CubeRenderer();
-    globalBloomEffect = new cubedemo::BloomEffect();
     auto *background = new cubedemo::TriangleBackground(7, 5);
 
     // Before starting main loop, make sure all window size callbacks are called
@@ -159,9 +154,7 @@ int main(int argc, char const *argv[])
 
     delete background;
     delete globalRenderer;
-    delete globalBloomEffect;
     globalRenderer = nullptr;
-    globalBloomEffect = nullptr;
 
     glfwDestroyWindow(window);
     glfwTerminate();

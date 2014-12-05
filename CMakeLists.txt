@@ -15,7 +15,7 @@ if(MSVC)
 endif()
 
 # Warnings and C++11 for GCC and Clang
-if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+if (${CMAKE_CXX_COMPILER_ID} MATCHES "GNU" OR ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -std=c++11")
 endif()
 
@@ -27,9 +27,6 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
 endif()
 
-# Tell GLM to always use radians
-add_definitions(-DGLM_FORCE_RADIANS)
-
 set(CD_SOURCES
     src/gl_core_4_1.cpp
     src/GLShader.cpp
@@ -39,7 +36,6 @@ set(CD_SOURCES
     src/GameTime.cpp
     src/Spiral.cpp
 	src/CubeController.cpp
-	src/BloomEffect.cpp
 	src/ShaderSources.cpp
     src/Main.cpp)
 
@@ -54,7 +50,6 @@ set(CD_HEADERS
     src/NonCopyable.hpp
 	src/MeshData.hpp
 	src/CubeController.hpp
-	src/BloomEffect.hpp
 	src/ShaderSources.hpp
     src/Util.hpp)
 
@@ -66,5 +61,5 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/lib/glm)
 include_directories(${PROJECT_SOURCE_DIR}/lib/glfw/include)
 include_directories(${PROJECT_SOURCE_DIR}/lib/glm)
 
-add_executable(CubeDemo ${CD_HEADERS} ${CD_SOURCES} ${CD_SHADERFILES} ${CD_PROCESSEDFILES})
+add_executable(CubeDemo ${CD_HEADERS} ${CD_SOURCES})
 target_link_libraries(CubeDemo glfw ${GLFW_LIBRARIES})
