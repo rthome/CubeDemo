@@ -44,6 +44,7 @@ namespace cubedemo
     {
     private:
         int m_cubeCount; // Amount of managed cubes
+        int m_aliveCubes; // Amount of currently alive cubes
         CubeStates m_cubeStates; // Per-cube state
 
     public:

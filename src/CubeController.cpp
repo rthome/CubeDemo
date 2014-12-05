@@ -28,13 +28,21 @@ namespace cubedemo
     // CubeRenderer implementation
     // // //
 
-    inline float deltaOpacity(float seconds, const GameTimePoint& time)
+    static float deltaOpacity(float seconds, const GameTimePoint& time)
     {
         return (1.0f / seconds) * 0.001f * time.delta();
     }
 
+    static int aliveCubesForTime(const GameTimePoint& time, int maxCubes)
+    {
+        float cubes = 2.0f * time.total();
+        if (time.total() > 8.0f)
+            cubes *= 1 + (time.total() - 8.0f);
+        return (int)fmin(maxCubes, cubes);
+    }
+
     CubeController::CubeController(int count)
-        : m_cubeCount{ count }, m_cubeStates{ count }
+        : m_cubeCount{ count }, m_aliveCubes{ 0 }, m_cubeStates{ count }
     {
         CC_ASSERT(count > 0)
     }
@@ -47,14 +55,13 @@ namespace cubedemo
         static std::normal_distribution<float> movementRandDistrib{ 10.0f, 2.0f };
         static std::normal_distribution<float> scaleRandDistrib{ 1.0f, 0.20f };
 
-        static const int MAX_SPAWNS_PER_FRAME = 3;
+        int aliveCubesThisFrame = aliveCubesForTime(time, m_cubeCount);
 
-        int spawnedCubes = 0;
         for (size_t i = 0; i < m_cubeCount; i++)
         {
             if (m_cubeStates.states[i] == CubeState::Dead)
             {
-                if (spawnedCubes++ < MAX_SPAWNS_PER_FRAME)
+                if (m_aliveCubes < aliveCubesThisFrame)
                 {
                     // When a cube spawns, fill in a bunch of random data
                     m_cubeStates.states[i] = CubeState::FadeIn;
@@ -66,6 +73,7 @@ namespace cubedemo
                     m_cubeStates.helices[i].position = glm::vec3(startRandDistrib(randEngine) * 125, 70, 150 + startRandDistrib(randEngine) * 100);
                     m_cubeStates.helices[i].r = 2 * movementRandDistrib(randEngine) * (std::signbit(startRandDistrib(randEngine)) ? 1.0f : -1.0f);
                     m_cubeStates.helices[i].h = -7 * movementRandDistrib(randEngine);
+                    m_aliveCubes++;
                 }
             }
 
@@ -90,6 +98,7 @@ namespace cubedemo
                 {
                     m_cubeStates.opacities[i] = 0.0f;
                     m_cubeStates.states[i] = CubeState::Dead;
+                    m_aliveCubes--;
                 }
             }
 
