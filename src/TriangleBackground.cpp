@@ -1,7 +1,6 @@
 #include "TriangleBackground.hpp"
 
 #include <vector>
-#include <random>
 
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
@@ -42,13 +41,13 @@ namespace cubedemo
 		{
 			for (size_t x = 0; x < width - 1; x++)
 			{
-				indices.push_back((unsigned int)index(x, y)); // upper left
-				indices.push_back((unsigned int)index(x, y + 1)); // lower left
-				indices.push_back((unsigned int)index(x + 1, y)); // upper right
+				indices.push_back(static_cast<unsigned int>(index(x, y))); // upper left
+				indices.push_back(static_cast<unsigned int>(index(x, y + 1))); // lower left
+				indices.push_back(static_cast<unsigned int>(index(x + 1, y))); // upper right
 
-				indices.push_back((unsigned int)index(x + 1, y)); // upper right
-				indices.push_back((unsigned int)index(x, y + 1)); // lower left
-				indices.push_back((unsigned int)index(x + 1, y + 1)); // lower right
+				indices.push_back(static_cast<unsigned int>(index(x + 1, y))); // upper right
+				indices.push_back(static_cast<unsigned int>(index(x, y + 1))); // lower left
+				indices.push_back(static_cast<unsigned int>(index(x + 1, y + 1))); // lower right
 			}
 		}
 
@@ -79,7 +78,7 @@ namespace cubedemo
 		// Generate triangle mesh data
 		auto positions = generateTriangleMeshPositions(hcount, vcount);
 		auto indices = generateTriangleMeshIndices(hcount, vcount);
-		m_elementCount = (GLsizei)indices.size();
+		m_elementCount = GLsizei(indices.size());
 
 		// Set up VAO and buffer data
 		gl::BindVertexArray(m_vao);
@@ -123,7 +122,7 @@ namespace cubedemo
 		{
 			for (size_t x = 0; x < m_hcount; x++)
 			{
-				auto noise = 0.5f * (1 + glm::simplex(glm::vec3{ (float)x, (float)y, time.total() * 0.30f }));
+				auto noise = 0.5f * (1 + glm::simplex(glm::vec3{ float(x), float(y), time.total() * 0.30f }));
 				brightnessData.push_back(noise);
 			}
 		}
@@ -140,7 +139,7 @@ namespace cubedemo
 	void TriangleBackground::render(const GameTimePoint& time)
 	{
 		glm::vec4 baseColor{ 1.0f, 0.761f, 0.0f, 1.0f };
-		glm::mat4 mvp = glm::ortho(0.0f, (float)m_hcount - 1, 0.0f, (float)m_vcount - 1);
+		glm::mat4 mvp = glm::ortho(0.0f, float(m_hcount) - 1, 0.0f, float(m_vcount) - 1);
 
 		gl::BindVertexArray(m_vao);
 		m_shader.use();

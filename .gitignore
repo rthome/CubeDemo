@@ -30,3 +30,5 @@
 # Backup files
 *~
 
+# Build directory
+build/

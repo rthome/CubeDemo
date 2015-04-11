@@ -10,8 +10,9 @@ if(MSVC)
   else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
   endif()
-  # Suppress dump "conditional expression is constant" warning in VS
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127")
+  # Suppress warnings in VS
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127") # "conditional expression is constant"
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4201") # "nonstandard extension used : nameless struct/union"
 endif()
 
 # Warnings and C++11 for GCC and Clang

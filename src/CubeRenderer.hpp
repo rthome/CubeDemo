@@ -1,9 +1,7 @@
 #pragma once
 
 #include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
 #include <glm/matrix.hpp>
-#include <glm/gtc/quaternion.hpp>
 
 #include "gl_core_4_1.hpp"
 #include "GLShader.hpp"
@@ -15,7 +13,7 @@
 namespace cubedemo
 {
     // Renders cubes from FloatingCubes
-    class CubeRenderer : private NonCopyable
+    class CubeRenderer : NonCopyable
     {
     public:
         // This should be set to a system-appropriate value
@@ -28,7 +26,7 @@ namespace cubedemo
         GLuint m_indices; // EBO for cube indices
         GLShader m_shader; // GLSL shader program
 
-        int m_instanceCount; // Count of instances to render
+        size_t m_instanceCount; // Count of instances to render
         GLTextureBuffer m_positionsBuffer; // Instance Positions
         GLTextureBuffer m_opacitiesBuffer; // Instance Opacities
         GLTextureBuffer m_scalesBuffer; // Instance size adjustment

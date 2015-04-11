@@ -35,10 +35,10 @@ namespace cubedemo
 
     static int aliveCubesForTime(const GameTimePoint& time, int maxCubes)
     {
-        float cubes = 2.0f * time.total();
+	    auto cubes = 2.0f * time.total();
         if (time.total() > 8.0f)
             cubes *= 1 + (time.total() - 8.0f);
-        return (int)fmin(maxCubes, cubes);
+        return int(fmin(maxCubes, cubes));
     }
 
     CubeController::CubeController(int count)
@@ -55,7 +55,7 @@ namespace cubedemo
         static std::normal_distribution<float> movementRandDistrib{ 10.0f, 2.0f };
         static std::normal_distribution<float> scaleRandDistrib{ 1.0f, 0.20f };
 
-        int aliveCubesThisFrame = aliveCubesForTime(time, m_cubeCount);
+	    auto aliveCubesThisFrame = aliveCubesForTime(time, m_cubeCount);
 
         for (size_t i = 0; i < m_cubeCount; i++)
         {

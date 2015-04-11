@@ -11,7 +11,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_inverse.hpp>
-#include <glm/gtc/noise.hpp>
 
 #include "Util.hpp"
 #include "ShaderSources.hpp"
@@ -21,22 +20,22 @@ namespace cubedemo
 {
     static glm::vec3 calculateLightPosition(const glm::vec3& center, const GameTimePoint& time, float radius, float speed)
     {
-        static const float TWO_PI = glm::pi<float>() * 2.0f;
+        static const auto TWO_PI = glm::pi<float>() * 2.0f;
         
-        float t = speed * TWO_PI * time.total();
-        float x = center.x + (cosf(t) * radius);
-        float z = center.z + (sinf(t) * radius);
+        auto t = speed * TWO_PI * time.total();
+        auto x = center.x + (cosf(t) * radius);
+        auto z = center.z + (sinf(t) * radius);
 
         return glm::vec3{ x, center.y, z };
     }
 
     CubeRenderer::CubeRenderer()
         : m_instanceCount{ 0 },
-        m_modelviewMatrix{ glm::lookAt(glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)) },
         m_positionsBuffer{ gl::RGBA32F },
         m_opacitiesBuffer{ gl::R32F },
         m_scalesBuffer{ gl::R32F },
         m_rotationsBuffer{ gl::RGBA32F },
+        m_modelviewMatrix{ glm::lookAt(glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)) },
         m_lightPosition{ 0.0f }
     {
         // generate buffers and textures
@@ -89,7 +88,7 @@ namespace cubedemo
 
     void CubeRenderer::onWindowSizeChanged(size_t width, size_t height)
     {
-        m_projectionMatrix = glm::perspective(glm::quarter_pi<float>(), (float)width / height, 0.1f, 1000.0f);
+        m_projectionMatrix = glm::perspective(glm::quarter_pi<float>(), float(width) / height, 0.1f, 1000.0f);
     }
 
     void CubeRenderer::update(const GameTimePoint& time, const CubeController& cubes)
@@ -161,7 +160,7 @@ namespace cubedemo
             GL_CHECK_ERRORS;
 
             // Draw instanced elements
-            gl::DrawElementsInstanced(gl::TRIANGLES, (GLsizei)ROUNDED_CUBE_INDICES.size(), gl::UNSIGNED_INT, nullptr, (GLsizei)m_instanceCount);
+            gl::DrawElementsInstanced(gl::TRIANGLES, GLsizei(ROUNDED_CUBE_INDICES.size()), gl::UNSIGNED_INT, nullptr, GLsizei(m_instanceCount));
             GL_CHECK_ERRORS;
         }
         m_shader.unuse();

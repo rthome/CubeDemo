@@ -7,7 +7,7 @@
 
 namespace cubedemo
 {
-    class TriangleBackground : private NonCopyable
+    class TriangleBackground : NonCopyable
     {
     public:
         const float GAMMA = 2.2f;

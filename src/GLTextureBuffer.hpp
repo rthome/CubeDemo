@@ -5,7 +5,7 @@
 
 namespace cubedemo
 {
-    class GLTextureBuffer : private NonCopyable
+    class GLTextureBuffer : NonCopyable
     {
     private:
         GLuint m_textureID;
@@ -13,7 +13,7 @@ namespace cubedemo
         GLenum m_textureFormat;
 
     public:
-        GLTextureBuffer(GLenum textureFormat); // textureFormat: GL_R32F, GL_RGB8I, etc
+	    explicit GLTextureBuffer(GLenum textureFormat); // textureFormat: GL_R32F, GL_RGB8I, etc
         ~GLTextureBuffer();
         
         inline GLuint texture() const { return m_textureID; }
